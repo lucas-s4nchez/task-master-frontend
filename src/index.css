@@ -9,3 +9,38 @@
     margin: theme("margin.auto");
   }
 }
+@layer utilities {
+  .bg-primary-100 {
+    background-color: theme("backgroundColor.sky.500");
+  }
+  .bg-primary-200 {
+    background-color: theme("backgroundColor.sky.600");
+  }
+  .bg-dark-100 {
+    background-color: theme("backgroundColor.gray.900");
+  }
+  .bg-dark-200 {
+    background-color: theme("backgroundColor.gray.800");
+  }
+  .bg-light-100 {
+    background-color: theme("backgroundColor.gray.50");
+  }
+  .bg-light-200 {
+    background-color: theme("backgroundColor.gray.300");
+  }
+  .text-dark-100 {
+    color: theme("textColor.gray.50");
+  }
+  .text-dark-200 {
+    color: theme("textColor.gray.300");
+  }
+  .text-light-100 {
+    color: theme("textColor.gray.900");
+  }
+  .text-light-200 {
+    color: theme("textColor.gray.800");
+  }
+  .text-error-100 {
+    color: theme("textColor.red.600");
+  }
+}

@@ -3,8 +3,8 @@ export const Input = (props: any) => {
     <div className="flex flex-col mt-4">
       <label
         htmlFor={props.id}
-        className={`cursor-pointer text-gray-700 duration-300 transform mb-1  px-2 ${
-          props.isError ? "text-red-600" : "text-gray-700"
+        className={`cursor-pointer  duration-300 transform mb-1  px-2 ${
+          props.isError ? "text-error-100" : "text-light-100 dark:text-dark-100"
         }`}
       >
         {props.label}
@@ -12,10 +12,10 @@ export const Input = (props: any) => {
       <input
         type={props.type}
         autoComplete="off"
-        className={`w-full rounded border py-4 px-2 outline-none transition-all duration-200 ease-linear ${
+        className={`w-full rounded bg-light-200 dark:bg-dark-200 text-light-100 dark:text-dark-100 py-4 px-2 outline-none transition-all duration-200 ease-linear ${
           props.isError
-            ? "border-red-600 focus:border-red-700"
-            : "border-gray-400 focus:border-blue-500"
+            ? "border border-red-600 focus:border-red-700"
+            : "focus:border border-blue-600"
         }`}
         id={props.id}
         placeholder={props.placeholder}

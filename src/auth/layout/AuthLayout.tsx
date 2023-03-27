@@ -12,12 +12,14 @@ export const AuthLayout: React.FC<IAuthLayoutProps> = ({
   const dispatch = useDispatch();
 
   return (
-    <div className="min-h-screen grid place-items-center bg-white dark:bg-black">
+    <div className="min-h-screen grid place-items-center bg-light-100 dark:bg-dark-100">
       <div className="custom-container">
-        <div className="sm:w-[32rem] p-5 md:p-8 rounded shadow-lg mx-auto bg-gray-200 dark:bg-zinc-800">
-          <h5 className="text-2xl mb-2">{title}</h5>
+        <div className="sm:w-[32rem] p-5 md:p-8 rounded mx-auto">
+          <h5 className="text-2xl text-light-100 dark:text-dark-100 mb-2">
+            {title}
+          </h5>
           <button
-            className="bg-red-600"
+            className="bg-red-600 p-2"
             onClick={() => {
               if (themeMode === "light") {
                 dispatch(onDarkMode());
