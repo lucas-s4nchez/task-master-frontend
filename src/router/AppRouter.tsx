@@ -9,6 +9,7 @@ import { useRefeshTokenQuery } from "../store/apiSlice";
 import { onCheckingCredentials, onLogin, onLogout } from "../store/authSlice";
 import { RootState } from "../store/store";
 import { ImSpinner9 } from "react-icons/im";
+import { Loader } from "../ui/components/Loader";
 
 export const AppRoutes: React.FC = () => {
   const dispatch = useDispatch();
@@ -40,13 +41,7 @@ export const AppRoutes: React.FC = () => {
   }, [isSuccess, error, isLoading]);
 
   if (status === "checking") {
-    return (
-      <div className="flex flex-col justify-center items-center min-h-screen bg-white dark:bg-black p-8">
-        <div className="flex justify-center">
-          <ImSpinner9 className="text-4xl text-black dark:text-white animate-spin" />
-        </div>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (

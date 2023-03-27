@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .custom-container {
+    width: 95%;
+    max-width: theme("maxWidth.6xl");
+    margin: theme("margin.auto");
+  }
+}

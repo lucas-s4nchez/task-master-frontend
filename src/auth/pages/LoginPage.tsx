@@ -1,21 +1,12 @@
-import { Link as RouterLink } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthLayout } from "../layout/AuthLayout";
-import {
-  Grid,
-  InputAdornment,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
-import EmailIcon from "@mui/icons-material/Email";
-import { useDispatch } from "react-redux";
+import { Input, Button } from "../../ui/components";
 import { useLoginMutation } from "../../store/apiSlice";
 import { onLogin, onLogout } from "../../store/authSlice";
-import { useEffect } from "react";
-import { Input } from "../../ui/components/Input";
-import { Button } from "../../ui/components/Button";
 
 const regEmail: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -34,31 +25,24 @@ export const LoginPage: React.FC = () => {
     }
   }, [isSuccess, data, error]);
 
-  const {
-    getFieldProps,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    values,
-    errors,
-    touched,
-  } = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .required("El email es obligatorio")
-        .matches(regEmail, "Email no válido"),
-      password: Yup.string()
-        .required("La contraseña es obligatoria")
-        .min(6, "La contraseña debe tener al menos 6 caracteres"),
-    }),
-    onSubmit: async (values) => {
-      await login({ ...values });
-    },
-  });
+  const { handleChange, handleBlur, handleSubmit, values, errors, touched } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema: Yup.object({
+        email: Yup.string()
+          .required("El email es obligatorio")
+          .matches(regEmail, "Email no válido"),
+        password: Yup.string()
+          .required("La contraseña es obligatoria")
+          .min(6, "La contraseña debe tener al menos 6 caracteres"),
+      }),
+      onSubmit: async (values) => {
+        await login({ ...values });
+      },
+    });
 
   return (
     <AuthLayout title={"Iniciar sesión"}>
@@ -88,27 +72,19 @@ export const LoginPage: React.FC = () => {
             isError={touched.password && !!errors.password}
             errorMessage={errors.password}
           />
-
-          <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
-            <Grid item xs={12}>
-              <Button type="submit" disabled={isLoading} fullWidth>
-                Iniciar sesion
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid container direction="row" justifyContent="end">
-            <Typography sx={{ mr: 1, fontSize: 14 }}>
+          <div className="mt-6">
+            <Button type="submit" disabled={isLoading} fullWidth>
+              Iniciar sesion
+            </Button>
+          </div>
+          <div className="flex justify-end mt-4">
+            <span className="text-sm text-dark-300 dark:text-light-400 mr-2">
               ¿No tienes una cuenta?
-            </Typography>
-            <Link
-              component={RouterLink}
-              sx={{ fontSize: 14 }}
-              color="inherit"
-              to={"/auth/register"}
-            >
-              registrarse
+            </span>
+            <Link className="text-sm text-primary-50" to={"/auth/register"}>
+              Crea una aquí!
             </Link>
-          </Grid>
+          </div>
         </div>
       </form>
     </AuthLayout>
