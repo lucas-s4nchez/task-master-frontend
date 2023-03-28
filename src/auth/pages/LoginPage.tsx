@@ -7,6 +7,7 @@ import { AuthLayout } from "../layout/AuthLayout";
 import { Input, Button } from "../../ui/components";
 import { useLoginMutation } from "../../store/apiSlice";
 import { onLogin, onLogout } from "../../store/authSlice";
+import { loginInitialValues, loginValidationSchema } from "../formik";
 
 const regEmail: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -27,18 +28,8 @@ export const LoginPage: React.FC = () => {
 
   const { handleChange, handleBlur, handleSubmit, values, errors, touched } =
     useFormik({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-      validationSchema: Yup.object({
-        email: Yup.string()
-          .required("El email es obligatorio")
-          .matches(regEmail, "Email no válido"),
-        password: Yup.string()
-          .required("La contraseña es obligatoria")
-          .min(6, "La contraseña debe tener al menos 6 caracteres"),
-      }),
+      initialValues: loginInitialValues,
+      validationSchema: loginValidationSchema,
       onSubmit: async (values) => {
         await login({ ...values });
       },
@@ -77,8 +68,8 @@ export const LoginPage: React.FC = () => {
               Iniciar sesion
             </Button>
           </div>
-          <div className="flex justify-end mt-4">
-            <span className="text-sm text-dark-300 dark:text-light-400 mr-2">
+          <div className="flex justify-end mt-4 gap-1">
+            <span className="text-sm text-dark-300 dark:text-light-400">
               ¿No tienes una cuenta?
             </span>
             <Link className="text-sm text-primary-50" to={"/auth/register"}>
