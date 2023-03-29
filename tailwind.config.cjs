@@ -33,7 +33,7 @@ module.exports = {
         100: "#DC2626",
         200: "#B91C1C",
       },
-      green: "#13ce66",
+      green: "#22C55E",
     },
     extend: {},
   },

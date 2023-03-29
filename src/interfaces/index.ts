@@ -1,3 +1,11 @@
+export interface ICustomFetchBaseQueryError {
+  status: number;
+  data?: {
+    ok?: boolean;
+    msg: string;
+  };
+  error?: string;
+}
 export interface IAuthLayoutProps {
   children: React.ReactNode;
   title: string;
