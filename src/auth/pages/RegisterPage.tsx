@@ -29,10 +29,7 @@ export const RegisterPage: React.FC = () => {
       initialValues: registerInitialValues,
       validationSchema: registerValidationSchema,
       onSubmit: async (values) => {
-        const { error }: any = await register({ ...values });
-        if (error) {
-          console.log(error);
-        }
+        await register({ ...values });
       },
     });
 
