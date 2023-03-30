@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { IAuthLayoutProps } from "../../interfaces";
+import { IAuthLayoutProps } from "../interfaces";
 import { Logo } from "../../ui/components";
 import { onDarkMode, onLightMode } from "../../store/ui/uiSlice";
 

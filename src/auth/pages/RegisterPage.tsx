@@ -4,10 +4,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useDispatch } from "react-redux";
-import { useRegisterMutation } from "../../store/apiSlice";
+import { useRegisterMutation } from "../../store/api/apiSlice";
 import { Alert, Button, Input } from "../../ui/components";
 import { registerInitialValues, registerValidationSchema } from "../formik";
-import { onLogin, onLogout } from "../../store/authSlice";
+import { onLogin, onLogout } from "../../store/auth/authSlice";
 import { ICustomFetchBaseQueryError } from "../../interfaces";
 
 export const RegisterPage: React.FC = () => {
@@ -16,8 +16,14 @@ export const RegisterPage: React.FC = () => {
     useRegisterMutation();
   useEffect(() => {
     if (isSuccess && data) {
-      localStorage.setItem("authToken", data.token); // guarda el token en localStorage
-      dispatch(onLogin({ username: data.username, token: data.token }));
+      localStorage.setItem("authToken", data.token);
+      dispatch(
+        onLogin({
+          token: data.token,
+          username: data.username,
+          email: data.email,
+        })
+      );
     }
     if (error) {
       dispatch(onLogout());

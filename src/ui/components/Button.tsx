@@ -1,4 +1,8 @@
-export const Button = (props: any) => {
+import { IButtonComponentProps } from "../interfaces";
+
+export const Button: React.FC<IButtonComponentProps> = (
+  props: IButtonComponentProps
+) => {
   return (
     <button
       type={props.type}

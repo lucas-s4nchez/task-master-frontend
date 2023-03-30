@@ -5,10 +5,13 @@ import { Routes } from "react-router-dom";
 import { LoginPage } from "../auth/pages/LoginPage";
 import { RegisterPage } from "../auth/pages/RegisterPage";
 import { HomePage } from "../HomePage";
-import { useRefeshTokenQuery } from "../store/apiSlice";
-import { onCheckingCredentials, onLogin, onLogout } from "../store/authSlice";
+import { useRefeshTokenQuery } from "../store/api/apiSlice";
+import {
+  onCheckingCredentials,
+  onLogin,
+  onLogout,
+} from "../store/auth/authSlice";
 import { RootState } from "../store/store";
-import { ImSpinner9 } from "react-icons/im";
 import { Loader } from "../ui/components/Loader";
 
 export const AppRoutes: React.FC = () => {
@@ -31,12 +34,18 @@ export const AppRoutes: React.FC = () => {
       dispatch(onCheckingCredentials());
     }
     if (authToken && isSuccess) {
-      dispatch(onLogin({ username: data.username, token: data.token }));
       localStorage.setItem("authToken", data.token); // guarda el nuevo token en localStorage
+      dispatch(
+        onLogin({
+          token: data.token,
+          username: data.username,
+          email: data.email,
+        })
+      );
     }
     if (error) {
-      dispatch(onLogout());
       localStorage.removeItem("authToken");
+      dispatch(onLogout());
     }
   }, [isSuccess, error, isLoading]);
 

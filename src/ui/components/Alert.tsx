@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { IAlertComponentProps } from "../interfaces";
 
-export const Alert = ({ variant, children }: any) => {
-  const [isOpenAlert, setIsOpenAlert] = useState(true);
+export const Alert: React.FC<IAlertComponentProps> = ({
+  variant,
+  children,
+}: IAlertComponentProps) => {
+  const [isOpenAlert, setIsOpenAlert] = useState<boolean>(true);
   return (
     <div
       className={`${

@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IAuthSliceInitialState } from "../interfaces";
 
-const initialState = {
-  username: null,
-  token: null,
+const initialState: IAuthSliceInitialState = {
   status: "checking",
+  token: null,
+  username: null,
+  email: null,
 };
 
 const authSlice = createSlice({
@@ -11,19 +13,22 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     onCheckingCredentials: (state) => {
-      state.username = null;
-      state.token = null;
       state.status = "checking";
+      state.token = null;
+      state.username = null;
+      state.email = null;
     },
     onLogin: (state, { payload }) => {
       state.status = "authenticated";
-      state.username = payload.username;
       state.token = payload.token;
+      state.username = payload.username;
+      state.email = payload.email;
     },
     onLogout: (state) => {
       state.status = "not-authenticated";
-      state.username = null;
       state.token = null;
+      state.username = null;
+      state.email = null;
     },
   },
 });

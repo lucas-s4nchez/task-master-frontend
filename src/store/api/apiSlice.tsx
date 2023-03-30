@@ -1,6 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ILoginCredentials, IRegisterCredentials, IUser } from "../interfaces";
-import { RootState } from "./store";
+import {
+  ILoginCredentials,
+  IRegisterCredentials,
+  IUser,
+} from "../../interfaces";
+import { RootState } from "../store";
 
 const api_url = "http://localhost:3000/api/";
 
@@ -42,7 +46,7 @@ export const authApi = createApi({
         },
       }),
     }),
-    refeshToken: builder.query<any, void>({
+    refeshToken: builder.query<IUser, void>({
       query: () => ({
         url: "/auth/refresh",
         method: "GET",

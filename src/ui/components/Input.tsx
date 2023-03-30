@@ -1,4 +1,8 @@
-export const Input = (props: any) => {
+import { IInputComponentProps } from "../interfaces";
+
+export const Input: React.FC<IInputComponentProps> = (
+  props: IInputComponentProps
+) => {
   return (
     <div className="flex flex-col mt-4">
       <label

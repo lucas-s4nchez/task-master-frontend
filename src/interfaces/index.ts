@@ -6,24 +6,14 @@ export interface ICustomFetchBaseQueryError {
   };
   error?: string;
 }
-export interface IAuthLayoutProps {
-  children: React.ReactNode;
-  title: string;
-}
 export interface IChildrenProps {
   children: React.ReactNode;
-}
-export interface IMessageAlerProps {
-  message: string;
-}
-export interface IAuthLayoutProps {
-  children: React.ReactNode;
-  title: string;
 }
 export interface IUser {
   ok: boolean;
   uid: string;
   username: string;
+  email: string;
   token: string;
 }
 export interface ILoginCredentials {

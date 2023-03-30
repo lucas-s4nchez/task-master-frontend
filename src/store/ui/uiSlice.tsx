@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IUiSliceInitialState } from "../interfaces";
 
-const initialState = {
+const initialState: IUiSliceInitialState = {
   themeMode: localStorage.theme || "light",
 };
 

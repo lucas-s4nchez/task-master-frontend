@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { AuthLayout } from "../layout/AuthLayout";
 import { Input, Button, Alert } from "../../ui/components";
-import { useLoginMutation } from "../../store/apiSlice";
-import { onLogin, onLogout } from "../../store/authSlice";
+import { useLoginMutation } from "../../store/api/apiSlice";
+import { onLogin, onLogout } from "../../store/auth/authSlice";
 import { loginInitialValues, loginValidationSchema } from "../formik";
 import { ICustomFetchBaseQueryError } from "../../interfaces";
 
@@ -16,7 +16,13 @@ export const LoginPage: React.FC = () => {
   useEffect(() => {
     if (isSuccess && data) {
       localStorage.setItem("authToken", data.token); // guarda el token en localStorage
-      dispatch(onLogin({ username: data.username, token: data.token }));
+      dispatch(
+        onLogin({
+          token: data.token,
+          username: data.username,
+          email: data.email,
+        })
+      );
     }
     if (error) {
       dispatch(onLogout());
