@@ -4,7 +4,7 @@ import { Navigate, Route } from "react-router";
 import { Routes } from "react-router-dom";
 import { LoginPage } from "../auth/pages/LoginPage";
 import { RegisterPage } from "../auth/pages/RegisterPage";
-import { HomePage } from "../HomePage";
+import { HomePage } from "../pages/HomePage";
 import { useRefeshTokenQuery } from "../store/api/apiSlice";
 import {
   onCheckingCredentials,
@@ -16,7 +16,7 @@ import { Loader } from "../ui/components/Loader";
 
 export const AppRoutes: React.FC = () => {
   const dispatch = useDispatch();
-  const { status } = useSelector((state: RootState) => state.auth);
+  const { status } = useSelector((state) => (state as RootState).auth);
   const { data, isLoading, isSuccess, error } = useRefeshTokenQuery();
   const { themeMode } = useSelector((state) => (state as RootState).ui);
 
