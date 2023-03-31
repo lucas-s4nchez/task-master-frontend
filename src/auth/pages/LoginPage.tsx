@@ -36,6 +36,7 @@ export const LoginPage: React.FC = () => {
           token: data.token,
           username: data.username,
           email: data.email,
+          uid: data.uid,
         })
       );
     }

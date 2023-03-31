@@ -6,4 +6,11 @@ export interface IAuthSliceInitialState {
   token: string | null;
   username: string | null;
   email: string | null;
+  uid: string | null;
+}
+export interface ILoginPayload {
+  token: string;
+  username: string;
+  email: string;
+  uid: string;
 }
