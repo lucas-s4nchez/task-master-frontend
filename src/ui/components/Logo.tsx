@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FaTasks } from "react-icons/fa";
 import { ILogoComponentProps } from "../interfaces";
 
@@ -6,7 +7,13 @@ export const Logo: React.FC<ILogoComponentProps> = ({
 }: ILogoComponentProps) => {
   return (
     <div className="flex justify-center items-center gap-2 w-max">
-      <div>
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          rotate: [0, 360, 360],
+        }}
+        transition={{ duration: 0.5, delay: 1, type: "spring", stiffness: 70 }}
+      >
         <FaTasks
           className={`
           ${size === "small" && "text-xl"}
@@ -14,7 +21,7 @@ export const Logo: React.FC<ILogoComponentProps> = ({
           ${size === "large" && "text-4xl"}
           text-dark-300 dark:text-light-100`}
         />
-      </div>
+      </motion.div>
       <div
         className={`
         ${size === "small" && "text-xl"}

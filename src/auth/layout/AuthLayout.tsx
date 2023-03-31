@@ -33,7 +33,6 @@ export const AuthLayout: React.FC<IAuthLayoutProps> = ({
           animate={{ y: 0, opacity: 1 }}
           transition={{
             type: "tween",
-            stiffness: 70,
             ease: "easeOut",
           }}
         >
