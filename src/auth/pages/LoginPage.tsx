@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import { AuthLayout } from "../layout/AuthLayout";
 import { Input, Button, Alert } from "../../ui/components";
@@ -9,6 +10,20 @@ import { onLogin, onLogout } from "../../store/auth/authSlice";
 import { loginInitialValues, loginValidationSchema } from "../formik";
 import { ICustomFetchBaseQueryError } from "../../interfaces";
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.4,
+    },
+  },
+};
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
 export const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const [login, { data, isLoading, isSuccess, error }] = useLoginMutation();
@@ -41,47 +56,56 @@ export const LoginPage: React.FC = () => {
   return (
     <>
       <AuthLayout title={"Iniciar sesión"}>
-        <form onSubmit={handleSubmit}>
+        <motion.form
+          onSubmit={handleSubmit}
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
           <div className="flex flex-col">
-            <Input
-              id="inputEmail"
-              type="email"
-              name="email"
-              label="Correo electronico:"
-              placeholder="correo@correo.com"
-              value={values.email}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              isError={touched.email && !!errors.email}
-              errorMessage={errors.email}
-            />
-            <Input
-              id="inputPassword"
-              type="password"
-              name="password"
-              label="Contraseña:"
-              placeholder="********"
-              value={values.password}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              isError={touched.password && !!errors.password}
-              errorMessage={errors.password}
-            />
-            <div className="mt-6">
+            <motion.div variants={item}>
+              <Input
+                id="inputEmail"
+                type="email"
+                name="email"
+                label="Correo electronico:"
+                placeholder="correo@correo.com"
+                value={values.email}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                isError={touched.email && !!errors.email}
+                errorMessage={errors.email}
+              />
+            </motion.div>
+            <motion.div variants={item}>
+              <Input
+                id="inputPassword"
+                type="password"
+                name="password"
+                label="Contraseña:"
+                placeholder="********"
+                value={values.password}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                isError={touched.password && !!errors.password}
+                errorMessage={errors.password}
+              />
+            </motion.div>
+            <motion.div className="mt-6" variants={item}>
               <Button type="submit" disabled={isLoading} fullWidth>
                 Iniciar sesion
               </Button>
-            </div>
-            <div className="flex justify-end mt-4 gap-1">
+            </motion.div>
+            <motion.div className="flex justify-end mt-4 gap-1" variants={item}>
               <span className="text-sm text-dark-300 dark:text-light-400">
                 ¿No tienes una cuenta?
               </span>
               <Link className="text-sm text-primary-50" to={"/auth/register"}>
                 Crea una aquí!
               </Link>
-            </div>
+            </motion.div>
           </div>
-        </form>
+        </motion.form>
       </AuthLayout>
       {error && (
         <Alert variant="error">

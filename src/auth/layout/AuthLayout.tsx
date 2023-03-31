@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
 import { RootState } from "../../store/store";
 import { IAuthLayoutProps } from "../interfaces";
 import { Logo } from "../../ui/components";
@@ -26,15 +27,29 @@ export const AuthLayout: React.FC<IAuthLayoutProps> = ({
         >
           {themeMode}
         </button>
-        <div className="flex justify-center">
+        <motion.div
+          className="flex justify-center"
+          initial={{ y: 200, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            type: "tween",
+            stiffness: 70,
+            ease: "easeOut",
+          }}
+        >
           <Logo size="large" />
-        </div>
-        <div className="sm:w-[32rem] p-5 md:p-8 rounded mx-auto mt-6">
+        </motion.div>
+        <motion.div
+          className="sm:w-[32rem] p-5 md:p-8 rounded mx-auto mt-6"
+          initial={{ y: 200, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "tween", ease: "easeOut", delay: 0.2 }}
+        >
           <h5 className="text-3xl text-dark-300 dark:text-light-100 mb-2">
             {title}
           </h5>
           {children}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
