@@ -1,5 +1,6 @@
 export interface IUiSliceInitialState {
   themeMode: string;
+  isOpenMenu: boolean;
 }
 export interface IAuthSliceInitialState {
   status: "checking" | "authenticated" | "not-authenticated";
