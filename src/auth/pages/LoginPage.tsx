@@ -30,7 +30,6 @@ export const LoginPage: React.FC = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      localStorage.setItem("authToken", data.token); // guarda el token en localStorage
       dispatch(
         onLogin({
           token: data.token,

@@ -31,7 +31,6 @@ export const RegisterPage: React.FC = () => {
     useRegisterMutation();
   useEffect(() => {
     if (isSuccess && data) {
-      localStorage.setItem("authToken", data.token);
       dispatch(
         onLogin({
           token: data.token,
