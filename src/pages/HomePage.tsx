@@ -1,17 +1,11 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { Navbar } from "../components/Navbar";
+import { AppLayout } from "../layout/AppLayout";
 
 export const HomePage = () => {
   const { username, email, uid } = useSelector(
     (state) => (state as RootState).auth
   );
-  return (
-    <>
-      <p className="text-center text-2xl">
-        {username}
-        {email}
-        {uid}
-      </p>
-    </>
-  );
+  return <AppLayout>HomePage</AppLayout>;
 };
