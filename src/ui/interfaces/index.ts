@@ -26,3 +26,7 @@ export interface IInputComponentProps {
 export interface ILogoComponentProps {
   size: "small" | "medium" | "large";
 }
+export interface IUserAvatarComponentProps {
+  username: string;
+  size: "small" | "medium" | "large";
+}

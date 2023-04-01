@@ -4,6 +4,7 @@ import { AiFillHome } from "react-icons/ai";
 import { HiUserGroup, HiUser } from "react-icons/hi";
 import { RootState } from "../store/store";
 import { NavLink } from "react-router-dom";
+import { UserAvatar } from "../ui/components";
 const containerVariant = {
   hidden: { x: 300, opacity: 0 },
   show: {
@@ -68,6 +69,9 @@ export const Menu = () => {
                 </NavLink>
               </motion.li>
             ))}
+            <motion.div variants={itemVariant}>
+              <UserAvatar size="medium" username="emir" />
+            </motion.div>
           </motion.ul>
         )}
       </AnimatePresence>
