@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { IoMdNotificationsOutline } from "react-icons/io";
-import { VscChromeClose } from "react-icons/vsc";
-import { Logo } from "../ui/components";
-import { Menu } from "./Menu";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { onToggleMenu } from "../store/ui/uiSlice";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { VscChromeClose } from "react-icons/vsc";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { Menu } from "./Menu";
+import { Logo, ThemeSwitcher } from "../ui/components";
 import { RootState } from "../store/store";
 
 export const Navbar = () => {
@@ -27,6 +27,7 @@ export const Navbar = () => {
         <nav className="py-4 custom-container flex justify-between items-center relative ">
           <Logo size="small" />
           <div className="flex gap-2">
+            <ThemeSwitcher />
             <Link
               to="/"
               className="relative p-2 rounded-full hover:bg-light-200 dark:hover:bg-dark-200"

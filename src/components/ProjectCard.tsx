@@ -115,13 +115,13 @@ export const ProjectCard = (props) => {
           </span>
         </div>
       </div>
-      <div className="p-2 flex justify-end">
+      <div className="p-2 flex justify-end mt-4">
         <Link
           to={`/projects/${props._id}`}
-          className="px-6 py-1 text-light-100 rounded-md bg-primary-50 w-fit hover:bg-primary-100"
+          className="px-6 py-1 text-light-100 text-center font-semibold rounded-md bg-primary-50 w-full sm:w-fit hover:bg-primary-100"
         >
           {" "}
-          Ver
+          Ver Proyecto
         </Link>
       </div>
     </div>
