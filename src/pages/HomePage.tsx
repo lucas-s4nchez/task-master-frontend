@@ -4,6 +4,7 @@ import { AppLayout } from "../layout/AppLayout";
 import { useGetMyProjectsQuery } from "../store/api/apiSlice";
 import { Loader } from "../ui/components";
 import { ProjectCard } from "../components/ProjectCard";
+import { IProject } from "../interfaces";
 
 export const HomePage = () => {
   const { username, email, uid } = useSelector(
@@ -17,7 +18,7 @@ export const HomePage = () => {
   return (
     <AppLayout>
       <ul>
-        {data?.projects.map((project) => (
+        {data?.projects.map((project: IProject) => (
           <ProjectCard key={project._id} {...project} />
         ))}
       </ul>
