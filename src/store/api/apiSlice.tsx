@@ -52,8 +52,18 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
+    getMyProjects: builder.query<any, void>({
+      query: () => ({
+        url: "/projects",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useRefeshTokenQuery } =
-  authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useRefeshTokenQuery,
+  useGetMyProjectsQuery,
+} = authApi;

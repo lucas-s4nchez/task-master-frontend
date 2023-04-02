@@ -33,7 +33,7 @@ const menuItems = [
   {
     name: "Mis Proyectos",
     icon: <HiUser />,
-    path: "/projects",
+    path: "/my-projects",
   },
   {
     name: "Otros Proyectos",

@@ -65,6 +65,9 @@ export const AppRoutes: React.FC = () => {
       ) : (
         <>
           <Route path="/" element={<HomePage />} />
+          <Route path="/my-projects" element={<h1>my projects</h1>} />
+          <Route path="/other-projects" element={<h1>other projects</h1>} />
+          <Route path="/projects/:id" element={<h1>project</h1>} />
           <Route path="/*" element={<Navigate to={"/"} />} />
         </>
       )}
