@@ -5,6 +5,7 @@ import { useGetMyProjectsQuery } from "../store/api/apiSlice";
 import { Loader } from "../ui/components";
 import { ProjectCard } from "../components/ProjectCard";
 import { IProject } from "../interfaces";
+import { AddProjectButton } from "../components/AddProjectButton";
 
 export const HomePage = () => {
   const { username, email, uid } = useSelector(
@@ -22,6 +23,7 @@ export const HomePage = () => {
           <ProjectCard key={project._id} {...project} />
         ))}
       </ul>
+      <AddProjectButton />
     </AppLayout>
   );
 };

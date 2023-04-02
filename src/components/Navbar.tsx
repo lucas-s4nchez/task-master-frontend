@@ -9,7 +9,7 @@ import { Menu } from "./Menu";
 import { Logo, ThemeSwitcher } from "../ui/components";
 import { RootState } from "../store/store";
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const { isOpenMenu } = useSelector((state) => (state as RootState).ui);
   const notifications = 1;

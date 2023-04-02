@@ -4,7 +4,7 @@ import { RootState } from "../../store/store";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import { onDarkMode, onLightMode } from "../../store/ui/uiSlice";
 
-export const ThemeSwitcher = () => {
+export const ThemeSwitcher: React.FC = () => {
   const dispatch = useDispatch();
   const { themeMode } = useSelector((state) => (state as RootState).ui);
   const handleThemeMode = () => {

@@ -42,7 +42,7 @@ const menuItems = [
     path: "/other-projects",
   },
 ];
-export const Menu = () => {
+export const Menu: React.FC = () => {
   const dispatch = useDispatch();
   const { email, username } = useSelector((state) => (state as RootState).auth);
   const { isOpenMenu } = useSelector((state) => (state as RootState).ui);
