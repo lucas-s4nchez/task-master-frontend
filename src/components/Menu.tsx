@@ -7,6 +7,7 @@ import { RootState } from "../store/store";
 import { NavLink } from "react-router-dom";
 import { Button, UserAvatar } from "../ui/components";
 import { onLogout } from "../store/auth/authSlice";
+import { onToggleMenu } from "../store/ui/uiSlice";
 const containerVariant = {
   hidden: { x: 300, opacity: 0 },
   show: {
@@ -69,7 +70,11 @@ export const Menu = () => {
               </div>
             </motion.div>
             {menuItems.map((item) => (
-              <motion.li key={item.name} variants={itemVariant}>
+              <motion.li
+                key={item.name}
+                variants={itemVariant}
+                onClick={() => dispatch(onToggleMenu())}
+              >
                 <NavLink
                   to={item.path}
                   className={({ isActive }) =>
@@ -87,6 +92,7 @@ export const Menu = () => {
             <motion.div
               className="flex items-center gap-2  border rounded-lg text-dark-300 dark:text-light-100 hover:bg-light-300 dark:hover:bg-dark-300  transition-all duration-150"
               variants={itemVariant}
+              onClick={() => dispatch(onToggleMenu())}
             >
               <button
                 className="w-full p-2"

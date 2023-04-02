@@ -16,7 +16,10 @@ export const Navbar = () => {
   return (
     <>
       {isOpenMenu && (
-        <div className="absolute top-0 z-20 left-0 w-screen h-screen bg-dark-400 bg-opacity-30 backdrop-blur-sm"></div>
+        <div
+          className="absolute top-0 z-20 left-0 w-screen h-screen bg-dark-400 bg-opacity-30 backdrop-blur-sm"
+          onClick={() => dispatch(onToggleMenu())}
+        ></div>
       )}
       <motion.div
         className="fixed top-0 left-0 w-full shadow-md z-30 bg-light-100 dark:bg-dark-300"
