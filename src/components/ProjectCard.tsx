@@ -8,7 +8,7 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
   const { username } = useSelector((state) => (state as RootState).auth);
   return (
     <div className="bg-light-100 dark:bg-dark-200 p-3 rounded-md shadow-lg">
-      <div className="flex flex-col gap-2 mb-4">
+      <div className="flex flex-col gap-2 mb-4 px-2">
         <h2 className="text-2xl font-semibold text-dark-300 dark:text-light-100">
           {props.title}
         </h2>
@@ -16,20 +16,20 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
           {props.description}
         </h4>
       </div>
-      <div className="flex flex-col sm:flex-row gap-4 justify-between">
-        <div className="p-2 flex flex-col gap-1">
+      <div className="flex flex-col sm:flex-row gap-4 justify-between sm:px-7">
+        <div className="flex flex-col gap-1">
           <h6 className="text-sm text-dark-300 dark:text-light-100 mb-1 ">
             Creador del proyecto:
           </h6>
           <div className="flex gap-1 items-center w-full">
             <UserAvatar size="small" username={props.creator.username} />
             <div className="flex flex-col text-sm  text-dark-300 dark:text-light-100">
-              <span className="w-fit">{username}</span>
+              <span className="w-fit">{props.creator.username}</span>
               <span>{props.creator.email}</span>
             </div>
           </div>
         </div>
-        <div className="p-2 flex flex-col gap-1">
+        <div className="flex flex-col gap-1">
           <div className="flex flex-col gap-1">
             <h6 className="text-sm text-dark-300 dark:text-light-100">
               Colaboradores del proyecto:
@@ -97,7 +97,7 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
           </div>
         </div>
       </div>
-      <div className="p-2 flex flex-col gap-1">
+      <div className="p-2 flex flex-col gap-1 sm:px-7">
         <h6 className="text-sm text-dark-300 dark:text-light-100 mb-1">
           Tareas del proyecto:
         </h6>

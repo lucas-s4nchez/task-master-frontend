@@ -23,6 +23,7 @@ export const authApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["projects"],
 
   endpoints: (builder) => ({
     login: builder.mutation<IUser, ILoginCredentials>({
@@ -34,6 +35,7 @@ export const authApi = createApi({
           password,
         },
       }),
+      invalidatesTags: ["projects"],
     }),
     register: builder.mutation<IUser, IRegisterCredentials>({
       query: ({ email, password, username }) => ({
@@ -57,6 +59,21 @@ export const authApi = createApi({
         url: "/projects",
         method: "GET",
       }),
+      providesTags: ["projects"],
+    }),
+    getProjectsWhereICollaborate: builder.query<any, string>({
+      query: (userId) => ({
+        url: `projects/projectsWhereIParticipate/${userId}`,
+        method: "GET",
+      }),
+      providesTags: ["projects"],
+    }),
+    getProjectById: builder.query<any, string>({
+      query: (projectId) => ({
+        url: `projects/${projectId}`,
+        method: "GET",
+      }),
+      providesTags: ["projects"],
     }),
   }),
 });
@@ -66,4 +83,5 @@ export const {
   useRegisterMutation,
   useRefeshTokenQuery,
   useGetMyProjectsQuery,
+  useGetProjectsWhereICollaborateQuery,
 } = authApi;

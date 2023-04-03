@@ -8,6 +8,11 @@ import { NavLink } from "react-router-dom";
 import { Button, UserAvatar } from "../ui/components";
 import { onLogout } from "../store/auth/authSlice";
 import { onToggleMenu } from "../store/ui/uiSlice";
+import {
+  useGetMyProjectsQuery,
+  useGetProjectsWhereICollaborateQuery,
+} from "../store/api/apiSlice";
+import { authApi } from "../store/api/apiSlice";
 const containerVariant = {
   hidden: { x: 300, opacity: 0 },
   show: {
@@ -44,8 +49,11 @@ const menuItems = [
 ];
 export const Menu: React.FC = () => {
   const dispatch = useDispatch();
-  const { email, username } = useSelector((state) => (state as RootState).auth);
+  const { email, username, uid } = useSelector(
+    (state) => (state as RootState).auth
+  );
   const { isOpenMenu } = useSelector((state) => (state as RootState).ui);
+
   return (
     <>
       <AnimatePresence>
