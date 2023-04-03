@@ -13,6 +13,10 @@ import {
 } from "../store/auth/authSlice";
 import { RootState } from "../store/store";
 import { Loader } from "../ui/components/Loader";
+import { AppLayout } from "../layout/AppLayout";
+import { MyProjectsPage } from "../pages/MyProjectsPage";
+import { CollaborationInProjectsPage } from "../pages/CollaborationInProjectsPage";
+import { ProjectPage } from "../pages/ProjectPage";
 
 export const AppRoutes: React.FC = () => {
   const dispatch = useDispatch();
@@ -64,10 +68,38 @@ export const AppRoutes: React.FC = () => {
         </>
       ) : (
         <>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/my-projects" element={<h1>my projects</h1>} />
-          <Route path="/other-projects" element={<h1>other projects</h1>} />
-          <Route path="/projects/:id" element={<h1>project</h1>} />
+          <Route
+            path="/"
+            element={
+              <AppLayout>
+                <HomePage />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/my-projects"
+            element={
+              <AppLayout>
+                <MyProjectsPage />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/other-projects"
+            element={
+              <AppLayout>
+                <CollaborationInProjectsPage />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/projects/:id"
+            element={
+              <AppLayout>
+                <ProjectPage />
+              </AppLayout>
+            }
+          />
           <Route path="/*" element={<Navigate to={"/"} />} />
         </>
       )}

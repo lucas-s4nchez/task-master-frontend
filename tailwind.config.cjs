@@ -33,11 +33,20 @@ module.exports = {
         100: "#DC2626",
         200: "#B91C1C",
       },
-      green: "#22C55E",
-      yellow: "#F59E0B",
-      blue: "#2563EB",
+      green: {
+        50: "#22C55E",
+        100: "#16A34A",
+      },
+      yellow: {
+        50: "#F59E0B",
+        100: "#CA8A04",
+      },
+      blue: {
+        50: "#2563EB",
+        100: "#1d4ED8",
+      },
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };

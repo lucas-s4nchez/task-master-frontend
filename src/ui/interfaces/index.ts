@@ -10,6 +10,8 @@ export interface IButtonComponentProps
   disabled?: boolean;
   fullWidth?: boolean;
   children: React.ReactNode;
+  size: "small" | "medium" | "large";
+  bgColor: "primary" | "red" | "green" | "blue" | "yellow";
 }
 export interface IInputComponentProps {
   id: string;

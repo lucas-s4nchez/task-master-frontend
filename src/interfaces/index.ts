@@ -22,10 +22,6 @@ export interface IRegisterCredentials {
   password: string;
   username: string;
 }
-//Components
-export interface IChildrenProps {
-  children: React.ReactNode;
-}
 export interface IUserProject {
   _id: string;
   username: string;
@@ -54,4 +50,17 @@ export interface IProject {
   invitations: IUserProject[];
   tasks: ITask[];
   __v: number;
+}
+//Components
+export interface IChildrenProps {
+  children: React.ReactNode;
+}
+export interface ITaskColumnProps {
+  droppableId: "to do" | "in progress" | "done";
+  taskList: ITask[];
+}
+export interface ITaskContainerProps {
+  toDoTasks: ITask[];
+  inProgressTasks: ITask[];
+  completedTasks: ITask[];
 }

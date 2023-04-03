@@ -6,7 +6,7 @@ export const AppLayout = ({ children }: IChildrenProps) => {
   return (
     <>
       <Navbar />
-      <div className="custom-container pt-24">{children}</div>
+      <div className="custom-container pt-24 pb-10">{children}</div>
     </>
   );
 };

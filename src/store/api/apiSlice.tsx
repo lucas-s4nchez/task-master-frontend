@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   ILoginCredentials,
+  IProject,
   IRegisterCredentials,
   IUser,
 } from "../../interfaces";
@@ -68,7 +69,7 @@ export const authApi = createApi({
       }),
       providesTags: ["projects"],
     }),
-    getProjectById: builder.query<any, string>({
+    getProjectById: builder.query<{ ok: boolean; project: IProject }, string>({
       query: (projectId) => ({
         url: `projects/${projectId}`,
         method: "GET",
@@ -84,4 +85,5 @@ export const {
   useRefeshTokenQuery,
   useGetMyProjectsQuery,
   useGetProjectsWhereICollaborateQuery,
+  useGetProjectByIdQuery,
 } = authApi;
