@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useDispatch } from "react-redux";
-import { useRegisterMutation } from "../../store/api/apiSlice";
-import { Alert, Button, Input } from "../../ui/components";
+import { useRegisterMutation } from "../store/api/apiSlice";
+import { Alert, Button, Input } from "../ui/components";
 import { registerInitialValues, registerValidationSchema } from "../formik";
-import { onLogin, onLogout } from "../../store/auth/authSlice";
-import { ICustomFetchBaseQueryError } from "../../interfaces";
+import { onLogin, onLogout } from "../store/auth/authSlice";
+import { ICustomFetchBaseQueryError } from "../interfaces/data";
 
 const container = {
   hidden: { opacity: 0 },
@@ -107,7 +107,13 @@ export const RegisterPage: React.FC = () => {
               />
             </motion.div>
             <motion.div className="mt-6" variants={item}>
-              <Button type="submit" disabled={isLoading} fullWidth>
+              <Button
+                size="medium"
+                bgColor="primary"
+                type="submit"
+                disabled={isLoading}
+                fullWidth
+              >
                 Crear Cuenta
               </Button>
             </motion.div>

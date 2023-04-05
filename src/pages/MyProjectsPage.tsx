@@ -1,13 +1,9 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import { useGetMyProjectsQuery } from "../store/api/apiSlice";
-import { ProjectCard } from "../components/ProjectCard";
-import { AddProjectButton } from "../components/AddProjectButton";
-import { IProject } from "../interfaces";
+import { AddProjectButton, ProjectCard } from "../components";
+import { IProject } from "../interfaces/data";
 import { Loader } from "../ui/components";
 
-export const MyProjectsPage = () => {
-  const { uid } = useSelector((state) => (state as RootState).auth);
+export const MyProjectsPage: React.FC = () => {
   const { data, isLoading } = useGetMyProjectsQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });

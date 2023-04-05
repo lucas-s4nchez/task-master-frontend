@@ -1,4 +1,4 @@
-import { ILoginCredentials, IRegisterCredentials } from "../../interfaces";
+import { ILoginCredentials, IRegisterCredentials } from "../interfaces/data";
 
 export const loginInitialValues: ILoginCredentials = {
   email: "",

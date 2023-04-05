@@ -1,10 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IAuthSliceInitialState, ILoginPayload } from "../interfaces";
-import { ITask } from "../../interfaces";
+import { ITask } from "../../interfaces/data";
+import { ITasksInitialState } from "../../interfaces/store";
 
-interface ITasksInitialState {
-  activeTask: ITask | null;
-}
 const initialState: ITasksInitialState = {
   activeTask: null,
 };

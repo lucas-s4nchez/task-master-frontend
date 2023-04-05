@@ -51,15 +51,3 @@ export interface IProject {
   tasks: ITask[];
   __v: number;
 }
-//Components
-export interface IChildrenProps {
-  children: React.ReactNode;
-}
-export interface ITaskColumnProps {
-  droppableId: "to do" | "in progress" | "done";
-  taskList: ITask[];
-}
-export interface ITaskContainerProps {
-  tasks: ITask[];
-  projectId: string;
-}

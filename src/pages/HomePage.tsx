@@ -4,12 +4,11 @@ import {
   useGetMyProjectsQuery,
   useGetProjectsWhereICollaborateQuery,
 } from "../store/api/apiSlice";
-import { ProjectCard } from "../components/ProjectCard";
-import { IProject } from "../interfaces";
-import { AddProjectButton } from "../components/AddProjectButton";
+import { IProject } from "../interfaces/data";
+import { AddProjectButton, ProjectCard } from "../components";
 import { Loader } from "../ui/components";
 
-export const HomePage = () => {
+export const HomePage: React.FC = () => {
   const { uid } = useSelector((state) => (state as RootState).auth);
   const { data: myProjects, isLoading: isLoadingMyProjects } =
     useGetMyProjectsQuery(undefined, {

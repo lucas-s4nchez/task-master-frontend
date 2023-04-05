@@ -1,8 +1,9 @@
-import { Menu } from "../components/Menu";
-import { Navbar } from "../components/Navbar";
-import { IChildrenProps } from "../interfaces";
+import { Navbar } from "../components";
+import { IChildrenProps } from "../interfaces/componentsProps";
 
-export const AppLayout = ({ children }: IChildrenProps) => {
+export const AppLayout: React.FC<IChildrenProps> = ({
+  children,
+}: IChildrenProps) => {
   return (
     <>
       <Navbar />

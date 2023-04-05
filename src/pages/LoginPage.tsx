@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import { AuthLayout } from "../layout/AuthLayout";
-import { Input, Button, Alert } from "../../ui/components";
-import { useLoginMutation } from "../../store/api/apiSlice";
-import { onLogin, onLogout } from "../../store/auth/authSlice";
+import { Input, Button, Alert } from "../ui/components";
+import { useLoginMutation } from "../store/api/apiSlice";
+import { onLogin, onLogout } from "../store/auth/authSlice";
 import { loginInitialValues, loginValidationSchema } from "../formik";
-import { ICustomFetchBaseQueryError } from "../../interfaces";
+import { ICustomFetchBaseQueryError } from "../interfaces/data";
 
 const container = {
   hidden: { opacity: 0 },
@@ -92,7 +92,13 @@ export const LoginPage: React.FC = () => {
               />
             </motion.div>
             <motion.div className="mt-6" variants={item}>
-              <Button type="submit" disabled={isLoading} fullWidth>
+              <Button
+                size="medium"
+                bgColor="primary"
+                type="submit"
+                disabled={isLoading}
+                fullWidth
+              >
                 Iniciar sesion
               </Button>
             </motion.div>

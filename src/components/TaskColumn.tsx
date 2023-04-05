@@ -1,10 +1,13 @@
 import { Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "./StrictModeDroppable";
-import { ITaskColumnProps } from "../interfaces";
+import { ITaskColumnProps } from "../interfaces/componentsProps";
 import { useDispatch } from "react-redux";
 import { onSetActiveTask } from "../store/tasks/tasksSlice";
 
-export const TaskColumn = ({ droppableId, taskList }: ITaskColumnProps) => {
+export const TaskColumn: React.FC<ITaskColumnProps> = ({
+  droppableId,
+  taskList,
+}: ITaskColumnProps) => {
   const dispatch = useDispatch();
 
   return (

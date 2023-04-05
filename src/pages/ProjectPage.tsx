@@ -5,10 +5,10 @@ import {
 } from "../store/api/apiSlice";
 import { Button, Loader } from "../ui/components";
 import { MdEdit } from "react-icons/md";
-import { ICustomFetchBaseQueryError } from "../interfaces";
-import { TaskContainer } from "../components/TaskContainer";
+import { ICustomFetchBaseQueryError } from "../interfaces/data";
+import { TaskContainer } from "../components";
 
-export const ProjectPage = () => {
+export const ProjectPage: React.FC = () => {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useGetProjectByIdQuery(id!);
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!);

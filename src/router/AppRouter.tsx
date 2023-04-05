@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, Route } from "react-router";
 import { Routes } from "react-router-dom";
-import { LoginPage } from "../auth/pages/LoginPage";
-import { RegisterPage } from "../auth/pages/RegisterPage";
+import { LoginPage } from "../pages/LoginPage";
+import { RegisterPage } from "../pages/RegisterPage";
 import { HomePage } from "../pages/HomePage";
 import { useRefeshTokenQuery } from "../store/api/apiSlice";
 import {

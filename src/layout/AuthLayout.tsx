@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { RootState } from "../../store/store";
-import { IAuthLayoutProps } from "../interfaces";
-import { Logo } from "../../ui/components";
-import { onDarkMode, onLightMode } from "../../store/ui/uiSlice";
+import { RootState } from "../store/store";
+import { Logo } from "../ui/components";
+import { onDarkMode, onLightMode } from "../store/ui/uiSlice";
+import { IAuthLayoutProps } from "../interfaces/componentsProps";
 
 export const AuthLayout: React.FC<IAuthLayoutProps> = ({
   children,

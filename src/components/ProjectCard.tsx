@@ -1,11 +1,8 @@
-import { useSelector } from "react-redux";
-import { Button, UserAvatar } from "../ui/components";
-import { RootState } from "../store/store";
 import { Link } from "react-router-dom";
-import { IProject } from "../interfaces";
+import { UserAvatar } from "../ui/components";
+import { IProject } from "../interfaces/data";
 
 export const ProjectCard: React.FC<IProject> = (props: IProject) => {
-  const { username } = useSelector((state) => (state as RootState).auth);
   return (
     <div className="bg-light-100 dark:bg-dark-200 p-3 rounded-md shadow-lg">
       <div className="flex flex-col gap-2 mb-4 px-2">

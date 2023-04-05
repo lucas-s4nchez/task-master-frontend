@@ -5,7 +5,7 @@ import {
   IRegisterCredentials,
   ITask,
   IUser,
-} from "../../interfaces";
+} from "../../interfaces/data";
 import { RootState } from "../store";
 
 const api_url = "http://localhost:3000/api/";

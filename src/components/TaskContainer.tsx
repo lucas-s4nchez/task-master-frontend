@@ -1,11 +1,14 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { TaskColumn } from "./TaskColumn";
-import { ITaskContainerProps } from "../interfaces";
+import { ITaskContainerProps } from "../interfaces/componentsProps";
 import { useMemo } from "react";
 import { useUpdateTasksMutation } from "../store/api/apiSlice";
 import { Loader } from "../ui/components";
 
-export const TaskContainer = ({ tasks, projectId }: ITaskContainerProps) => {
+export const TaskContainer: React.FC<ITaskContainerProps> = ({
+  tasks,
+  projectId,
+}: ITaskContainerProps) => {
   const [updateTask, { isLoading }] = useUpdateTasksMutation();
 
   const toDoTasks = useMemo(
