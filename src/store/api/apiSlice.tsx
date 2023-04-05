@@ -3,6 +3,7 @@ import {
   ILoginCredentials,
   IProject,
   IRegisterCredentials,
+  ITask,
   IUser,
 } from "../../interfaces";
 import { RootState } from "../store";
@@ -24,7 +25,7 @@ export const authApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["projects"],
+  tagTypes: ["projects", "project", "tasks"],
 
   endpoints: (builder) => ({
     login: builder.mutation<IUser, ILoginCredentials>({
@@ -74,7 +75,22 @@ export const authApi = createApi({
         url: `projects/${projectId}`,
         method: "GET",
       }),
-      providesTags: ["projects"],
+      providesTags: ["projects", "project"],
+    }),
+    getTasks: builder.query<{ ok: boolean; tasks: ITask[] }, string>({
+      query: (projectId) => ({
+        url: `projects/${projectId}/tasks`,
+        method: "GET",
+      }),
+      providesTags: ["projects", "tasks"],
+    }),
+    updateTasks: builder.mutation<void, any>({
+      query: ({ projectId, id, title, description, assignedTo, status }) => ({
+        url: `projects/${projectId}/tasks/${id}`,
+        method: "PUT",
+        body: { title, description, assignedTo, status },
+      }),
+      invalidatesTags: ["tasks"],
     }),
   }),
 });
@@ -86,4 +102,6 @@ export const {
   useGetMyProjectsQuery,
   useGetProjectsWhereICollaborateQuery,
   useGetProjectByIdQuery,
+  useGetTasksQuery,
+  useUpdateTasksMutation,
 } = authApi;

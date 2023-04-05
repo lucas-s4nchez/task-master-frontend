@@ -60,7 +60,6 @@ export interface ITaskColumnProps {
   taskList: ITask[];
 }
 export interface ITaskContainerProps {
-  toDoTasks: ITask[];
-  inProgressTasks: ITask[];
-  completedTasks: ITask[];
+  tasks: ITask[];
+  projectId: string;
 }

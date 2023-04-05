@@ -1,8 +1,12 @@
 import { Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "./StrictModeDroppable";
 import { ITaskColumnProps } from "../interfaces";
+import { useDispatch } from "react-redux";
+import { onSetActiveTask } from "../store/tasks/tasksSlice";
 
 export const TaskColumn = ({ droppableId, taskList }: ITaskColumnProps) => {
+  const dispatch = useDispatch();
+
   return (
     <Droppable droppableId={droppableId}>
       {(droppableProvided) => (
@@ -25,6 +29,7 @@ export const TaskColumn = ({ droppableId, taskList }: ITaskColumnProps) => {
                       } ${droppableId === "in progress" && "bg-blue-50"} ${
                         droppableId === "done" && "bg-green-50"
                       }`}
+                      onClick={() => dispatch(onSetActiveTask(task))}
                     >
                       {task.title}
                     </div>

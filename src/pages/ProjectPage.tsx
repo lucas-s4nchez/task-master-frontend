@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useMemo } from "react";
-import { useGetProjectByIdQuery } from "../store/api/apiSlice";
+import {
+  useGetProjectByIdQuery,
+  useGetTasksQuery,
+} from "../store/api/apiSlice";
 import { Button, Loader } from "../ui/components";
 import { MdEdit } from "react-icons/md";
 import { ICustomFetchBaseQueryError } from "../interfaces";
@@ -9,20 +11,9 @@ import { TaskContainer } from "../components/TaskContainer";
 export const ProjectPage = () => {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useGetProjectByIdQuery(id!);
-  const toDoTasks = useMemo(
-    () => data?.project.tasks.filter((task) => task.status === "to do"),
-    [data]
-  );
-  const inProgressTasks = useMemo(
-    () => data?.project.tasks.filter((task) => task.status === "in progress"),
-    [data]
-  );
-  const completedTasks = useMemo(
-    () => data?.project.tasks.filter((task) => task.status === "done"),
-    [data]
-  );
+  const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!);
 
-  if (isLoading) {
+  if (isLoading || isLoadingTasks) {
     return <Loader />;
   }
   if (isError) {
@@ -41,11 +32,7 @@ export const ProjectPage = () => {
           </Button>
         </div>
       </div>
-      <TaskContainer
-        toDoTasks={toDoTasks!}
-        inProgressTasks={inProgressTasks!}
-        completedTasks={completedTasks!}
-      />
+      <TaskContainer tasks={tasks?.tasks!} projectId={id!} />
     </div>
   );
 };
