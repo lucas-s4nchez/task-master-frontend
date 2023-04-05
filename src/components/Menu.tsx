@@ -14,16 +14,16 @@ const containerVariant = {
     x: 0,
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.2,
+      staggerChildren: 0.1,
+      delayChildren: 0.04,
       type: "tween",
     },
   },
 };
 
 const itemVariant = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
+  hidden: { x: 100, opacity: 0 },
+  show: { x: 0, opacity: 1, transition: { type: "tween" } },
 };
 const menuItems = [
   {

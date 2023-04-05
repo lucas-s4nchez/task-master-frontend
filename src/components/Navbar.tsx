@@ -2,10 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { onToggleMenu } from "../store/ui/uiSlice";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { VscChromeClose } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { Menu } from "./Menu";
+import { Menu, MenuToggle } from "./";
 import { Logo, ThemeSwitcher } from "../ui/components";
 import { RootState } from "../store/store";
 
@@ -17,7 +15,7 @@ export const Navbar: React.FC = () => {
     <>
       {isOpenMenu && (
         <div
-          className="absolute top-0 z-20 left-0 w-screen h-screen bg-dark-400 bg-opacity-30 backdrop-blur-sm"
+          className="fixed top-0 z-20 left-0 w-screen h-full bg-dark-400 bg-opacity-30 backdrop-blur-sm"
           onClick={() => dispatch(onToggleMenu())}
         ></div>
       )}
@@ -43,32 +41,7 @@ export const Navbar: React.FC = () => {
               )}
               <IoMdNotificationsOutline className="text-2xl text-dark-300 dark:text-light-100" />
             </Link>
-            <button
-              className="relative p-2 rounded-full hover:bg-light-200 dark:hover:bg-dark-200 z-30"
-              onClick={() => dispatch(onToggleMenu())}
-            >
-              {isOpenMenu ? (
-                <motion.div
-                  animate={{ rotate: 90 }}
-                  transition={{
-                    type: "tween",
-                    ease: "easeInOut",
-                  }}
-                >
-                  <VscChromeClose className="text-2xl text-dark-300 dark:text-light-100" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  animate={{ rotate: 0 }}
-                  transition={{
-                    type: "tween",
-                    ease: "easeInOut",
-                  }}
-                >
-                  <GiHamburgerMenu className="text-2xl text-dark-300 dark:text-light-100" />
-                </motion.div>
-              )}
-            </button>
+            <MenuToggle />
           </div>
           <Menu />
         </nav>
