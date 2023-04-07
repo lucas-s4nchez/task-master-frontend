@@ -55,7 +55,11 @@ export const AppRoutes: React.FC = () => {
   }, [isSuccess, error, isLoading]);
 
   if (status === "checking") {
-    return <Loader />;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (

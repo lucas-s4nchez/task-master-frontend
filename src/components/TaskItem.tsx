@@ -1,25 +1,54 @@
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 import { RootState } from "../store/store";
 import { onToggleTask } from "../store/ui/uiSlice";
 import { useDispatch } from "react-redux";
 import { Button, UserAvatar } from "../ui/components";
 import { MdClose, MdDelete, MdEdit } from "react-icons/md";
 
-export const TaskItem = () => {
+const taskContainerVariant = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      type: "tween",
+    },
+  },
+};
+const taskItemVariant = {
+  hidden: { scale: 0, opacity: 0 },
+  show: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: "tween",
+    },
+  },
+};
+
+export const TaskItem: React.FC = () => {
   const dispatch = useDispatch();
   const { activeTask } = useSelector((state) => (state as RootState).tasks);
   return (
     <>
-      <div
-        className="fixed top-0 z-50 left-0 w-screen h-full flex justify-center items-center bg-dark-400 bg-opacity-30 backdrop-blur-sm"
+      <motion.div
+        className="fixed top-0 z-50 left-0 w-full h-full flex justify-center items-center bg-dark-400 bg-opacity-30 backdrop-blur-sm"
         onClick={() => dispatch(onToggleTask())}
+        initial="hidden"
+        animate="show"
+        exit="hidden"
+        variants={taskContainerVariant}
       >
-        <div
+        <motion.div
           className={`p-4 flex flex-col gap-2 rounded-md w-11/12 max-w-lg m-auto  ${
             activeTask?.status === "to do" && "bg-yellow-50"
           } ${activeTask?.status === "in progress" && "bg-blue-50"} ${
             activeTask?.status === "done" && "bg-green-50"
           }`}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+          variants={taskItemVariant}
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -87,8 +116,8 @@ export const TaskItem = () => {
               </div>
             </Button>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </>
   );
 };

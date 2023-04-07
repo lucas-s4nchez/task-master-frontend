@@ -95,7 +95,7 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="bg-light-100 dark:bg-dark-300 p-4 rounded-md">
+      <div className="bg-light-100 dark:bg-dark-300 p-4 rounded-md my-5">
         <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold mb-4">
           Tareas:
         </h2>

@@ -9,7 +9,9 @@ export const MyProjectsPage: React.FC = () => {
   });
 
   if (isLoading) {
-    return <Loader />;
+    <div className="w-screen h-screen flex justify-center items-center">
+      <Loader />
+    </div>;
   }
   return (
     <div className="">

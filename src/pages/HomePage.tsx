@@ -28,7 +28,9 @@ export const HomePage: React.FC = () => {
     !myProjects?.projects.length && !projectsWhereICollaborate?.projects.length;
 
   if (isLoadingProjects) {
-    return <Loader />;
+    <div className="w-screen h-screen flex justify-center items-center">
+      <Loader />
+    </div>;
   }
 
   return (
