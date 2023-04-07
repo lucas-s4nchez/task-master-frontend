@@ -1,32 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { RootState } from "../store/store";
 import { Logo } from "../ui/components";
-import { onDarkMode, onLightMode } from "../store/ui/uiSlice";
 import { IAuthLayoutProps } from "../interfaces/componentsProps";
 
 export const AuthLayout: React.FC<IAuthLayoutProps> = ({
   children,
   title,
 }: IAuthLayoutProps) => {
-  const { themeMode } = useSelector((state) => (state as RootState).ui);
-  const dispatch = useDispatch();
-
   return (
     <div className="min-h-screen grid place-items-center bg-light-50 dark:bg-dark-300">
       <div className="custom-container">
-        <button
-          className="bg-red-50 p-2"
-          onClick={() => {
-            if (themeMode === "light") {
-              dispatch(onDarkMode());
-            } else {
-              dispatch(onLightMode());
-            }
-          }}
-        >
-          {themeMode}
-        </button>
         <motion.div
           className="flex justify-center"
           initial={{ y: 200, opacity: 0 }}
