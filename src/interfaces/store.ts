@@ -3,6 +3,7 @@ import { ITask } from "./data";
 export interface IUiSliceInitialState {
   themeMode: string;
   isOpenMenu: boolean;
+  isOpenTask: boolean;
 }
 export interface IAuthSliceInitialState {
   status: "checking" | "authenticated" | "not-authenticated";

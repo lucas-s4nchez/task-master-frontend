@@ -12,6 +12,7 @@ const bgYellow = "bg-yellow-50 hover:bg-yellow-100";
 export const Button: React.FC<IButtonComponentProps> = (
   props: IButtonComponentProps
 ) => {
+  const { type, fullWidth, bgColor, size, disabled, ...rest } = props;
   return (
     <button
       type={props.type}
@@ -26,6 +27,7 @@ export const Button: React.FC<IButtonComponentProps> = (
       ${props.size === "medium" && mediumSize} 
       ${props.size === "large" && largeSize}`}
       disabled={props.disabled}
+      {...rest}
     >
       {props.children}
     </button>

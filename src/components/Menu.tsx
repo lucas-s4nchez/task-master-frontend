@@ -54,7 +54,7 @@ export const Menu: React.FC = () => {
           <motion.ul
             className={`${
               isOpenMenu ? "flex" : "hidden"
-            } flex-col gap-3 py-6 px-2 w-60 h-96 absolute top-20 right-0 bg-light-100 dark:bg-dark-200 rounded-lg shadow-lg`}
+            } flex-col gap-3 py-6 px-2 w-60 h-96 absolute top-20 right-0 bg-light-100 dark:bg-dark-300 rounded-lg shadow-lg`}
             initial="hidden"
             animate="show"
             exit="hidden"
@@ -80,8 +80,8 @@ export const Menu: React.FC = () => {
                   to={item.path}
                   className={({ isActive }) =>
                     isActive
-                      ? "flex items-center gap-2 p-2 border rounded-lg text-dark-300 dark:text-light-100 bg-light-300 dark:bg-dark-300  transition-all duration-150"
-                      : "flex items-center gap-2 p-2 border rounded-lg text-dark-300 dark:text-light-100 hover:bg-light-300 dark:hover:bg-dark-300  transition-all duration-150"
+                      ? "flex items-center gap-2 p-2 border rounded-lg text-dark-300 dark:text-light-100 bg-light-300 dark:bg-dark-400  transition-all duration-150"
+                      : "flex items-center gap-2 p-2 border rounded-lg text-dark-300 dark:text-light-100 hover:bg-light-300 dark:hover:bg-dark-400  transition-all duration-150"
                   }
                 >
                   <div className="text-xl">{item.icon}</div>
@@ -91,7 +91,7 @@ export const Menu: React.FC = () => {
             ))}
 
             <motion.div
-              className="flex items-center gap-2  border rounded-lg text-dark-300 dark:text-light-100 hover:bg-light-300 dark:hover:bg-dark-300  transition-all duration-150"
+              className="flex items-center gap-2  border rounded-lg text-dark-300 dark:text-light-100 hover:bg-light-300 dark:hover:bg-dark-400  transition-all duration-150"
               variants={itemVariant}
               onClick={() => dispatch(onToggleMenu())}
             >

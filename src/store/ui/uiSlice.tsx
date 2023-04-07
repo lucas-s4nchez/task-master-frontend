@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUiSliceInitialState } from "../interfaces";
+import { IUiSliceInitialState } from "../../interfaces/store";
 
 const initialState: IUiSliceInitialState = {
   themeMode: localStorage.theme || "light",
   isOpenMenu: false,
+  isOpenTask: false,
 };
 
 const uiSlice = createSlice({
@@ -21,9 +22,13 @@ const uiSlice = createSlice({
     onToggleMenu: (state) => {
       state.isOpenMenu = !state.isOpenMenu;
     },
+    onToggleTask: (state) => {
+      state.isOpenTask = !state.isOpenTask;
+    },
   },
 });
 
-export const { onDarkMode, onLightMode, onToggleMenu } = uiSlice.actions;
+export const { onDarkMode, onLightMode, onToggleMenu, onToggleTask } =
+  uiSlice.actions;
 
 export default uiSlice.reducer;
