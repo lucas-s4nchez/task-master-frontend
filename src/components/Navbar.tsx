@@ -6,11 +6,13 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { Menu, MenuToggle } from "./";
 import { Logo, ThemeSwitcher } from "../ui/components";
 import { RootState } from "../store/store";
+import { useGetProjectsInvitationsQuery } from "../store/api/apiSlice";
 
 export const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const { isOpenMenu } = useSelector((state) => (state as RootState).ui);
-  const notifications = 1;
+  const { uid } = useSelector((state) => (state as RootState).auth);
+  const { data } = useGetProjectsInvitationsQuery(uid);
   return (
     <>
       {isOpenMenu && (
@@ -30,13 +32,13 @@ export const Navbar: React.FC = () => {
           <div className="flex gap-2">
             <ThemeSwitcher />
             <Link
-              to="/"
+              to="/notifications"
               className="relative p-2 rounded-full hover:bg-light-200 dark:hover:bg-dark-200"
               title="Notificaciones"
             >
-              {!!notifications && (
+              {!!data?.invitations.length && (
                 <div className="w-5 h-5 flex justify-center items-center  absolute top-0 right-0 bg-red-50 text-light-100 leading-none rounded-full ">
-                  {notifications}
+                  {data?.invitations.length}
                 </div>
               )}
               <IoMdNotificationsOutline className="text-2xl text-dark-300 dark:text-light-100" />

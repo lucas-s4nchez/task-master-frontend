@@ -51,3 +51,8 @@ export interface IProject {
   tasks: ITask[];
   __v: number;
 }
+export interface IInvitation {
+  _id: string;
+  title: string;
+  creator: IUserProject;
+}

@@ -17,6 +17,7 @@ import { AppLayout } from "../layout/AppLayout";
 import { MyProjectsPage } from "../pages/MyProjectsPage";
 import { CollaborationInProjectsPage } from "../pages/CollaborationInProjectsPage";
 import { ProjectPage } from "../pages/ProjectPage";
+import { NotificationPage } from "../pages/NotificationPage";
 
 export const AppRoutes: React.FC = () => {
   const dispatch = useDispatch();
@@ -77,6 +78,14 @@ export const AppRoutes: React.FC = () => {
             element={
               <AppLayout>
                 <HomePage />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <AppLayout>
+                <NotificationPage />
               </AppLayout>
             }
           />

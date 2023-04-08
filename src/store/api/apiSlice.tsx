@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+  IInvitation,
   ILoginCredentials,
   IProject,
   IRegisterCredentials,
@@ -25,7 +26,7 @@ export const authApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["projects", "project", "tasks"],
+  tagTypes: ["projects", "project", "tasks", "invitations"],
 
   endpoints: (builder) => ({
     login: builder.mutation<IUser, ILoginCredentials>({
@@ -77,6 +78,30 @@ export const authApi = createApi({
       }),
       providesTags: ["projects", "project"],
     }),
+    getProjectsInvitations: builder.query<
+      { ok: boolean; invitations: IInvitation[] },
+      string
+    >({
+      query: (userId) => ({
+        url: `projects/invitations/${userId}`,
+        method: "GET",
+      }),
+      providesTags: ["projects", "invitations"],
+    }),
+    acceptInvitation: builder.mutation<void, any>({
+      query: ({ projectId, userId }) => ({
+        url: `projects/${projectId}/invitations/${userId}/accept`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["invitations"],
+    }),
+    rejectInvitation: builder.mutation<void, any>({
+      query: ({ projectId, userId }) => ({
+        url: `projects/${projectId}/invitations/${userId}/reject`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["invitations"],
+    }),
     getTasks: builder.query<{ ok: boolean; tasks: ITask[] }, string>({
       query: (projectId) => ({
         url: `projects/${projectId}/tasks`,
@@ -104,4 +129,7 @@ export const {
   useGetProjectByIdQuery,
   useGetTasksQuery,
   useUpdateTasksMutation,
+  useGetProjectsInvitationsQuery,
+  useAcceptInvitationMutation,
+  useRejectInvitationMutation,
 } = authApi;
