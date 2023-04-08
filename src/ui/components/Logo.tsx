@@ -12,7 +12,12 @@ export const Logo: React.FC<ILogoComponentProps> = ({
           scale: [1, 1.2, 1],
           rotate: [0, 360, 360],
         }}
-        transition={{ duration: 0.5, delay: 1, type: "spring", stiffness: 70 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.5,
+          type: "spring",
+          stiffness: 70,
+        }}
       >
         <FaTasks
           className={`

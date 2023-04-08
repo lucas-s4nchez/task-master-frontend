@@ -1,14 +1,13 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import { AuthLayout } from "../layout/AuthLayout";
 import { Input, Button, Alert } from "../ui/components";
 import { useLoginMutation } from "../store/api/apiSlice";
-import { onLogin, onLogout } from "../store/auth/authSlice";
 import { loginInitialValues, loginValidationSchema } from "../formik";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
+import { useAuthStore } from "../hooks";
 
 const container = {
   hidden: { opacity: 0 },
@@ -25,22 +24,20 @@ const item = {
   show: { opacity: 1 },
 };
 export const LoginPage: React.FC = () => {
-  const dispatch = useDispatch();
   const [login, { data, isLoading, isSuccess, error }] = useLoginMutation();
+  const { handleLogin, handleLogout } = useAuthStore();
 
   useEffect(() => {
     if (isSuccess && data) {
-      dispatch(
-        onLogin({
-          token: data.token,
-          username: data.username,
-          email: data.email,
-          uid: data.uid,
-        })
-      );
+      handleLogin({
+        token: data.token,
+        username: data.username,
+        email: data.email,
+        uid: data.uid,
+      });
     }
     if (error) {
-      dispatch(onLogout());
+      handleLogout();
     }
   }, [isSuccess, data, error]);
 

@@ -1,17 +1,16 @@
-import { useSelector } from "react-redux";
 import {
   useAcceptInvitationMutation,
   useGetProjectsInvitationsQuery,
   useRejectInvitationMutation,
 } from "../store/api/apiSlice";
-import { RootState } from "../store/store";
 import { Button, Loader, UserAvatar } from "../ui/components";
 import { BsCheckCircle } from "react-icons/bs";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useAuthStore } from "../hooks";
 
 export const NotificationPage: React.FC = () => {
-  const { uid } = useSelector((state) => (state as RootState).auth);
-  const { data, isLoading, isError } = useGetProjectsInvitationsQuery(uid);
+  const { uid } = useAuthStore();
+  const { data, isLoading } = useGetProjectsInvitationsQuery(uid ?? "");
   const [acceptInvitation, { isLoading: isLoadingAcceptInvitation }] =
     useAcceptInvitationMutation();
   const [rejectInvitation, { isLoading: isLoadingRejectInvitation }] =

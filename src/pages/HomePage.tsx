@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import {
   useGetMyProjectsQuery,
   useGetProjectsWhereICollaborateQuery,
@@ -7,9 +5,10 @@ import {
 import { IProject } from "../interfaces/data";
 import { AddProjectButton, ProjectCard } from "../components";
 import { Loader } from "../ui/components";
+import { useAuthStore } from "../hooks";
 
 export const HomePage: React.FC = () => {
-  const { uid } = useSelector((state) => (state as RootState).auth);
+  const { uid } = useAuthStore();
   const { data: myProjects, isLoading: isLoadingMyProjects } =
     useGetMyProjectsQuery(undefined, {
       refetchOnMountOrArgChange: true,

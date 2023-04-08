@@ -18,12 +18,13 @@ import { MyProjectsPage } from "../pages/MyProjectsPage";
 import { CollaborationInProjectsPage } from "../pages/CollaborationInProjectsPage";
 import { ProjectPage } from "../pages/ProjectPage";
 import { NotificationPage } from "../pages/NotificationPage";
+import { useAuthStore, useUiStore } from "../hooks";
 
 export const AppRoutes: React.FC = () => {
-  const dispatch = useDispatch();
-  const { status } = useSelector((state) => (state as RootState).auth);
   const { data, isLoading, isSuccess, error } = useRefeshTokenQuery();
-  const { themeMode } = useSelector((state) => (state as RootState).ui);
+  const { status, handleCheckingCredentials, handleLogin, handleLogout } =
+    useAuthStore();
+  const { themeMode } = useUiStore();
 
   useEffect(() => {
     if (themeMode === "dark") {
@@ -36,22 +37,18 @@ export const AppRoutes: React.FC = () => {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken"); // obtener el token guardado en localStorage
     if (isLoading) {
-      dispatch(onCheckingCredentials());
+      handleCheckingCredentials();
     }
     if (authToken && isSuccess) {
-      localStorage.setItem("authToken", data.token); // guarda el nuevo token en localStorage
-      dispatch(
-        onLogin({
-          token: data.token,
-          username: data.username,
-          email: data.email,
-          uid: data.uid,
-        })
-      );
+      handleLogin({
+        token: data.token,
+        username: data.username,
+        email: data.email,
+        uid: data.uid,
+      });
     }
     if (error) {
-      localStorage.removeItem("authToken");
-      dispatch(onLogout());
+      handleLogout();
     }
   }, [isSuccess, error, isLoading]);
 

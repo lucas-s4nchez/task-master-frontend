@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IAuthSliceInitialState, ILoginPayload } from "../interfaces";
+import { IAuthSliceInitialState, ILoginPayload } from "../../interfaces/store";
 
 const initialState: IAuthSliceInitialState = {
   status: "checking",

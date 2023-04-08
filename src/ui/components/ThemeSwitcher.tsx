@@ -1,19 +1,9 @@
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
-import { onDarkMode, onLightMode } from "../../store/ui/uiSlice";
+import { useUiStore } from "../../hooks";
 
 export const ThemeSwitcher: React.FC = () => {
-  const dispatch = useDispatch();
-  const { themeMode } = useSelector((state) => (state as RootState).ui);
-  const handleThemeMode = () => {
-    if (themeMode === "light") {
-      dispatch(onDarkMode());
-    } else {
-      dispatch(onLightMode());
-    }
-  };
+  const { themeMode, handleThemeMode } = useUiStore();
   return (
     <div
       className={`w-14 h-9 bg-light-400 opacity-75 flex ${

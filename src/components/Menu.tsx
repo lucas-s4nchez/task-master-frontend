@@ -1,13 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AiFillHome } from "react-icons/ai";
 import { HiUserGroup, HiUser } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
-import { RootState } from "../store/store";
-import { NavLink } from "react-router-dom";
 import { UserAvatar } from "../ui/components";
-import { onLogout } from "../store/auth/authSlice";
-import { onToggleMenu } from "../store/ui/uiSlice";
+import { useAuthStore, useUiStore } from "../hooks";
+
 const containerVariant = {
   hidden: { x: 300, opacity: 0 },
   show: {
@@ -43,9 +41,8 @@ const menuItems = [
   },
 ];
 export const Menu: React.FC = () => {
-  const dispatch = useDispatch();
-  const { email, username } = useSelector((state) => (state as RootState).auth);
-  const { isOpenMenu } = useSelector((state) => (state as RootState).ui);
+  const { email, username, handleLogout } = useAuthStore();
+  const { isOpenMenu, handleToggleMenu } = useUiStore();
 
   return (
     <>
@@ -74,7 +71,7 @@ export const Menu: React.FC = () => {
               <motion.li
                 key={item.name}
                 variants={itemVariant}
-                onClick={() => dispatch(onToggleMenu())}
+                onClick={handleToggleMenu}
               >
                 <NavLink
                   to={item.path}
@@ -93,12 +90,9 @@ export const Menu: React.FC = () => {
             <motion.div
               className="flex items-center gap-2  border rounded-lg text-dark-300 dark:text-light-100 hover:bg-light-300 dark:hover:bg-dark-400  transition-all duration-150"
               variants={itemVariant}
-              onClick={() => dispatch(onToggleMenu())}
+              onClick={handleToggleMenu}
             >
-              <button
-                className="w-full p-2"
-                onClick={() => dispatch(onLogout())}
-              >
+              <button className="w-full p-2" onClick={handleLogout}>
                 <span className="flex gap-2 items-center">
                   <MdLogout className="text-xl" /> Salir
                 </span>

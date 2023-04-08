@@ -1,21 +1,15 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Draggable } from "react-beautiful-dnd";
-import { motion, AnimatePresence } from "framer-motion";
 import { StrictModeDroppable as Droppable } from "./StrictModeDroppable";
 import { ITaskColumnProps } from "../interfaces/componentsProps";
-import { onSetActiveTask } from "../store/tasks/tasksSlice";
 import { Button } from "../ui/components";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { onToggleTask } from "../store/ui/uiSlice";
+import { useTasksStore, useUiStore } from "../hooks";
 
 export const TaskColumn: React.FC<ITaskColumnProps> = ({
   droppableId,
   taskList,
 }: ITaskColumnProps) => {
-  const dispatch = useDispatch();
-  const { activeTask } = useSelector((state) => (state as RootState).tasks);
+  const { activeTask, handleSetActiveTask } = useTasksStore();
+  const { handleToggleTask } = useUiStore();
 
   return (
     <Droppable droppableId={droppableId}>
@@ -37,7 +31,7 @@ export const TaskColumn: React.FC<ITaskColumnProps> = ({
                   } ${droppableId === "in progress" && "bg-blue-50"} ${
                     droppableId === "done" && "bg-green-50"
                   }`}
-                  onClick={() => dispatch(onSetActiveTask(task))}
+                  onClick={() => handleSetActiveTask(task)}
                 >
                   <span>{task.title}</span>
                   {activeTask?._id === task._id && (
@@ -45,7 +39,7 @@ export const TaskColumn: React.FC<ITaskColumnProps> = ({
                       <Button
                         size="small"
                         bgColor="red"
-                        onClick={() => dispatch(onToggleTask())}
+                        onClick={handleToggleTask}
                       >
                         ver más
                       </Button>

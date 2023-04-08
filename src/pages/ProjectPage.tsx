@@ -8,12 +8,11 @@ import { Button, Loader, UserAvatar } from "../ui/components";
 import { MdEdit } from "react-icons/md";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
 import { TaskContainer, TaskItem } from "../components";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { useUiStore } from "../hooks";
 
 export const ProjectPage: React.FC = () => {
   const { id } = useParams();
-  const { isOpenTask } = useSelector((state) => (state as RootState).ui);
+  const { isOpenTask } = useUiStore();
   const { data, isLoading, isError, error } = useGetProjectByIdQuery(id!);
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!);
 
@@ -73,6 +72,11 @@ export const ProjectPage: React.FC = () => {
           <div>
             <h3 className="text-sm font-semibold mb-2">Colaboradores:</h3>
             <div className="flex gap-2 flex-wrap max-w-full mt-2">
+              {!data?.project.collaborators.length && (
+                <span className="text-sm">
+                  Aún no hay colaboradores en este proyecto
+                </span>
+              )}
               {data?.project.collaborators.map((user) => {
                 if (user.role === "collaborator") {
                   return (
@@ -98,27 +102,23 @@ export const ProjectPage: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col gap-2 py-3 px-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
-        <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold mb-4">
+        <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold mb-2">
           Usuarios invitados:
         </h2>
-        <div className="flex flex-col gap-4">
-          <div>
-            <div className="flex gap-2 flex-wrap max-w-full">
-              {data?.project.invitations.map((user) => (
-                <div key={user._id} className="text-sm flex gap-1 items-center">
-                  <UserAvatar
-                    size="small"
-                    username={user.username}
-                    bgColor="red"
-                  />
-                  <div className="flex flex-col">
-                    <span>{user.username}</span>
-                    <span>{user.email}</span>
-                  </div>
-                </div>
-              ))}
+
+        <div className="flex gap-2 flex-wrap max-w-full">
+          {!data?.project.invitations.length && (
+            <span className="text-sm">Aún no invitaste ningún usuario</span>
+          )}
+          {data?.project.invitations.map((user) => (
+            <div key={user._id} className="text-sm flex gap-1 items-center">
+              <UserAvatar size="small" username={user.username} bgColor="red" />
+              <div className="flex flex-col">
+                <span>{user.username}</span>
+                <span>{user.email}</span>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

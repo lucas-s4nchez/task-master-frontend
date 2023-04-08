@@ -9,6 +9,7 @@ import { Alert, Button, Input } from "../ui/components";
 import { registerInitialValues, registerValidationSchema } from "../formik";
 import { onLogin, onLogout } from "../store/auth/authSlice";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
+import { useAuthStore } from "../hooks";
 
 const container = {
   hidden: { opacity: 0 },
@@ -26,22 +27,21 @@ const item = {
 };
 
 export const RegisterPage: React.FC = () => {
-  const dispatch = useDispatch();
   const [register, { data, isLoading, isSuccess, error }] =
     useRegisterMutation();
+  const { handleLogin, handleLogout } = useAuthStore();
+
   useEffect(() => {
     if (isSuccess && data) {
-      dispatch(
-        onLogin({
-          token: data.token,
-          username: data.username,
-          email: data.email,
-          uid: data.uid,
-        })
-      );
+      handleLogin({
+        token: data.token,
+        username: data.username,
+        email: data.email,
+        uid: data.uid,
+      });
     }
     if (error) {
-      dispatch(onLogout());
+      handleLogout();
     }
   }, [isSuccess, data, error]);
 

@@ -1,12 +1,11 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import { useGetProjectsWhereICollaborateQuery } from "../store/api/apiSlice";
 import { Loader } from "../ui/components";
 import { IProject } from "../interfaces/data";
 import { ProjectCard } from "../components";
+import { useAuthStore } from "../hooks";
 
 export const CollaborationInProjectsPage: React.FC = () => {
-  const { uid } = useSelector((state) => (state as RootState).auth);
+  const { uid } = useAuthStore();
   const { data, isLoading } = useGetProjectsWhereICollaborateQuery(uid ?? "", {
     refetchOnMountOrArgChange: true,
   });

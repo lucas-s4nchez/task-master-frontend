@@ -1,20 +1,14 @@
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { onToggleMenu } from "../store/ui/uiSlice";
-import { useDispatch } from "react-redux";
+import { useUiStore } from "../hooks";
 
 const transition = { duration: 0.3 };
 
 export const MenuToggle: React.FC = () => {
-  const dispatch = useDispatch();
-  const { isOpenMenu, themeMode } = useSelector(
-    (state) => (state as RootState).ui
-  );
+  const { isOpenMenu, themeMode, handleToggleMenu } = useUiStore();
   return (
     <button
       className="z-50 cursor-pointer p-2 rounded-full hover:bg-light-200 dark:hover:bg-dark-200 "
-      onClick={() => dispatch(onToggleMenu())}
+      onClick={handleToggleMenu}
     >
       <div className="flex items-center justify-center">
         <svg viewBox="0 0 20 20" width="23" height="23">
