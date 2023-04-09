@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 import { useFormik } from "formik";
 import { AuthLayout } from "../layout/AuthLayout";
-import { Input, Button, Alert } from "../ui/components";
+import { Input, Button } from "../ui/components";
 import { useLoginMutation } from "../store/api/apiSlice";
 import { loginInitialValues, loginValidationSchema } from "../formik";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
@@ -24,7 +25,8 @@ const item = {
   show: { opacity: 1 },
 };
 export const LoginPage: React.FC = () => {
-  const [login, { data, isLoading, isSuccess, error }] = useLoginMutation();
+  const [login, { data, isLoading, isSuccess, isError, error }] =
+    useLoginMutation();
   const { handleLogin, handleLogout } = useAuthStore();
 
   useEffect(() => {
@@ -36,10 +38,11 @@ export const LoginPage: React.FC = () => {
         uid: data.uid,
       });
     }
-    if (error) {
+    if (isError && error) {
+      toast.error((error as ICustomFetchBaseQueryError).data?.msg);
       handleLogout();
     }
-  }, [isSuccess, data, error]);
+  }, [isSuccess, data, isError, error]);
 
   const { handleChange, handleBlur, handleSubmit, values, errors, touched } =
     useFormik({
@@ -110,11 +113,6 @@ export const LoginPage: React.FC = () => {
           </div>
         </motion.form>
       </AuthLayout>
-      {error && (
-        <Alert variant="error">
-          {(error as ICustomFetchBaseQueryError).data?.msg}
-        </Alert>
-      )}
     </>
   );
 };

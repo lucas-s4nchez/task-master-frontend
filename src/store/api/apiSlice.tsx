@@ -100,14 +100,14 @@ export const authApi = createApi({
         url: `projects/${projectId}/invitations/${userId}/accept`,
         method: "PUT",
       }),
-      invalidatesTags: ["invitations"],
+      invalidatesTags: ["projects", "invitations"],
     }),
     rejectInvitation: builder.mutation<void, any>({
       query: ({ projectId, userId }) => ({
         url: `projects/${projectId}/invitations/${userId}/reject`,
         method: "PUT",
       }),
-      invalidatesTags: ["invitations"],
+      invalidatesTags: ["projects", "invitations"],
     }),
     getTasks: builder.query<{ ok: boolean; tasks: ITask[] }, string>({
       query: (projectId) => ({

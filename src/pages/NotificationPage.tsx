@@ -60,7 +60,7 @@ export const NotificationPage: React.FC = () => {
               bgColor="red"
               size="small"
               onClick={() => {
-                acceptInvitation({ projectId: invitation._id, userId: uid });
+                rejectInvitation({ projectId: invitation._id, userId: uid });
               }}
             >
               <div className="flex gap-1 items-center">
@@ -71,7 +71,7 @@ export const NotificationPage: React.FC = () => {
               bgColor="green"
               size="small"
               onClick={() => {
-                rejectInvitation({ projectId: invitation._id, userId: uid });
+                acceptInvitation({ projectId: invitation._id, userId: uid });
               }}
             >
               <div className="flex gap-1 items-center">

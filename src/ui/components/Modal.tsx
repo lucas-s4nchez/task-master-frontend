@@ -51,7 +51,7 @@ export const Modal: React.FC<IModalComponentProps> = ({
           >
             <div className="flex flex-col">
               <button
-                className={`self-end p-1 rounded-full hover:bg-light-300 dark:hover:bg-dark-300 text-dark-300 dark:text-light-100`}
+                className={`self-end p-1 rounded-full hover:bg-light-300 dark:hover:bg-dark-200 text-dark-300 dark:text-light-100`}
                 onClick={handleCloseModal}
               >
                 <MdClose />

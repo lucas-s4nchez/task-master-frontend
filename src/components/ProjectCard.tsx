@@ -32,30 +32,38 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
               Colaboradores del proyecto:
             </h6>
             <div className="flex flex-wrap gap-1 w-max">
-              {props.collaborators.map((collaborator, index) => {
-                return (
-                  index < 3 && (
-                    <div
-                      key={collaborator._id}
-                      className="cursor-pointer"
-                      title={`${collaborator.user.username} - ${collaborator.user.email}`}
-                    >
-                      <UserAvatar
-                        size="small"
-                        username={collaborator.user.username}
-                      />
-                    </div>
-                  )
-                );
-              })}
-              {props.collaborators.length > 3 && (
+              {props.collaborators
+                .filter((collaborator) => collaborator.role !== "admin")
+                .map((collaborator, index) => {
+                  return (
+                    index <= 2 && (
+                      <div
+                        key={collaborator._id}
+                        className="cursor-pointer"
+                        title={`${collaborator.user.username} - ${collaborator.user.email}`}
+                      >
+                        <UserAvatar
+                          size="small"
+                          username={collaborator.user.username}
+                        />
+                      </div>
+                    )
+                  );
+                })}
+              {props.collaborators.filter(
+                (collaborator) => collaborator.role !== "admin"
+              ).length > 3 && (
                 <div
                   className={`flex items-center justify-center bg-light-400 rounded-full w-8 h-8 text-xl`}
                 >
                   <span
                     className={`uppercase text-light-100 leading-[0rem] text-lg`}
                   >
-                    {`+${props.collaborators.length - 1}`}
+                    {`+${
+                      props.collaborators.filter(
+                        (collaborator) => collaborator.role !== "admin"
+                      ).length - 3
+                    }`}
                   </span>
                 </div>
               )}
@@ -68,7 +76,7 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
             <div className="flex flex-wrap gap-1">
               {props.invitations.map((invitation, index) => {
                 return (
-                  index < 3 && (
+                  index <= 2 && (
                     <div
                       key={invitation._id}
                       className="cursor-pointer"
@@ -86,7 +94,7 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
                   <span
                     className={`uppercase text-light-100 leading-[0rem] text-lg`}
                   >
-                    {`+${props.invitations.length - 1}`}
+                    {`+${props.invitations.length - 3}`}
                   </span>
                 </div>
               )}

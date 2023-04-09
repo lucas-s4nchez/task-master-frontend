@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import { AuthLayout } from "../layout/AuthLayout";
-import { useDispatch } from "react-redux";
 import { useRegisterMutation } from "../store/api/apiSlice";
-import { Alert, Button, Input } from "../ui/components";
+import { Button, Input } from "../ui/components";
 import { registerInitialValues, registerValidationSchema } from "../formik";
-import { onLogin, onLogout } from "../store/auth/authSlice";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
 import { useAuthStore } from "../hooks";
 
@@ -27,7 +26,7 @@ const item = {
 };
 
 export const RegisterPage: React.FC = () => {
-  const [register, { data, isLoading, isSuccess, error }] =
+  const [register, { data, isLoading, isSuccess, error, isError }] =
     useRegisterMutation();
   const { handleLogin, handleLogout } = useAuthStore();
 
@@ -40,10 +39,11 @@ export const RegisterPage: React.FC = () => {
         uid: data.uid,
       });
     }
-    if (error) {
+    if (isError && error) {
+      toast.error((error as ICustomFetchBaseQueryError).data?.msg);
       handleLogout();
     }
-  }, [isSuccess, data, error]);
+  }, [isSuccess, data, isError, error]);
 
   const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
     useFormik({
@@ -128,11 +128,6 @@ export const RegisterPage: React.FC = () => {
           </div>
         </motion.form>
       </AuthLayout>
-      {error && (
-        <Alert variant="error">
-          {(error as ICustomFetchBaseQueryError).data?.msg}
-        </Alert>
-      )}
     </>
   );
 };
