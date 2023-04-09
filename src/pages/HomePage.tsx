@@ -36,13 +36,13 @@ export const HomePage: React.FC = () => {
   }
 
   return (
-    <div className="">
+    <div className="flex flex-col gap-4">
       {noProjectExist && !isLoadingProjects ? (
         <div className="p-2 rounded-lg text-lg text-center text-dark-300 dark:text-light-100 ">
           Aún no formas parte de ningún proyecto, crea el tuyo!
         </div>
       ) : (
-        <h1 className="text-lg font-semibold text-dark-300 dark:text-light-100 ">
+        <h1 className="text-xl font-semibold text-dark-300 dark:text-light-100 ">
           Todos los proyectos
         </h1>
       )}

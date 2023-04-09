@@ -33,9 +33,11 @@ export const addProjectValidationSchema = Yup.object({
   title: Yup.string()
     .trim()
     .required("El título es obligatorio")
-    .min(5, "el título debe tener al menos 5 caracteres"),
+    .min(5, "el título debe tener al menos 5 caracteres")
+    .max(100, "el título no debe pasar de 100 caracteres"),
   description: Yup.string()
     .trim()
     .required("La descripción es obligatoria")
-    .min(10, "La descripción debe tener al menos 10 caracteres"),
+    .min(10, "La descripción debe tener al menos 10 caracteres")
+    .max(250, "La descripción no debe pasar de 250 caracteres"),
 });

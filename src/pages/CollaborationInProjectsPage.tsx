@@ -15,19 +15,19 @@ export const CollaborationInProjectsPage: React.FC = () => {
     </div>;
   }
   return (
-    <>
+    <div className="flex flex-col gap-4">
       {!data?.projects.length && !isLoading ? (
         <div className="p-2 rounded-lg text-lg text-center text-dark-300 dark:text-light-100 ">
           Aún no colaboras en ningún proyecto.
         </div>
       ) : (
-        <h1 className="text-lg font-semibold mb-4 text-dark-300 dark:text-light-100 ">
+        <h1 className="text-xl font-semibold text-dark-300 dark:text-light-100 ">
           Proyectos donde soy colaborador
         </h1>
       )}
       {data?.projects.map((project: IProject) => (
         <ProjectCard key={project._id} {...project} />
       ))}
-    </>
+    </div>
   );
 };
