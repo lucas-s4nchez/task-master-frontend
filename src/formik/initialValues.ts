@@ -1,5 +1,6 @@
 import {
   IAddCollaboratorInitialValues,
+  IAddProjectInitialValues,
   ILoginCredentials,
   IRegisterCredentials,
 } from "../interfaces/data";
@@ -17,4 +18,9 @@ export const registerInitialValues: IRegisterCredentials = {
 
 export const addCollaboratorInitialValues: IAddCollaboratorInitialValues = {
   email: "",
+};
+
+export const addProjectInitialValues: IAddProjectInitialValues = {
+  title: "",
+  description: "",
 };

@@ -25,6 +25,10 @@ export interface IRegisterCredentials {
 export interface IAddCollaboratorInitialValues {
   email: string;
 }
+export interface IAddProjectInitialValues {
+  title: string;
+  description: string;
+}
 export interface IUserProject {
   _id: string;
   username: string;

@@ -29,3 +29,13 @@ export const addCollaboratorValidationSchema = Yup.object({
     .required("El email es obligatorio")
     .matches(regEmail, "Email no válido"),
 });
+export const addProjectValidationSchema = Yup.object({
+  title: Yup.string()
+    .trim()
+    .required("El título es obligatorio")
+    .min(5, "el título debe tener al menos 5 caracteres"),
+  description: Yup.string()
+    .trim()
+    .required("La descripción es obligatoria")
+    .min(10, "La descripción debe tener al menos 10 caracteres"),
+});

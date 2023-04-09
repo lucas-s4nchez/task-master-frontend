@@ -6,9 +6,12 @@ import { IProject } from "../interfaces/data";
 import { AddProjectButton, ProjectCard } from "../components";
 import { Loader } from "../ui/components";
 import { useAuthStore } from "../hooks";
+import { useModal } from "../ui/hooks/useModal";
+import { AddProjectModal } from "../components/AddProjectModal";
 
 export const HomePage: React.FC = () => {
   const { uid } = useAuthStore();
+  const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
   const { data: myProjects, isLoading: isLoadingMyProjects } =
     useGetMyProjectsQuery(undefined, {
       refetchOnMountOrArgChange: true,
@@ -49,7 +52,11 @@ export const HomePage: React.FC = () => {
       {projectsWhereICollaborate?.projects.map((project: IProject) => (
         <ProjectCard key={project._id} {...project} />
       ))}
-      <AddProjectButton />
+      <AddProjectButton handleOpenModal={handleOpenModal} />
+      <AddProjectModal
+        isOpenModal={isOpenModal}
+        handleCloseModal={handleCloseModal}
+      />
     </div>
   );
 };

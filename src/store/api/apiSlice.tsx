@@ -78,6 +78,14 @@ export const authApi = createApi({
       }),
       providesTags: ["projects", "project"],
     }),
+    createProject: builder.mutation<any, any>({
+      query: ({ title, description }) => ({
+        url: `/projects`,
+        method: "POST",
+        body: { title, description },
+      }),
+      invalidatesTags: ["projects"],
+    }),
     getProjectsInvitations: builder.query<
       { ok: boolean; invitations: IInvitation[] },
       string
@@ -140,4 +148,5 @@ export const {
   useAcceptInvitationMutation,
   useRejectInvitationMutation,
   useSendProjectInvitationMutation,
+  useCreateProjectMutation,
 } = authApi;
