@@ -1,4 +1,8 @@
-import { ILoginCredentials, IRegisterCredentials } from "../interfaces/data";
+import {
+  IAddCollaboratorInitialValues,
+  ILoginCredentials,
+  IRegisterCredentials,
+} from "../interfaces/data";
 
 export const loginInitialValues: ILoginCredentials = {
   email: "",
@@ -9,4 +13,8 @@ export const registerInitialValues: IRegisterCredentials = {
   username: "",
   email: "",
   password: "",
+};
+
+export const addCollaboratorInitialValues: IAddCollaboratorInitialValues = {
+  email: "",
 };

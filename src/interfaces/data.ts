@@ -22,6 +22,9 @@ export interface IRegisterCredentials {
   password: string;
   username: string;
 }
+export interface IAddCollaboratorInitialValues {
+  email: string;
+}
 export interface IUserProject {
   _id: string;
   username: string;

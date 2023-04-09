@@ -5,3 +5,4 @@ export * from "./Logo";
 export * from "./Alert";
 export * from "./UserAvatar";
 export * from "./ThemeSwitcher";
+export * from "./Modal";

@@ -15,3 +15,8 @@ export interface ITaskContainerProps {
   tasks: ITask[];
   projectId: string;
 }
+export interface IAddCollaboratorModalProps {
+  projectId: string;
+  isOpenModal: boolean;
+  handleCloseModal: () => void;
+}

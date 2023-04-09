@@ -10,7 +10,7 @@ import { ICustomFetchBaseQueryError } from "../interfaces/data";
 import { TaskContainer, TaskItem } from "../components";
 import { useUiStore } from "../hooks";
 import { useModal } from "../ui/hooks/useModal";
-import { Modal } from "../ui/components/Modal";
+import { AddCollaboratorModal } from "../components/AddCollaboratorModal";
 
 export const ProjectPage: React.FC = () => {
   const { id } = useParams();
@@ -127,16 +127,11 @@ export const ProjectPage: React.FC = () => {
           ))}
         </div>
       </div>
-      <Modal
+      <AddCollaboratorModal
+        projectId={id!}
         isOpenModal={isOpenModal}
         handleCloseModal={handleCloseModal}
-        title="Hola mundo"
-      >
-        <h2>
-          Como estas? dsakjd asjdn kjas hhd ksja hdkjashk hkjdhaskjdhkjsa hdkj
-          shdkjsahdkjhas skjhdsakj dhsakjd hk{" "}
-        </h2>
-      </Modal>
+      />
     </div>
   );
 };

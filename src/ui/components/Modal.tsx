@@ -40,7 +40,7 @@ export const Modal: React.FC<IModalComponentProps> = ({
           variants={modalContainerVariant}
         >
           <motion.div
-            className="flex flex-col gap-2 rounded-md w-11/12 max-w-xl m-auto p-4 bg-light-100 dark:bg-dark-200 "
+            className="flex flex-col gap-2 rounded-md shadow-2xl w-11/12 max-w-xl m-auto p-4 bg-light-100 dark:bg-dark-300 "
             initial="hidden"
             animate="show"
             exit="hidden"
