@@ -26,12 +26,19 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <div className="flex flex-col gap-1">
             <h6 className="text-sm text-dark-300 dark:text-light-100">
               Colaboradores del proyecto:
             </h6>
             <div className="flex flex-wrap gap-1 w-max">
+              {!props.collaborators.filter(
+                (collaborator) => collaborator.role !== "admin"
+              ).length && (
+                <span className="text-sm text-gray-300">
+                  Sin colaboradores por el momento
+                </span>
+              )}
               {props.collaborators
                 .filter((collaborator) => collaborator.role !== "admin")
                 .map((collaborator, index) => {
@@ -74,6 +81,11 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
               Usuarios invitados:
             </h6>
             <div className="flex flex-wrap gap-1">
+              {!props.invitations.length && (
+                <span className="text-sm text-gray-300">
+                  Sin usuarios invitados por el momento
+                </span>
+              )}
               {props.invitations.map((invitation, index) => {
                 return (
                   index <= 2 && (
