@@ -31,3 +31,8 @@ export interface IDeleteProjectModalProps extends IAddProjectModalProps {
   projectId: string;
   projectTitle: string;
 }
+export interface IUpdateProjectModalProps extends IAddProjectModalProps {
+  projectId: string;
+  title: string;
+  description: string;
+}

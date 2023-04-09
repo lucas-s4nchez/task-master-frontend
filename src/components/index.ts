@@ -7,3 +7,7 @@ export * from "./StrictModeDroppable";
 export * from "./TaskColumn";
 export * from "./TaskContainer";
 export * from "./TaskItem";
+export * from "./AddCollaboratorModal";
+export * from "./AddProjectModal";
+export * from "./DeleteProjectModal";
+export * from "./UpdateProjectModal";

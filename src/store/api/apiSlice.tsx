@@ -91,7 +91,15 @@ export const authApi = createApi({
         url: `/projects/${projectId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["projects"],
+      invalidatesTags: ["projects", "project"],
+    }),
+    updateProject: builder.mutation<any, any>({
+      query: ({ projectId, title, description }) => ({
+        url: `/projects/${projectId}`,
+        method: "PUT",
+        body: { title, description },
+      }),
+      invalidatesTags: ["projects", "project"],
     }),
     getProjectsInvitations: builder.query<
       { ok: boolean; invitations: IInvitation[] },
@@ -166,4 +174,5 @@ export const {
   useCancelProjectInvitationMutation,
   useCreateProjectMutation,
   useDeleteProjectMutation,
+  useUpdateProjectMutation,
 } = authApi;

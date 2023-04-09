@@ -6,15 +6,19 @@ import {
 } from "../store/api/apiSlice";
 import { AnimatePresence } from "framer-motion";
 import { Button, Loader, UserAvatar } from "../ui/components";
-import { MdDelete, MdEdit } from "react-icons/md";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
-import { TaskContainer, TaskItem } from "../components";
+import {
+  TaskContainer,
+  TaskItem,
+  UpdateProjectModal,
+  DeleteProjectModal,
+  AddCollaboratorModal,
+} from "../components";
 import { useAuthStore, useUiStore } from "../hooks";
 import { useModal } from "../ui/hooks/useModal";
-import { AddCollaboratorModal } from "../components/AddCollaboratorModal";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { MdDelete, MdEdit } from "react-icons/md";
 import { FiUserX } from "react-icons/fi";
-import { DeleteProjectModal } from "../components/DeleteProjectModal";
 
 export const ProjectPage: React.FC = () => {
   const { id } = useParams();
@@ -71,9 +75,7 @@ export const ProjectPage: React.FC = () => {
               bgColor="primary"
               size="small"
               disabled={isLoading}
-              onClick={() => {
-                console.log("editar");
-              }}
+              onClick={handleOpenUpdateProjectModal}
             >
               <div className="flex gap-1 items-center justify-center">
                 editar <MdEdit className="text-sm" />
@@ -202,6 +204,13 @@ export const ProjectPage: React.FC = () => {
         projectTitle={data?.project.title!}
         isOpenModal={isOpenDeleteProjectModal}
         handleCloseModal={handleCloseDeleteProjectModal}
+      />
+      <UpdateProjectModal
+        projectId={id!}
+        title={data?.project.title!}
+        description={data?.project.description!}
+        isOpenModal={isOpenUpdateProjectModal}
+        handleCloseModal={handleCloseUpdateProjectModal}
       />
     </div>
   );
