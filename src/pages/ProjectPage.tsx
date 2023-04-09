@@ -9,10 +9,13 @@ import { MdEdit } from "react-icons/md";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
 import { TaskContainer, TaskItem } from "../components";
 import { useUiStore } from "../hooks";
+import { useModal } from "../ui/hooks/useModal";
+import { Modal } from "../ui/components/Modal";
 
 export const ProjectPage: React.FC = () => {
   const { id } = useParams();
   const { isOpenTask } = useUiStore();
+  const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
   const { data, isLoading, isError, error } = useGetProjectByIdQuery(id!);
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!);
 
@@ -60,7 +63,7 @@ export const ProjectPage: React.FC = () => {
                 <UserAvatar
                   size="small"
                   username={data?.project.creator.username!}
-                  bgColor="red"
+                  bgColor="primary"
                 />
                 <div className="flex flex-col">
                   <span>{data?.project.creator.username}</span>
@@ -99,9 +102,12 @@ export const ProjectPage: React.FC = () => {
               })}
             </div>
           </div>
+          <Button size="small" bgColor="green" onClick={handleOpenModal}>
+            añadir colaborador
+          </Button>
         </div>
       </div>
-      <div className="flex flex-col gap-2 py-3 px-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
+      <div className="flex flex-col py-3 px-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
         <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold mb-2">
           Usuarios invitados:
         </h2>
@@ -121,6 +127,16 @@ export const ProjectPage: React.FC = () => {
           ))}
         </div>
       </div>
+      <Modal
+        isOpenModal={isOpenModal}
+        handleCloseModal={handleCloseModal}
+        title="Hola mundo"
+      >
+        <h2>
+          Como estas? dsakjd asjdn kjas hhd ksja hdkjashk hkjdhaskjdhkjsa hdkj
+          shdkjsahdkjhas skjhdsakj dhsakjd hk{" "}
+        </h2>
+      </Modal>
     </div>
   );
 };

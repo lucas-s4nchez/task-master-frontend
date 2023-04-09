@@ -33,3 +33,9 @@ export interface IUserAvatarComponentProps {
   size: "small" | "medium" | "large";
   bgColor?: "red" | "primary" | "yellow" | "green" | "blue";
 }
+export interface IModalComponentProps {
+  isOpenModal: boolean;
+  handleCloseModal: () => void;
+  title?: string;
+  children: React.ReactNode;
+}

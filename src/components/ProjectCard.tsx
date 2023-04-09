@@ -99,15 +99,15 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
           Tareas del proyecto:
         </h6>
         <div className="flex flex-col sm:flex-row text-sm gap-1">
-          <span className="bg-yellow-50 p-1 rounded-md text-light-100 w-fit">
+          <span className="bg-yellow-50 p-1 rounded-md text-dark-300 w-fit">
             Por hacer:{" "}
             {props.tasks.filter((task) => task.status === "to do").length}
           </span>
-          <span className="bg-blue-50 p-1 rounded-md text-light-100 w-fit">
+          <span className="bg-blue-50 p-1 rounded-md text-dark-300 w-fit">
             En progreso:{" "}
             {props.tasks.filter((task) => task.status === "in progress").length}
           </span>
-          <span className="bg-green-50 p-1 rounded-md text-light-100 w-fit">
+          <span className="bg-green-50 p-1 rounded-md text-dark-300 w-fit">
             Completadas:{" "}
             {props.tasks.filter((task) => task.status === "done").length}
           </span>
