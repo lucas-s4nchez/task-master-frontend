@@ -1,22 +1,42 @@
 import { useParams } from "react-router-dom";
 import {
+  useCancelProjectInvitationMutation,
   useGetProjectByIdQuery,
   useGetTasksQuery,
 } from "../store/api/apiSlice";
 import { AnimatePresence } from "framer-motion";
 import { Button, Loader, UserAvatar } from "../ui/components";
-import { MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
 import { TaskContainer, TaskItem } from "../components";
-import { useUiStore } from "../hooks";
+import { useAuthStore, useUiStore } from "../hooks";
 import { useModal } from "../ui/hooks/useModal";
 import { AddCollaboratorModal } from "../components/AddCollaboratorModal";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { FiUserX } from "react-icons/fi";
+import { DeleteProjectModal } from "../components/DeleteProjectModal";
 
 export const ProjectPage: React.FC = () => {
   const { id } = useParams();
   const { isOpenTask } = useUiStore();
-  const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
+  const { uid } = useAuthStore();
+  const {
+    isOpenModal: isOpenAddCollaboratorModal,
+    handleOpenModal: handleOpenAddCollaboratorModal,
+    handleCloseModal: handleCloseAddCollaboratorModal,
+  } = useModal();
+  const {
+    isOpenModal: isOpenDeleteProjectModal,
+    handleOpenModal: handleOpenDeleteProjectModal,
+    handleCloseModal: handleCloseDeleteProjectModal,
+  } = useModal();
+  const {
+    isOpenModal: isOpenUpdateProjectModal,
+    handleOpenModal: handleOpenUpdateProjectModal,
+    handleCloseModal: handleCloseUpdateProjectModal,
+  } = useModal();
   const { data, isLoading, isError, error } = useGetProjectByIdQuery(id!);
+  const [cancelInvitation] = useCancelProjectInvitationMutation();
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!);
 
   if (isLoading || isLoadingTasks) {
@@ -29,29 +49,42 @@ export const ProjectPage: React.FC = () => {
   if (isError) {
     return <h1>{(error as ICustomFetchBaseQueryError).data?.msg}</h1>;
   }
+
   return (
     <div>
-      <div className="flex flex-col gap-2 py-3 px-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 mb-5">
+      <div className="flex flex-col gap-2 p-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 mb-5">
         <h1 className="text-3xl font-semibold">{data?.project.title}</h1>
         <h2>{data?.project.description}</h2>
-        <div className="self-end">
-          <Button
-            bgColor="primary"
-            size="small"
-            disabled={isLoading}
-            onClick={() => {
-              console.log("editar");
-            }}
-          >
-            <div className="flex gap-1 items-center justify-center">
-              editar <MdEdit className="text-sm" />
-            </div>
-          </Button>
-        </div>
+        {uid === data?.project.creator._id && (
+          <div className="flex self-end gap-2 mt-2">
+            <Button
+              bgColor="red"
+              size="small"
+              disabled={isLoading}
+              onClick={handleOpenDeleteProjectModal}
+            >
+              <div className="flex gap-1 items-center justify-center">
+                borrar <MdDelete className="text-sm" />
+              </div>
+            </Button>
+            <Button
+              bgColor="primary"
+              size="small"
+              disabled={isLoading}
+              onClick={() => {
+                console.log("editar");
+              }}
+            >
+              <div className="flex gap-1 items-center justify-center">
+                editar <MdEdit className="text-sm" />
+              </div>
+            </Button>
+          </div>
+        )}
       </div>
       <TaskContainer tasks={tasks?.tasks!} projectId={id!} />
       <AnimatePresence>{isOpenTask && <TaskItem />}</AnimatePresence>
-      <div className="flex flex-col gap-2 py-3 px-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
+      <div className="flex flex-col gap-2 p-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
         <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold mb-4">
           Miembros del proyecto:
         </h2>
@@ -75,8 +108,10 @@ export const ProjectPage: React.FC = () => {
           <div>
             <h3 className="text-sm font-semibold mb-2">Colaboradores:</h3>
             <div className="flex gap-2 flex-wrap max-w-full mt-2">
-              {!data?.project.collaborators.length && (
-                <span className="text-sm">
+              {!data?.project.collaborators.filter(
+                (collaborator) => collaborator.role !== "admin"
+              ).length && (
+                <span className="text-sm text-gray-300">
                   Aún no hay colaboradores en este proyecto
                 </span>
               )}
@@ -102,35 +137,71 @@ export const ProjectPage: React.FC = () => {
               })}
             </div>
           </div>
-          <Button size="small" bgColor="green" onClick={handleOpenModal}>
-            añadir colaborador
-          </Button>
+          {uid === data?.project.creator._id && (
+            <Button
+              size="medium"
+              bgColor="primary"
+              onClick={handleOpenAddCollaboratorModal}
+            >
+              <div className="flex gap-1 items-center">
+                añadir colaborador <AiOutlineUserAdd />
+              </div>
+            </Button>
+          )}
         </div>
       </div>
-      <div className="flex flex-col py-3 px-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
+      <div className="flex flex-col p-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
         <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold mb-2">
           Usuarios invitados:
         </h2>
 
-        <div className="flex gap-2 flex-wrap max-w-full">
+        <div className="flex gap-4 flex-wrap max-w-full">
           {!data?.project.invitations.length && (
             <span className="text-sm">Aún no invitaste ningún usuario</span>
           )}
           {data?.project.invitations.map((user) => (
-            <div key={user._id} className="text-sm flex gap-1 items-center">
-              <UserAvatar size="small" username={user.username} bgColor="red" />
-              <div className="flex flex-col">
-                <span>{user.username}</span>
-                <span>{user.email}</span>
+            <div key={user._id}>
+              <div className="text-sm flex gap-1 items-center">
+                <UserAvatar
+                  size="small"
+                  username={user.username}
+                  bgColor="red"
+                />
+                <div className="flex flex-col">
+                  <span>{user.username}</span>
+                  <span>{user.email}</span>
+                </div>
               </div>
+              {uid === data?.project.creator._id && (
+                <div className="mt-2">
+                  <Button
+                    size="small"
+                    bgColor="red"
+                    onClick={() =>
+                      cancelInvitation({ projectId: id, userId: user._id })
+                    }
+                  >
+                    <div className="flex gap-1 items-center">
+                      cancelar invitación
+                      <FiUserX />
+                    </div>
+                  </Button>
+                </div>
+              )}
             </div>
           ))}
         </div>
       </div>
       <AddCollaboratorModal
         projectId={id!}
-        isOpenModal={isOpenModal}
-        handleCloseModal={handleCloseModal}
+        isOpenModal={isOpenAddCollaboratorModal}
+        handleCloseModal={handleCloseAddCollaboratorModal}
+      />
+      <DeleteProjectModal
+        projectId={id!}
+        projectTitle={data?.project.title!}
+        isOpenModal={isOpenDeleteProjectModal}
+        handleCloseModal={handleCloseDeleteProjectModal}
       />
     </div>
   );

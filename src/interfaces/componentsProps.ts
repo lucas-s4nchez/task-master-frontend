@@ -27,3 +27,7 @@ export interface IAddProjectModalProps {
   isOpenModal: boolean;
   handleCloseModal: () => void;
 }
+export interface IDeleteProjectModalProps extends IAddProjectModalProps {
+  projectId: string;
+  projectTitle: string;
+}

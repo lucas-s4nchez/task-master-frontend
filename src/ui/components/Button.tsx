@@ -1,7 +1,7 @@
 import { IButtonComponentProps } from "../interfaces";
 
 const smallSize = `px-2 py-1 text-xs `;
-const mediumSize = `px-2 py-2 text-sm `;
+const mediumSize = `px-2 py-[0.40rem] text-sm `;
 const largeSize = `px-4 py-2 text-base`;
 const bgPrimary = "bg-primary-50 hover:bg-primary-100";
 const bgRed = "bg-red-50 hover:bg-red-100";
