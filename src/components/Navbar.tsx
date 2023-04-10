@@ -32,7 +32,11 @@ export const Navbar: React.FC = () => {
               to="/notifications"
               className="relative p-2 rounded-full hover:bg-light-200 dark:hover:bg-dark-200"
               title="Notificaciones"
-              onClick={handleToggleMenu}
+              onClick={() => {
+                if (isOpenMenu) {
+                  handleToggleMenu();
+                }
+              }}
             >
               {!!data?.invitations.length && (
                 <div className="w-5 h-5 flex justify-center items-center  absolute top-0 right-0 bg-red-50 text-light-100 leading-none rounded-full ">
