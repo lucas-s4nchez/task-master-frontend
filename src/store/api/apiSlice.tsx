@@ -88,6 +88,14 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["projects"],
     }),
+    updateProject: builder.mutation<any, any>({
+      query: ({ projectId, title, description }) => ({
+        url: `/projects/${projectId}`,
+        method: "PUT",
+        body: { title, description },
+      }),
+      invalidatesTags: ["projects", "project"],
+    }),
     deleteProject: builder.mutation<any, any>({
       query: (projectId) => ({
         url: `/projects/${projectId}`,
@@ -95,11 +103,10 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["projects", "project"],
     }),
-    updateProject: builder.mutation<any, any>({
-      query: ({ projectId, title, description }) => ({
-        url: `/projects/${projectId}`,
-        method: "PUT",
-        body: { title, description },
+    deleteProjectCollaborator: builder.mutation<any, any>({
+      query: ({ projectId, userId }) => ({
+        url: `projects/${projectId}/collaborators/${userId}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["projects", "project"],
     }),
@@ -179,4 +186,5 @@ export const {
   useCreateProjectMutation,
   useDeleteProjectMutation,
   useUpdateProjectMutation,
+  useDeleteProjectCollaboratorMutation,
 } = authApi;

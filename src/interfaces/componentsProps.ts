@@ -24,6 +24,11 @@ export interface IAddCollaboratorModalProps {
   isOpenModal: boolean;
   handleCloseModal: () => void;
 }
+export interface IDeleteCollaboratorModalProps
+  extends IAddCollaboratorModalProps {
+  userId: string;
+  email: string;
+}
 export interface IAddProjectModalProps {
   isOpenModal: boolean;
   handleCloseModal: () => void;

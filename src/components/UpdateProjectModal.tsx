@@ -65,6 +65,7 @@ export const UpdateProjectModal: React.FC<IUpdateProjectModalProps> = ({
         handleCloseModal();
         resetForm();
       }}
+      title={`Editando proyecto "${title}"`}
     >
       <form onSubmit={handleSubmit} onReset={handleReset}>
         <Input
