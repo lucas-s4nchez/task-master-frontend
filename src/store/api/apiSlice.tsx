@@ -29,6 +29,7 @@ export const authApi = createApi({
   tagTypes: ["projects", "project", "tasks", "invitations"],
 
   endpoints: (builder) => ({
+    //Auth
     login: builder.mutation<IUser, ILoginCredentials>({
       query: ({ email, password }) => ({
         url: "/auth/login",
@@ -57,6 +58,7 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
+    //Projects
     getMyProjects: builder.query<any, void>({
       query: () => ({
         url: "/projects",
@@ -101,6 +103,7 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["projects", "project"],
     }),
+    //Invitations
     getProjectsInvitations: builder.query<
       { ok: boolean; invitations: IInvitation[] },
       string
@@ -140,6 +143,7 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["projects", "invitations"],
     }),
+    //Tasks
     getTasks: builder.query<{ ok: boolean; tasks: ITask[] }, string>({
       query: (projectId) => ({
         url: `projects/${projectId}/tasks`,
@@ -147,13 +151,13 @@ export const authApi = createApi({
       }),
       providesTags: ["projects", "tasks"],
     }),
-    updateTasks: builder.mutation<void, any>({
+    updateTasks: builder.mutation<any, any>({
       query: ({ projectId, id, title, description, assignedTo, status }) => ({
         url: `projects/${projectId}/tasks/${id}`,
         method: "PUT",
         body: { title, description, assignedTo, status },
       }),
-      invalidatesTags: ["tasks"],
+      invalidatesTags: ["projects", "project", "tasks"],
     }),
   }),
 });

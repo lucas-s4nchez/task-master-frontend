@@ -1,16 +1,20 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { toast } from "sonner";
 import { TaskColumn } from "./TaskColumn";
 import { ITaskContainerProps } from "../interfaces/componentsProps";
 import { useEffect, useState } from "react";
 import { useUpdateTasksMutation } from "../store/api/apiSlice";
 import { Loader } from "../ui/components";
 import { ITask } from "../interfaces/data";
+import { useAuthStore } from "../hooks";
 
 export const TaskContainer: React.FC<ITaskContainerProps> = ({
   tasks,
   projectId,
+  projectCreatorId,
 }: ITaskContainerProps) => {
-  const [updateTask, { isLoading }] = useUpdateTasksMutation();
+  const { uid } = useAuthStore();
+  const [updateTask, { data, isLoading, isSuccess }] = useUpdateTasksMutation();
   const [toDoTasks, setToDoTasks] = useState<ITask[]>([]);
   const [inProgressTasks, setInProgressTasks] = useState<ITask[]>([]);
   const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
@@ -25,13 +29,34 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
     setInProgressTasks(inProgressTasks);
     setCompletedTasks(completedTasks);
   }, [tasks]);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(data?.msg);
+    }
+  }, [data, isSuccess]);
 
   const onDragEnd = async (result: DropResult) => {
     const { source, destination, draggableId } = result;
+    const currentTask = tasks.find((task) => task._id === draggableId);
+
     if (!destination) return;
     if (source.droppableId === destination.droppableId) return;
-    const currentTask = tasks.find((task) => task._id === draggableId);
     if (!currentTask) return;
+    const isTaskAuthor: boolean = currentTask.author._id === uid;
+    const isTaskAssignedUser: boolean = currentTask.assignedTo.some(
+      (user) => user._id === uid
+    );
+    const isProjectCreator: boolean = projectCreatorId === uid;
+
+    const userAuthorizedToUpdateTask: boolean =
+      isProjectCreator || isTaskAuthor || isTaskAssignedUser;
+    if (!userAuthorizedToUpdateTask) {
+      toast.error(
+        "No puedes realizar esta acción, no eres el autor o un usuario asignado de la tarea"
+      );
+      return;
+    }
+
     if (source.droppableId !== destination.droppableId) {
       if (destination.droppableId === "to do") {
         setToDoTasks((prev) => {

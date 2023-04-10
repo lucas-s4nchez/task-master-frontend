@@ -41,7 +41,10 @@ export const ProjectPage: React.FC = () => {
   } = useModal();
   const { data, isLoading, isError, error } = useGetProjectByIdQuery(id!);
   const [cancelInvitation] = useCancelProjectInvitationMutation();
-  const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!);
+  const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+  });
 
   if (isLoading || isLoadingTasks) {
     return (
@@ -84,7 +87,11 @@ export const ProjectPage: React.FC = () => {
           </div>
         )}
       </div>
-      <TaskContainer tasks={tasks?.tasks!} projectId={id!} />
+      <TaskContainer
+        tasks={tasks?.tasks!}
+        projectId={id!}
+        projectCreatorId={data?.project.creator._id!}
+      />
       <AnimatePresence>{isOpenTask && <TaskItem />}</AnimatePresence>
       <div className="flex flex-col gap-2 p-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
         <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold mb-4">

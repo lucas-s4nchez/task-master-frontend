@@ -14,6 +14,7 @@ export interface ITaskColumnProps {
 export interface ITaskContainerProps {
   tasks: ITask[];
   projectId: string;
+  projectCreatorId: string;
 }
 export interface IAddProjectButtonProps {
   handleOpenModal: () => void;
