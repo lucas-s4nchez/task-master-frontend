@@ -158,6 +158,14 @@ export const authApi = createApi({
       }),
       providesTags: ["projects", "tasks"],
     }),
+    createTask: builder.mutation<any, any>({
+      query: ({ projectId, title, description, assignedTo }) => ({
+        url: `projects/${projectId}/tasks`,
+        method: "POST",
+        body: { title, description, assignedTo },
+      }),
+      invalidatesTags: ["projects", "project", "tasks"],
+    }),
     updateTasks: builder.mutation<any, any>({
       query: ({ projectId, id, title, description, assignedTo, status }) => ({
         url: `projects/${projectId}/tasks/${id}`,
@@ -184,6 +192,7 @@ export const {
   useGetProjectsWhereICollaborateQuery,
   useGetProjectByIdQuery,
   useGetTasksQuery,
+  useCreateTaskMutation,
   useUpdateTasksMutation,
   useDeleteTaskMutation,
   useGetProjectsInvitationsQuery,

@@ -1,6 +1,7 @@
 import {
   IAddCollaboratorInitialValues,
   IAddProjectInitialValues,
+  IAddTaskInitialValues,
   ILoginCredentials,
   IRegisterCredentials,
 } from "../interfaces/data";
@@ -23,4 +24,10 @@ export const addCollaboratorInitialValues: IAddCollaboratorInitialValues = {
 export const addProjectInitialValues: IAddProjectInitialValues = {
   title: "",
   description: "",
+};
+
+export const addTaskInitialValue: IAddTaskInitialValues = {
+  title: "",
+  description: "",
+  assignedTo: [],
 };

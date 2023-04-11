@@ -4,16 +4,21 @@ import { TaskColumn } from "./TaskColumn";
 import { ITaskContainerProps } from "../interfaces/componentsProps";
 import { useEffect, useState } from "react";
 import { useUpdateTasksMutation } from "../store/api/apiSlice";
-import { Loader } from "../ui/components";
+import { Button, Loader } from "../ui/components";
 import { ITask } from "../interfaces/data";
 import { useAuthStore } from "../hooks";
+import { useModal } from "../ui/hooks/useModal";
+import { AddTaskModal } from "./AddTaskModal";
+import { IoMdAdd } from "react-icons/io";
 
 export const TaskContainer: React.FC<ITaskContainerProps> = ({
   tasks,
   projectId,
   projectCreatorId,
+  projectCollaborators,
 }: ITaskContainerProps) => {
   const { uid } = useAuthStore();
+  const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
   const [updateTask, { data, isLoading, isSuccess }] = useUpdateTasksMutation();
   const [toDoTasks, setToDoTasks] = useState<ITask[]>([]);
   const [inProgressTasks, setInProgressTasks] = useState<ITask[]>([]);
@@ -121,9 +126,16 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="bg-light-100 dark:bg-dark-300 p-4 rounded-md my-5">
-        <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold mb-4">
-          Tareas:
-        </h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold ">
+            Tareas:
+          </h2>
+          <Button size="small" bgColor="primary" onClick={handleOpenModal}>
+            <div className="flex gap-1 items-center">
+              Nueva tarea <IoMdAdd className="text-lg" />
+            </div>
+          </Button>
+        </div>
         <div className="h-[30rem] flex py-3 gap-4 justify-between overflow-auto  scrollbar-thin scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-thumb-primary-50 scrollbar-track-light-400">
           <div className="min-w-min bg-light-300 dark:bg-dark-400 rounded-md px-2 py-4 ">
             <h2 className="text-dark-100 dark:text-light-100 ">Pendientes:</h2>
@@ -139,6 +151,12 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
           </div>
         </div>
       </div>
+      <AddTaskModal
+        projectId={projectId}
+        isOpenModal={isOpenModal}
+        handleCloseModal={handleCloseModal}
+        projectCollaborators={projectCollaborators}
+      />
     </DragDropContext>
   );
 };

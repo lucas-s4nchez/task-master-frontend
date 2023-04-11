@@ -135,6 +135,7 @@ export const ProjectPage: React.FC = () => {
         tasks={tasks?.tasks!}
         projectId={id!}
         projectCreatorId={project?.project.creator._id!}
+        projectCollaborators={project?.project.collaborators!}
       />
       <AnimatePresence>{isOpenTask && <TaskItem />}</AnimatePresence>
       <div className="flex flex-col gap-2 p-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">

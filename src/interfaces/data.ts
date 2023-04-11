@@ -29,6 +29,11 @@ export interface IAddProjectInitialValues {
   title: string;
   description: string;
 }
+export interface IAddTaskInitialValues {
+  title: string;
+  description: string;
+  assignedTo: string[];
+}
 export interface IUserProject {
   _id: string;
   username: string;

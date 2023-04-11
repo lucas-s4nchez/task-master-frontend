@@ -1,4 +1,4 @@
-import { ITask } from "./data";
+import { ICollaborator, ITask } from "./data";
 
 export interface IAuthLayoutProps {
   children: React.ReactNode;
@@ -15,6 +15,7 @@ export interface ITaskContainerProps {
   tasks: ITask[];
   projectId: string;
   projectCreatorId: string;
+  projectCollaborators: ICollaborator[];
 }
 export interface IAddProjectButtonProps {
   handleOpenModal: () => void;
@@ -41,6 +42,12 @@ export interface IUpdateProjectModalProps extends IAddProjectModalProps {
   projectId: string;
   title: string;
   description: string;
+}
+export interface IAddTaskModalProps {
+  projectId: string;
+  projectCollaborators: ICollaborator[];
+  isOpenModal: boolean;
+  handleCloseModal: () => void;
 }
 export interface IUpdateTaskModalProps {
   projectId: string;
