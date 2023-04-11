@@ -42,3 +42,8 @@ export interface IUpdateProjectModalProps extends IAddProjectModalProps {
   title: string;
   description: string;
 }
+export interface IUpdateTaskModalProps {
+  projectId: string;
+  isOpenModal: boolean;
+  handleCloseModal: () => void;
+}

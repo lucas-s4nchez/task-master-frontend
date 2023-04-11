@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import { Button, UserAvatar } from "../ui/components";
 import { MdClose, MdDelete, MdEdit } from "react-icons/md";
 import { useTasksStore, useUiStore } from "../hooks";
+import { useModal } from "../ui/hooks/useModal";
+import { UpdateTaskModal } from "./UpdateTaskModal";
+import { useParams } from "react-router-dom";
 
 const taskContainerVariant = {
   hidden: { opacity: 0 },
@@ -24,8 +27,10 @@ const taskItemVariant = {
 };
 
 export const TaskItem: React.FC = () => {
+  const { id } = useParams();
   const { activeTask } = useTasksStore();
   const { handleToggleTask } = useUiStore();
+  const { isOpenModal, handleCloseModal, handleOpenModal } = useModal();
   return (
     <>
       <motion.div
@@ -102,7 +107,7 @@ export const TaskItem: React.FC = () => {
             </div>
           </div>
           <div className="flex justify-end gap-2 flex-wrap mt-4">
-            <Button size="small" bgColor="red">
+            <Button size="small" bgColor="red" onClick={handleOpenModal}>
               <div className="flex gap-1 items-center justify-center ">
                 editar <MdEdit className="text-sm" />
               </div>
@@ -114,6 +119,11 @@ export const TaskItem: React.FC = () => {
             </Button>
           </div>
         </motion.div>
+        <UpdateTaskModal
+          projectId={id!}
+          isOpenModal={isOpenModal}
+          handleCloseModal={handleCloseModal}
+        />
       </motion.div>
     </>
   );
