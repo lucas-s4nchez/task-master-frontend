@@ -5,6 +5,7 @@ import { useTasksStore, useUiStore } from "../hooks";
 import { useModal } from "../ui/hooks/useModal";
 import { UpdateTaskModal } from "./UpdateTaskModal";
 import { useParams } from "react-router-dom";
+import { DeleteTaskModal } from "./DeleteTaskModal";
 
 const taskContainerVariant = {
   hidden: { opacity: 0 },
@@ -30,7 +31,16 @@ export const TaskItem: React.FC = () => {
   const { id } = useParams();
   const { activeTask } = useTasksStore();
   const { handleToggleTask } = useUiStore();
-  const { isOpenModal, handleCloseModal, handleOpenModal } = useModal();
+  const {
+    isOpenModal: isOpenUpdateTaskModal,
+    handleCloseModal: handleCloseUpdateTaskModal,
+    handleOpenModal: handleOpenUpdateTaskModal,
+  } = useModal();
+  const {
+    isOpenModal: isOpenDeleteTaskModal,
+    handleCloseModal: handleCloseDeleteTaskModal,
+    handleOpenModal: handleOpenDeleteTaskModal,
+  } = useModal();
   return (
     <>
       <motion.div
@@ -107,12 +117,20 @@ export const TaskItem: React.FC = () => {
             </div>
           </div>
           <div className="flex justify-end gap-2 flex-wrap mt-4">
-            <Button size="small" bgColor="red" onClick={handleOpenModal}>
+            <Button
+              size="small"
+              bgColor="red"
+              onClick={handleOpenUpdateTaskModal}
+            >
               <div className="flex gap-1 items-center justify-center ">
                 editar <MdEdit className="text-sm" />
               </div>
             </Button>
-            <Button size="small" bgColor="red">
+            <Button
+              size="small"
+              bgColor="red"
+              onClick={handleOpenDeleteTaskModal}
+            >
               <div className="flex gap-1 items-center justify-center ">
                 borrar <MdDelete className="text-sm" />
               </div>
@@ -121,8 +139,14 @@ export const TaskItem: React.FC = () => {
         </motion.div>
         <UpdateTaskModal
           projectId={id!}
-          isOpenModal={isOpenModal}
-          handleCloseModal={handleCloseModal}
+          isOpenModal={isOpenUpdateTaskModal}
+          handleCloseModal={handleCloseUpdateTaskModal}
+        />
+        <DeleteTaskModal
+          projectId={id!}
+          isOpenModal={isOpenDeleteTaskModal}
+          handleCloseModal={handleCloseDeleteTaskModal}
+          handleToggleTask={handleToggleTask}
         />
       </motion.div>
     </>

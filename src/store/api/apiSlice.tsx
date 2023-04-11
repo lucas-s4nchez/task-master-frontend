@@ -166,6 +166,13 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["projects", "project", "tasks"],
     }),
+    deleteTask: builder.mutation<any, any>({
+      query: ({ projectId, id }) => ({
+        url: `projects/${projectId}/tasks/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["projects", "project", "tasks"],
+    }),
   }),
 });
 
@@ -178,6 +185,7 @@ export const {
   useGetProjectByIdQuery,
   useGetTasksQuery,
   useUpdateTasksMutation,
+  useDeleteTaskMutation,
   useGetProjectsInvitationsQuery,
   useAcceptInvitationMutation,
   useRejectInvitationMutation,

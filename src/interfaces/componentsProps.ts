@@ -47,3 +47,6 @@ export interface IUpdateTaskModalProps {
   isOpenModal: boolean;
   handleCloseModal: () => void;
 }
+export interface IDeleteTaskModalProps extends IUpdateTaskModalProps {
+  handleToggleTask: () => void;
+}
