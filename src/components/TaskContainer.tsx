@@ -15,7 +15,6 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
   tasks,
   projectId,
   projectCreatorId,
-  projectCollaborators,
 }: ITaskContainerProps) => {
   const { uid } = useAuthStore();
   const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
@@ -155,7 +154,6 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
         projectId={projectId}
         isOpenModal={isOpenModal}
         handleCloseModal={handleCloseModal}
-        projectCollaborators={projectCollaborators}
       />
     </DragDropContext>
   );

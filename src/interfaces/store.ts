@@ -1,4 +1,4 @@
-import { ITask } from "./data";
+import { IProject, ITask } from "./data";
 
 export interface IUiSliceInitialState {
   themeMode: string;
@@ -14,6 +14,9 @@ export interface IAuthSliceInitialState {
 }
 export interface ITasksInitialState {
   activeTask: ITask | null;
+}
+export interface IProjectsSliceInitialState {
+  activeProject: IProject | null;
 }
 export interface ILoginPayload {
   token: string;

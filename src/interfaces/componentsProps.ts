@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { ICollaborator, ITask } from "./data";
 
 export interface IAuthLayoutProps {
@@ -15,7 +16,6 @@ export interface ITaskContainerProps {
   tasks: ITask[];
   projectId: string;
   projectCreatorId: string;
-  projectCollaborators: ICollaborator[];
 }
 export interface IAddProjectButtonProps {
   handleOpenModal: () => void;
@@ -45,7 +45,6 @@ export interface IUpdateProjectModalProps extends IAddProjectModalProps {
 }
 export interface IAddTaskModalProps {
   projectId: string;
-  projectCollaborators: ICollaborator[];
   isOpenModal: boolean;
   handleCloseModal: () => void;
 }
@@ -56,4 +55,10 @@ export interface IUpdateTaskModalProps {
 }
 export interface IDeleteTaskModalProps extends IUpdateTaskModalProps {
   handleToggleTask: () => void;
+}
+export interface ICollaboratorsDropdownMenu {
+  value: string[];
+  handleChange: (eventOrPath: string | ChangeEvent<any>) => void;
+  isError: boolean | undefined;
+  errorMessage: string[] | string | undefined;
 }

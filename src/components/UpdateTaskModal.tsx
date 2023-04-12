@@ -5,8 +5,9 @@ import { useUpdateTasksMutation } from "../store/api/apiSlice";
 import { ICustomFetchBaseQueryError } from "../interfaces/data";
 import { IUpdateTaskModalProps } from "../interfaces/componentsProps";
 import { useFormik } from "formik";
-import { addProjectValidationSchema } from "../formik";
-import { useTasksStore } from "../hooks";
+import { addTaskValidationSchema } from "../formik";
+import { useProjectsStore, useTasksStore } from "../hooks";
+import { CollaboratorsDropdownMenu } from "./CollaboratorsDropdownMenu";
 
 export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
   projectId,
@@ -14,9 +15,10 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
   handleCloseModal,
 }: IUpdateTaskModalProps) => {
   const { activeTask, handleSetActiveTask } = useTasksStore();
+  const { activeProject } = useProjectsStore();
   const [updateTask, { data, isLoading, isSuccess, isError, error }] =
     useUpdateTasksMutation();
-  const [isProjectModified, setIsProjectModified] = useState(false);
+  const [isTaskModified, setIsTaskModified] = useState(false);
 
   const {
     values,
@@ -28,20 +30,34 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
     resetForm,
     handleReset,
   } = useFormik({
-    initialValues: { ...activeTask },
-    validationSchema: addProjectValidationSchema,
+    initialValues: {
+      title: activeTask?.title,
+      description: activeTask?.description,
+      assignedTo: activeTask?.assignedTo.map((user) => user._id)!,
+    },
+    validationSchema: addTaskValidationSchema,
     onSubmit: async (values) => {
+      const usersAssigned = values.assignedTo
+        .map((value) =>
+          activeProject?.collaborators.find(
+            (collaborator) => collaborator.user._id === value
+          )
+        )
+        .map((collaboartor) => collaboartor?.user!);
+
       await updateTask({
         projectId: projectId,
         id: activeTask?._id,
         title: values.title,
         description: values.description,
-        assignedTo: activeTask?.assignedTo.map((user) => user._id),
+        assignedTo: values.assignedTo,
       });
+
       handleSetActiveTask({
         ...activeTask!,
         title: values.title!,
         description: values.description!,
+        assignedTo: usersAssigned,
       });
     },
   });
@@ -58,9 +74,11 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
   }, [data, isSuccess, isError, error]);
 
   useEffect(() => {
-    setIsProjectModified(
+    setIsTaskModified(
       activeTask?.title.trim() !== values.title!.trim() ||
-        activeTask?.description.trim() !== values.description!.trim()
+        activeTask?.description.trim() !== values.description!.trim() ||
+        JSON.stringify(activeTask.assignedTo.map((user) => user._id)) !==
+          JSON.stringify(values.assignedTo!)
     );
   }, [values, activeTask]);
 
@@ -98,6 +116,12 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
           isError={touched.description && !!errors.description}
           errorMessage={errors.description}
         />
+        <CollaboratorsDropdownMenu
+          value={values.assignedTo}
+          handleChange={handleChange}
+          isError={touched.assignedTo && !!errors.assignedTo}
+          errorMessage={errors.assignedTo}
+        />
         <div className="flex mt-8 mb-4 justify-end">
           <div className="flex flex-col gap-2 w-full  sm:w-2/3 sm:flex-row">
             <Button
@@ -115,7 +139,7 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
               bgColor="primary"
               type="submit"
               fullWidth
-              disabled={isLoading || !isProjectModified}
+              disabled={isLoading || !isTaskModified}
             >
               Guardar
             </Button>

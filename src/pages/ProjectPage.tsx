@@ -15,7 +15,7 @@ import {
   DeleteProjectModal,
   AddCollaboratorModal,
 } from "../components";
-import { useAuthStore, useUiStore } from "../hooks";
+import { useAuthStore, useProjectsStore, useUiStore } from "../hooks";
 import { useModal } from "../ui/hooks/useModal";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { MdDelete, MdEdit } from "react-icons/md";
@@ -27,6 +27,8 @@ export const ProjectPage: React.FC = () => {
   const { id } = useParams();
   const { isOpenTask } = useUiStore();
   const { uid } = useAuthStore();
+  const { handleSetActiveProject, handleClearActiveProject } =
+    useProjectsStore();
   const {
     isOpenModal: isOpenAddCollaboratorModal,
     handleOpenModal: handleOpenAddCollaboratorModal,
@@ -90,6 +92,15 @@ export const ProjectPage: React.FC = () => {
     cancelInvitationIsError,
   ]);
 
+  useEffect(() => {
+    if (project?.project) {
+      handleSetActiveProject(project?.project!);
+    }
+    return () => {
+      handleClearActiveProject();
+    };
+  }, [project]);
+
   if (isLoadingProject || isLoadingTasks) {
     return (
       <div className="w-screen h-screen flex justify-center items-center">
@@ -135,7 +146,6 @@ export const ProjectPage: React.FC = () => {
         tasks={tasks?.tasks!}
         projectId={id!}
         projectCreatorId={project?.project.creator._id!}
-        projectCollaborators={project?.project.collaborators!}
       />
       <AnimatePresence>{isOpenTask && <TaskItem />}</AnimatePresence>
       <div className="flex flex-col gap-2 p-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 my-5">
