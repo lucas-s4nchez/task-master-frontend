@@ -10,6 +10,9 @@ import { useModal } from "../../ui/hooks/useModal";
 import { AddTaskModal } from "./AddTaskModal";
 import { IoMdAdd } from "react-icons/io";
 import { useUpdateTasksMutation } from "../services/tasksApi";
+import { handleTaskListUpdate } from "../utils/handleTaskListUpdate";
+import { checkUserAuthorizationToUpdateTask } from "../utils/checkUserAuthorization";
+import { useTasks } from "../hooks/useTasks";
 
 export const TaskContainer: React.FC<ITaskContainerProps> = ({
   tasks,
@@ -19,20 +22,15 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
   const { uid } = useAuthStore();
   const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
   const [updateTask, { data, isLoading, isSuccess }] = useUpdateTasksMutation();
-  const [toDoTasks, setToDoTasks] = useState<ITask[]>([]);
-  const [inProgressTasks, setInProgressTasks] = useState<ITask[]>([]);
-  const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
+  const {
+    toDoTasks,
+    inProgressTasks,
+    completedTasks,
+    setToDoTasks,
+    setInProgressTasks,
+    setCompletedTasks,
+  } = useTasks(tasks);
 
-  useEffect(() => {
-    const toDoTasks = tasks.filter((task) => task.status === "to do");
-    const inProgressTasks = tasks.filter(
-      (task) => task.status === "in progress"
-    );
-    const completedTasks = tasks.filter((task) => task.status === "done");
-    setToDoTasks(toDoTasks);
-    setInProgressTasks(inProgressTasks);
-    setCompletedTasks(completedTasks);
-  }, [tasks]);
   useEffect(() => {
     if (isSuccess) {
       toast.success(data?.msg);
@@ -46,71 +44,34 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
     if (!destination) return;
     if (source.droppableId === destination.droppableId) return;
     if (!currentTask) return;
-    const isTaskAuthor: boolean = currentTask.author._id === uid;
-    const isTaskAssignedUser: boolean = currentTask.assignedTo.some(
-      (user) => user._id === uid
-    );
-    const isProjectCreator: boolean = projectCreatorId === uid;
-
-    const userAuthorizedToUpdateTask: boolean =
-      isProjectCreator || isTaskAuthor || isTaskAssignedUser;
-    if (!userAuthorizedToUpdateTask) {
-      toast.error(
-        "No puedes realizar esta acción, no eres el autor o un usuario asignado de la tarea"
-      );
+    if (
+      !checkUserAuthorizationToUpdateTask({
+        currentTask,
+        uid: uid!,
+        projectCreatorId: projectCreatorId,
+      })
+    )
       return;
-    }
 
     if (source.droppableId !== destination.droppableId) {
-      if (destination.droppableId === "to do") {
-        setToDoTasks((prev) => {
-          prev.splice(destination.index, 0, currentTask);
-          return prev;
-        });
-        source.droppableId === "in progress"
-          ? setInProgressTasks((prev) => {
-              return prev.filter((task) => task._id !== currentTask._id);
-            })
-          : setCompletedTasks((prev) => {
-              return prev.filter((task) => task._id !== currentTask._id);
-            });
-      }
-      if (destination.droppableId === "in progress") {
-        setInProgressTasks((prev) => {
-          prev.splice(destination.index, 0, currentTask);
-          return prev;
-        });
-        source.droppableId === "to do"
-          ? setToDoTasks((prev) => {
-              return prev.filter((task) => task._id !== currentTask._id);
-            })
-          : setCompletedTasks((prev) => {
-              return prev.filter((task) => task._id !== currentTask._id);
-            });
-      }
-      if (destination.droppableId === "done") {
-        setCompletedTasks((prev) => {
-          prev.splice(destination.index, 0, currentTask);
-          return prev;
-        });
-        source.droppableId === "to do"
-          ? setToDoTasks((prev) => {
-              return prev.filter((task) => task._id !== currentTask._id);
-            })
-          : setInProgressTasks((prev) => {
-              return prev.filter((task) => task._id !== currentTask._id);
-            });
-      }
-      const updateTaskBody = {
+      handleTaskListUpdate({
+        currentTask,
+        setToDoTasks,
+        setInProgressTasks,
+        setCompletedTasks,
+        sourceDroppableId: source.droppableId,
+        destinationDroppableId: destination.droppableId,
+        destinationIndex: destination.index,
+      });
+
+      await updateTask({
         projectId,
         id: draggableId,
         title: currentTask?.title,
         description: currentTask?.description,
         assignedTo: currentTask?.assignedTo.map((user) => user._id),
         status: destination.droppableId,
-      };
-
-      await updateTask({ ...updateTaskBody });
+      });
     }
   };
 

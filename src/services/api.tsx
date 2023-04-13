@@ -18,7 +18,7 @@ export const emptyApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["projects", "project", "tasks", "invitations"],
+  tagTypes: ["projects", "project", "tasks", "invitations", "task"],
 
   endpoints: (builder) => ({}),
 });

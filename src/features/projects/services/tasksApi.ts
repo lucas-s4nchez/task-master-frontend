@@ -15,7 +15,7 @@ const tasksApi = emptyApi.injectEndpoints({
         url: `projects/${projectId}/tasks/${taskId}`,
         method: "GET",
       }),
-      providesTags: ["projects", "tasks"],
+      providesTags: ["projects", "tasks", "task"],
     }),
     createTask: builder.mutation<any, any>({
       query: ({ projectId, title, description, assignedTo }) => ({
@@ -31,14 +31,14 @@ const tasksApi = emptyApi.injectEndpoints({
         method: "PUT",
         body: { title, description, assignedTo, status },
       }),
-      invalidatesTags: ["projects", "project", "tasks"],
+      invalidatesTags: ["projects", "project", "tasks", "task"],
     }),
     deleteTask: builder.mutation<any, any>({
       query: ({ projectId, id }) => ({
         url: `projects/${projectId}/tasks/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["projects", "project", "tasks"],
+      invalidatesTags: ["projects", "project", "tasks", "task"],
     }),
   }),
 });

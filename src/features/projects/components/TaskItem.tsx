@@ -6,6 +6,7 @@ import { useModal } from "../../ui/hooks/useModal";
 import { UpdateTaskModal } from "./UpdateTaskModal";
 import { useParams } from "react-router-dom";
 import { DeleteTaskModal } from "./DeleteTaskModal";
+import { useGetTaskByIdQuery } from "../services/tasksApi";
 
 const taskContainerVariant = {
   hidden: { opacity: 0 },
@@ -31,6 +32,11 @@ export const TaskItem: React.FC = () => {
   const { id } = useParams();
   const { activeTask } = useTasksStore();
   const { handleToggleTask } = useUiStore();
+  const { data, isLoading, isError, error } = useGetTaskByIdQuery({
+    projectId: id,
+    taskId: activeTask?._id,
+  });
+
   const {
     isOpenModal: isOpenUpdateTaskModal,
     handleCloseModal: handleCloseUpdateTaskModal,
@@ -41,6 +47,11 @@ export const TaskItem: React.FC = () => {
     handleCloseModal: handleCloseDeleteTaskModal,
     handleOpenModal: handleOpenDeleteTaskModal,
   } = useModal();
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
       <motion.div
@@ -53,9 +64,9 @@ export const TaskItem: React.FC = () => {
       >
         <motion.div
           className={`p-4 flex flex-col gap-2 rounded-md w-11/12 max-w-lg m-auto  ${
-            activeTask?.status === "to do" && "bg-yellow-50"
-          } ${activeTask?.status === "in progress" && "bg-blue-50"} ${
-            activeTask?.status === "done" && "bg-green-50"
+            data?.task?.status === "to do" && "bg-yellow-50"
+          } ${data?.task?.status === "in progress" && "bg-blue-50"} ${
+            data?.task?.status === "done" && "bg-green-50"
           }`}
           initial="hidden"
           animate="show"
@@ -67,20 +78,20 @@ export const TaskItem: React.FC = () => {
         >
           <button
             className={`self-end p-1 rounded-full 
-            hover:${activeTask?.status === "to do" && "bg-yellow-100"} 
-            hover:${activeTask?.status === "in progress" && "bg-blue-100"} 
-            hover:${activeTask?.status === "done" && "bg-green-100"}`}
+            hover:${data?.task.status === "to do" && "bg-yellow-100"} 
+            hover:${data?.task.status === "in progress" && "bg-blue-100"} 
+            hover:${data?.task.status === "done" && "bg-green-100"}`}
             onClick={handleToggleTask}
           >
             <MdClose />
           </button>
           <div>
             <h3 className="font-semibold">Título:</h3>
-            <span>{activeTask?.title}</span>
+            <span>{data?.task.title}</span>
           </div>
           <div>
             <h3 className="font-semibold">Descripción:</h3>
-            <span>{activeTask?.description}</span>
+            <span>{data?.task.description}</span>
           </div>
           <div>
             <h3 className="font-semibold">Autor:</h3>
@@ -88,12 +99,12 @@ export const TaskItem: React.FC = () => {
               <div className="text-sm flex gap-1 items-center">
                 <UserAvatar
                   size="small"
-                  username={activeTask?.author.username!}
+                  username={data?.task.author.username!}
                   bgColor="red"
                 />
                 <div className="flex flex-col">
-                  <span>{activeTask?.author.username}</span>
-                  <span>{activeTask?.author.email}</span>
+                  <span>{data?.task.author.username}</span>
+                  <span>{data?.task.author.email}</span>
                 </div>
               </div>
             </div>
@@ -101,7 +112,7 @@ export const TaskItem: React.FC = () => {
           <div>
             <h3 className="font-semibold">Tarea asignada a:</h3>
             <div className="flex gap-2 flex-wrap max-w-full mt-2">
-              {activeTask?.assignedTo.map((user) => (
+              {data?.task.assignedTo.map((user) => (
                 <div key={user._id} className="text-sm flex gap-1 items-center">
                   <UserAvatar
                     size="small"
@@ -138,12 +149,11 @@ export const TaskItem: React.FC = () => {
           </div>
         </motion.div>
         <UpdateTaskModal
-          projectId={id!}
+          task={data?.task!}
           isOpenModal={isOpenUpdateTaskModal}
           handleCloseModal={handleCloseUpdateTaskModal}
         />
         <DeleteTaskModal
-          projectId={id!}
           isOpenModal={isOpenDeleteTaskModal}
           handleCloseModal={handleCloseDeleteTaskModal}
           handleToggleTask={handleToggleTask}

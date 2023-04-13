@@ -39,3 +39,7 @@ export interface IModalComponentProps {
   title?: string;
   children: React.ReactNode;
 }
+export interface IFloatingActionButtonProps {
+  children: React.ReactNode;
+  handleOpenModal: () => void;
+}

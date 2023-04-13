@@ -17,9 +17,6 @@ export interface ITaskContainerProps {
   projectId: string;
   projectCreatorId: string;
 }
-export interface IAddProjectButtonProps {
-  handleOpenModal: () => void;
-}
 export interface IAddCollaboratorModalProps {
   projectId: string;
   isOpenModal: boolean;
@@ -49,11 +46,13 @@ export interface IAddTaskModalProps {
   handleCloseModal: () => void;
 }
 export interface IUpdateTaskModalProps {
-  projectId: string;
+  task: ITask;
   isOpenModal: boolean;
   handleCloseModal: () => void;
 }
-export interface IDeleteTaskModalProps extends IUpdateTaskModalProps {
+export interface IDeleteTaskModalProps {
+  isOpenModal: boolean;
+  handleCloseModal: () => void;
   handleToggleTask: () => void;
 }
 export interface ICollaboratorsDropdownMenu {

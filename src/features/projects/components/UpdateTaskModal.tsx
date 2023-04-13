@@ -10,7 +10,7 @@ import { CollaboratorsDropdownMenu } from "./CollaboratorsDropdownMenu";
 import { useUpdateTasksMutation } from "../services/tasksApi";
 
 export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
-  projectId,
+  task,
   isOpenModal,
   handleCloseModal,
 }: IUpdateTaskModalProps) => {
@@ -31,9 +31,9 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
     handleReset,
   } = useFormik({
     initialValues: {
-      title: activeTask?.title,
-      description: activeTask?.description,
-      assignedTo: activeTask?.assignedTo.map((user) => user._id)!,
+      title: task?.title,
+      description: task?.description,
+      assignedTo: task?.assignedTo.map((user) => user._id)!,
     },
     validationSchema: addTaskValidationSchema,
     onSubmit: async (values) => {
@@ -46,8 +46,8 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
         .map((collaboartor) => collaboartor?.user!);
 
       await updateTask({
-        projectId: projectId,
-        id: activeTask?._id,
+        projectId: activeProject?._id,
+        id: task?._id,
         title: values.title,
         description: values.description,
         assignedTo: values.assignedTo,
@@ -75,12 +75,12 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
 
   useEffect(() => {
     setIsTaskModified(
-      activeTask?.title.trim() !== values.title!.trim() ||
-        activeTask?.description.trim() !== values.description!.trim() ||
-        JSON.stringify(activeTask.assignedTo.map((user) => user._id)) !==
+      task?.title.trim() !== values.title!.trim() ||
+        task?.description.trim() !== values.description!.trim() ||
+        JSON.stringify(task.assignedTo.map((user) => user._id)) !==
           JSON.stringify(values.assignedTo!)
     );
-  }, [values, activeTask]);
+  }, [values, task]);
 
   return (
     <Modal
@@ -89,7 +89,7 @@ export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
         handleCloseModal();
         resetForm();
       }}
-      title={`Editando la tarea "${activeTask?.title}"`}
+      title={`Editando la tarea "${task?.title}"`}
     >
       <form onSubmit={handleSubmit} onReset={handleReset}>
         <Input

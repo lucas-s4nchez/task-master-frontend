@@ -12,6 +12,8 @@ import { NotificationPage } from "../features/projects/pages/NotificationPage";
 import { useAuthStore, useUiStore } from "../hooks";
 import { useRefeshTokenQuery } from "../features/authentication/services/authenticationApi";
 import { ProjectsLayout } from "../features/projects/layout/ProjectsLayout";
+import { ProjectInfo } from "../features/projects/pages/ProjectInfo";
+import { ProjectTasks } from "../features/projects/pages/ProjectTasks";
 
 export const AppRoutes: React.FC = () => {
   const { data, isLoading, isSuccess, error } = useRefeshTokenQuery();
@@ -96,13 +98,16 @@ export const AppRoutes: React.FC = () => {
             }
           />
           <Route
-            path="/projects/:id"
+            path="/projects/:id/*"
             element={
               <ProjectsLayout>
                 <ProjectPage />
               </ProjectsLayout>
             }
-          />
+          >
+            <Route path="" element={<ProjectInfo />} />
+            <Route path="tasks" element={<ProjectTasks />} />
+          </Route>
           <Route path="/*" element={<Navigate to={"/"} />} />
         </>
       )}

@@ -8,6 +8,8 @@ import {
   useGetMyProjectsQuery,
   useGetProjectsWhereICollaborateQuery,
 } from "../services/projectsApi";
+import { FloatingActionButton } from "../../ui/components/FloatingActionButton";
+import { IoMdAdd } from "react-icons/io";
 
 export const HomePage: React.FC = () => {
   const { uid } = useAuthStore();
@@ -52,7 +54,9 @@ export const HomePage: React.FC = () => {
       {projectsWhereICollaborate?.projects.map((project: IProject) => (
         <ProjectCard key={project._id} {...project} />
       ))}
-      <AddProjectButton handleOpenModal={handleOpenModal} />
+      <FloatingActionButton handleOpenModal={handleOpenModal}>
+        <IoMdAdd className="text-2xl text-light-100" />
+      </FloatingActionButton>
       <AddProjectModal
         isOpenModal={isOpenModal}
         handleCloseModal={handleCloseModal}

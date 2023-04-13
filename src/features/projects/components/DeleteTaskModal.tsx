@@ -3,16 +3,16 @@ import { toast } from "sonner";
 import { Button, Modal } from "../../ui/components";
 import { ICustomFetchBaseQueryError } from "../../../models/data";
 import { IDeleteTaskModalProps } from "../../../models/componentsProps";
-import { useTasksStore } from "../../../hooks";
+import { useProjectsStore, useTasksStore } from "../../../hooks";
 import { useDeleteTaskMutation } from "../services/tasksApi";
 
 export const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
-  projectId,
   isOpenModal,
   handleCloseModal,
   handleToggleTask,
 }: IDeleteTaskModalProps) => {
   const { activeTask } = useTasksStore();
+  const { activeProject } = useProjectsStore();
   const [deleteTask, { data, isLoading, isSuccess, isError, error }] =
     useDeleteTaskMutation();
 
@@ -48,7 +48,7 @@ export const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
             bgColor="red"
             disabled={isLoading}
             onClick={() =>
-              deleteTask({ projectId: projectId, id: activeTask?._id })
+              deleteTask({ projectId: activeProject?._id, id: activeTask?._id })
             }
           >
             Eliminar
