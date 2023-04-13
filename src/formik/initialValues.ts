@@ -4,7 +4,7 @@ import {
   IAddTaskInitialValues,
   ILoginCredentials,
   IRegisterCredentials,
-} from "../interfaces/data";
+} from "../models/data";
 
 export const loginInitialValues: ILoginCredentials = {
   email: "",

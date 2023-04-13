@@ -3,7 +3,7 @@ import {
   onLightMode,
   onToggleMenu,
   onToggleTask,
-} from "../store/ui/uiSlice";
+} from "../features/ui/context/uiSlice";
 import { useAppDispatch, useAppSelector } from "./store";
 
 export const useUiStore = () => {

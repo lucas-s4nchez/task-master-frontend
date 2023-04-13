@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { store } from "./redux/store";
 import { AppRoutes } from "./router/AppRouter";
 import { Toaster } from "sonner";
 

@@ -1,8 +1,8 @@
-import { IProject } from "../interfaces/data";
+import { IProject } from "../models/data";
 import {
   onClearActiveProject,
   onSetActiveProject,
-} from "../store/projects/projectsSlice";
+} from "../features/projects/context/projectsSlice";
 import { useAppDispatch, useAppSelector } from "./store";
 
 export const useProjectsStore = () => {

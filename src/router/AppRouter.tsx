@@ -1,24 +1,17 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Navigate, Route } from "react-router";
 import { Routes } from "react-router-dom";
-import { LoginPage } from "../pages/LoginPage";
-import { RegisterPage } from "../pages/RegisterPage";
-import { HomePage } from "../pages/HomePage";
-import { useRefeshTokenQuery } from "../store/api/apiSlice";
-import {
-  onCheckingCredentials,
-  onLogin,
-  onLogout,
-} from "../store/auth/authSlice";
-import { RootState } from "../store/store";
-import { Loader } from "../ui/components/Loader";
-import { AppLayout } from "../layout/AppLayout";
-import { MyProjectsPage } from "../pages/MyProjectsPage";
-import { CollaborationInProjectsPage } from "../pages/CollaborationInProjectsPage";
-import { ProjectPage } from "../pages/ProjectPage";
-import { NotificationPage } from "../pages/NotificationPage";
+import { LoginPage } from "../features/authentication/pages/LoginPage";
+import { RegisterPage } from "../features/authentication/pages/RegisterPage";
+import { HomePage } from "../features/projects/pages/HomePage";
+import { Loader } from "../features/ui/components/Loader";
+import { MyProjectsPage } from "../features/projects/pages/MyProjectsPage";
+import { CollaborationInProjectsPage } from "../features/projects/pages/CollaborationInProjectsPage";
+import { ProjectPage } from "../features/projects/pages/ProjectPage";
+import { NotificationPage } from "../features/projects/pages/NotificationPage";
 import { useAuthStore, useUiStore } from "../hooks";
+import { useRefeshTokenQuery } from "../features/authentication/services/authenticationApi";
+import { ProjectsLayout } from "../features/projects/layout/ProjectsLayout";
 
 export const AppRoutes: React.FC = () => {
   const { data, isLoading, isSuccess, error } = useRefeshTokenQuery();
@@ -73,41 +66,41 @@ export const AppRoutes: React.FC = () => {
           <Route
             path="/"
             element={
-              <AppLayout>
+              <ProjectsLayout>
                 <HomePage />
-              </AppLayout>
+              </ProjectsLayout>
             }
           />
           <Route
             path="/notifications"
             element={
-              <AppLayout>
+              <ProjectsLayout>
                 <NotificationPage />
-              </AppLayout>
+              </ProjectsLayout>
             }
           />
           <Route
             path="/my-projects"
             element={
-              <AppLayout>
+              <ProjectsLayout>
                 <MyProjectsPage />
-              </AppLayout>
+              </ProjectsLayout>
             }
           />
           <Route
             path="/other-projects"
             element={
-              <AppLayout>
+              <ProjectsLayout>
                 <CollaborationInProjectsPage />
-              </AppLayout>
+              </ProjectsLayout>
             }
           />
           <Route
             path="/projects/:id"
             element={
-              <AppLayout>
+              <ProjectsLayout>
                 <ProjectPage />
-              </AppLayout>
+              </ProjectsLayout>
             }
           />
           <Route path="/*" element={<Navigate to={"/"} />} />

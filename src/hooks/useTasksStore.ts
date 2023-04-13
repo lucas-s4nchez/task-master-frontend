@@ -1,5 +1,8 @@
-import { ITask } from "../interfaces/data";
-import { onClearActiveTask, onSetActiveTask } from "../store/tasks/tasksSlice";
+import { ITask } from "../models/data";
+import {
+  onClearActiveTask,
+  onSetActiveTask,
+} from "../features/projects/context/tasksSlice";
 import { useAppDispatch, useAppSelector } from "./store";
 
 export const useTasksStore = () => {
