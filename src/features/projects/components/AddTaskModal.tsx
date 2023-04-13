@@ -6,7 +6,7 @@ import { Button, Input, Modal } from "../../ui/components";
 import { addTaskInitialValue, addTaskValidationSchema } from "../../../formik";
 import { ICustomFetchBaseQueryError } from "../../../models/data";
 import { CollaboratorsDropdownMenu } from "./CollaboratorsDropdownMenu";
-import { useCreateTaskMutation } from "../services/projectsApi";
+import { useCreateTaskMutation } from "../services/tasksApi";
 
 export const AddTaskModal: React.FC<IAddTaskModalProps> = ({
   projectId,

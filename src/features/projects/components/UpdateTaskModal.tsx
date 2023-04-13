@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import { addTaskValidationSchema } from "../../../formik";
 import { useProjectsStore, useTasksStore } from "../../../hooks";
 import { CollaboratorsDropdownMenu } from "./CollaboratorsDropdownMenu";
-import { useUpdateTasksMutation } from "../services/projectsApi";
+import { useUpdateTasksMutation } from "../services/tasksApi";
 
 export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
   projectId,

@@ -20,8 +20,8 @@ import { useEffect, useState } from "react";
 import {
   useCancelProjectInvitationMutation,
   useGetProjectByIdQuery,
-  useGetTasksQuery,
 } from "../services/projectsApi";
+import { useGetTasksQuery } from "../services/tasksApi";
 
 export const ProjectPage: React.FC = () => {
   const { id } = useParams();

@@ -4,7 +4,7 @@ import { Button, Modal } from "../../ui/components";
 import { ICustomFetchBaseQueryError } from "../../../models/data";
 import { IDeleteTaskModalProps } from "../../../models/componentsProps";
 import { useTasksStore } from "../../../hooks";
-import { useDeleteTaskMutation } from "../services/projectsApi";
+import { useDeleteTaskMutation } from "../services/tasksApi";
 
 export const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
   projectId,

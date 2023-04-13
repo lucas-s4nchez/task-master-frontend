@@ -9,7 +9,7 @@ import { useAuthStore } from "../../../hooks";
 import { useModal } from "../../ui/hooks/useModal";
 import { AddTaskModal } from "./AddTaskModal";
 import { IoMdAdd } from "react-icons/io";
-import { useUpdateTasksMutation } from "../services/projectsApi";
+import { useUpdateTasksMutation } from "../services/tasksApi";
 
 export const TaskContainer: React.FC<ITaskContainerProps> = ({
   tasks,
