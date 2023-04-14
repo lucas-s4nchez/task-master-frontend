@@ -10,10 +10,7 @@ import {
 
 export const NotificationPage: React.FC = () => {
   const { uid } = useAuthStore();
-  const { data, isLoading } = useGetProjectsInvitationsQuery(uid ?? "", {
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isLoading } = useGetProjectsInvitationsQuery(uid ?? "");
   const [acceptInvitation, { isLoading: isLoadingAcceptInvitation }] =
     useAcceptInvitationMutation();
   const [rejectInvitation, { isLoading: isLoadingRejectInvitation }] =

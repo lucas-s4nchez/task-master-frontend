@@ -16,7 +16,6 @@ const authenticationApi = emptyApi.injectEndpoints({
           password,
         },
       }),
-      invalidatesTags: ["projects"],
     }),
     register: builder.mutation<IUser, IRegisterCredentials>({
       query: ({ email, password, username }) => ({

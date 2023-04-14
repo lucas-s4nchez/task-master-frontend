@@ -20,8 +20,8 @@ const containerVariant = {
 };
 
 const itemVariant = {
-  hidden: { x: 100, opacity: 0 },
-  show: { x: 0, opacity: 1, transition: { type: "tween" } },
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { type: "tween" } },
 };
 const menuItems = [
   {

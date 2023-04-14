@@ -1,4 +1,4 @@
-import { IInvitation, IProject, ITask } from "../../../models/data";
+import { IInvitation, IProject } from "../../../models/data";
 import { emptyApi } from "../../../services/api";
 
 const projectsApi = emptyApi.injectEndpoints({
@@ -15,14 +15,13 @@ const projectsApi = emptyApi.injectEndpoints({
         url: `projects/projectsWhereIParticipate/${userId}`,
         method: "GET",
       }),
-      providesTags: ["projects"],
     }),
     getProjectById: builder.query<{ ok: boolean; project: IProject }, string>({
       query: (projectId) => ({
         url: `projects/${projectId}`,
         method: "GET",
       }),
-      providesTags: ["projects", "project"],
+      providesTags: ["project"],
     }),
     createProject: builder.mutation<any, any>({
       query: ({ title, description }) => ({
@@ -38,7 +37,7 @@ const projectsApi = emptyApi.injectEndpoints({
         method: "PUT",
         body: { title, description },
       }),
-      invalidatesTags: ["projects", "project"],
+      invalidatesTags: ["project"],
     }),
     deleteProject: builder.mutation<any, any>({
       query: (projectId) => ({
@@ -52,7 +51,7 @@ const projectsApi = emptyApi.injectEndpoints({
         url: `projects/${projectId}/collaborators/${userId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["projects", "project"],
+      invalidatesTags: ["project"],
     }),
     getProjectsInvitations: builder.query<
       { ok: boolean; invitations: IInvitation[] },
@@ -62,7 +61,7 @@ const projectsApi = emptyApi.injectEndpoints({
         url: `projects/invitations/${userId}`,
         method: "GET",
       }),
-      providesTags: ["projects", "invitations"],
+      providesTags: ["invitations"],
     }),
     sendProjectInvitation: builder.mutation<any, any>({
       query: ({ projectId, email }) => ({
@@ -70,28 +69,28 @@ const projectsApi = emptyApi.injectEndpoints({
         method: "POST",
         body: { email },
       }),
-      invalidatesTags: ["projects", "project"],
+      invalidatesTags: ["project"],
     }),
     cancelProjectInvitation: builder.mutation<any, any>({
       query: ({ projectId, userId }) => ({
         url: `projects/${projectId}/invitations/${userId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["projects", "project"],
+      invalidatesTags: ["project"],
     }),
     acceptInvitation: builder.mutation<void, any>({
       query: ({ projectId, userId }) => ({
         url: `projects/${projectId}/invitations/${userId}/accept`,
         method: "PUT",
       }),
-      invalidatesTags: ["projects", "invitations"],
+      invalidatesTags: ["invitations"],
     }),
     rejectInvitation: builder.mutation<void, any>({
       query: ({ projectId, userId }) => ({
         url: `projects/${projectId}/invitations/${userId}/reject`,
         method: "PUT",
       }),
-      invalidatesTags: ["projects", "invitations"],
+      invalidatesTags: ["invitations"],
     }),
   }),
 });

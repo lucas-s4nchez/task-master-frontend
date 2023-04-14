@@ -4,9 +4,7 @@ import { Loader } from "../../ui/components";
 import { useGetMyProjectsQuery } from "../services/projectsApi";
 
 export const MyProjectsPage: React.FC = () => {
-  const { data, isLoading } = useGetMyProjectsQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isLoading } = useGetMyProjectsQuery();
 
   if (isLoading) {
     <div className="w-screen h-screen flex justify-center items-center">

@@ -18,6 +18,10 @@ export const emptyApi = createApi({
       return headers;
     },
   }),
+  keepUnusedDataFor: 5,
+  refetchOnReconnect: true,
+  refetchOnFocus: true,
+  refetchOnMountOrArgChange: true,
   tagTypes: ["projects", "project", "tasks", "invitations", "task"],
 
   endpoints: (builder) => ({}),

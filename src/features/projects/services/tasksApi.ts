@@ -8,14 +8,14 @@ const tasksApi = emptyApi.injectEndpoints({
         url: `projects/${projectId}/tasks`,
         method: "GET",
       }),
-      providesTags: ["projects", "tasks"],
+      providesTags: ["tasks"],
     }),
     getTaskById: builder.query<{ ok: boolean; task: ITask }, any>({
       query: ({ projectId, taskId }) => ({
         url: `projects/${projectId}/tasks/${taskId}`,
         method: "GET",
       }),
-      providesTags: ["projects", "tasks", "task"],
+      providesTags: ["task"],
     }),
     createTask: builder.mutation<any, any>({
       query: ({ projectId, title, description, assignedTo }) => ({
@@ -23,7 +23,7 @@ const tasksApi = emptyApi.injectEndpoints({
         method: "POST",
         body: { title, description, assignedTo },
       }),
-      invalidatesTags: ["projects", "project", "tasks"],
+      invalidatesTags: ["tasks"],
     }),
     updateTasks: builder.mutation<any, any>({
       query: ({ projectId, id, title, description, assignedTo, status }) => ({
@@ -31,14 +31,14 @@ const tasksApi = emptyApi.injectEndpoints({
         method: "PUT",
         body: { title, description, assignedTo, status },
       }),
-      invalidatesTags: ["projects", "project", "tasks", "task"],
+      invalidatesTags: ["tasks", "task"],
     }),
     deleteTask: builder.mutation<any, any>({
       query: ({ projectId, id }) => ({
         url: `projects/${projectId}/tasks/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["projects", "project", "tasks", "task"],
+      invalidatesTags: ["tasks", "task"],
     }),
   }),
 });

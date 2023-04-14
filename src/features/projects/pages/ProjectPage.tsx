@@ -9,10 +9,7 @@ export const ProjectPage: React.FC = () => {
   const { pathname } = useLocation();
   const { handleSetActiveProject, handleClearActiveProject } =
     useProjectsStore();
-  const { data: project, isLoading } = useGetProjectByIdQuery(id!, {
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: project, isLoading } = useGetProjectByIdQuery(id!);
 
   useEffect(() => {
     if (project?.project) {

@@ -2,13 +2,8 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { toast } from "sonner";
 import { TaskColumn } from "./TaskColumn";
 import { ITaskContainerProps } from "../../../models/componentsProps";
-import { useEffect, useState } from "react";
-import { Button, Loader } from "../../ui/components";
-import { ITask } from "../../../models/data";
+import { useEffect } from "react";
 import { useAuthStore } from "../../../hooks";
-import { useModal } from "../../ui/hooks/useModal";
-import { AddTaskModal } from "./AddTaskModal";
-import { IoMdAdd } from "react-icons/io";
 import { useUpdateTasksMutation } from "../services/tasksApi";
 import { handleTaskListUpdate } from "../utils/handleTaskListUpdate";
 import { checkUserAuthorizationToUpdateTask } from "../utils/checkUserAuthorization";
@@ -20,7 +15,6 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
   projectCreatorId,
 }: ITaskContainerProps) => {
   const { uid } = useAuthStore();
-  const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
   const [updateTask, { data, isLoading, isSuccess }] = useUpdateTasksMutation();
   const {
     toDoTasks,
@@ -86,11 +80,6 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
           <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold ">
             Tareas:
           </h2>
-          <Button size="small" bgColor="primary" onClick={handleOpenModal}>
-            <div className="flex gap-1 items-center">
-              Nueva tarea <IoMdAdd className="text-lg" />
-            </div>
-          </Button>
         </div>
         <div className="h-[30rem] flex py-3 gap-4 justify-between overflow-auto  scrollbar-thin scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-thumb-primary-50 scrollbar-track-light-400">
           <div className="min-w-min bg-light-300 dark:bg-dark-400 rounded-md px-2 py-4 ">
@@ -107,11 +96,6 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
           </div>
         </div>
       </div>
-      <AddTaskModal
-        projectId={projectId}
-        isOpenModal={isOpenModal}
-        handleCloseModal={handleCloseModal}
-      />
     </DragDropContext>
   );
 };

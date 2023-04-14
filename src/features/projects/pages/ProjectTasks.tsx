@@ -4,15 +4,17 @@ import { useProjectsStore, useUiStore } from "../../../hooks";
 import { useGetTasksQuery } from "../services/tasksApi";
 import { useParams } from "react-router-dom";
 import { Loader } from "../../ui/components";
+import { FloatingActionButton } from "../../ui/components/FloatingActionButton";
+import { useModal } from "../../ui/hooks/useModal";
+import { AddTaskModal } from "../components/AddTaskModal";
+import { IoMdAdd } from "react-icons/io";
 
 export const ProjectTasks = () => {
+  const { id } = useParams();
   const { isOpenTask } = useUiStore();
   const { activeProject } = useProjectsStore();
-  const { id } = useParams();
-  const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!, {
-    refetchOnMountOrArgChange: true,
-    refetchOnFocus: true,
-  });
+  const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
+  const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!);
 
   if (isLoadingTasks) {
     return null;
@@ -23,6 +25,19 @@ export const ProjectTasks = () => {
         tasks={tasks?.tasks!}
         projectId={id!}
         projectCreatorId={activeProject?.creator._id!}
+      />
+      <FloatingActionButton
+        title="Crear Tarea"
+        position="right"
+        bgColor="primary"
+        handleOpenModal={handleOpenModal}
+      >
+        <IoMdAdd className="text-2xl text-light-100" />
+      </FloatingActionButton>
+      <AddTaskModal
+        projectId={id!}
+        isOpenModal={isOpenModal}
+        handleCloseModal={handleCloseModal}
       />
       <AnimatePresence>{isOpenTask && <TaskItem />}</AnimatePresence>
     </div>

@@ -15,15 +15,11 @@ export const HomePage: React.FC = () => {
   const { uid } = useAuthStore();
   const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
   const { data: myProjects, isLoading: isLoadingMyProjects } =
-    useGetMyProjectsQuery(undefined, {
-      refetchOnMountOrArgChange: true,
-    });
+    useGetMyProjectsQuery();
   const {
     data: projectsWhereICollaborate,
     isLoading: isLoadingProjectsWhereICollaborate,
-  } = useGetProjectsWhereICollaborateQuery(uid ?? "", {
-    refetchOnMountOrArgChange: true,
-  });
+  } = useGetProjectsWhereICollaborateQuery(uid ?? "");
 
   const isLoadingProjects: boolean =
     isLoadingMyProjects || isLoadingProjectsWhereICollaborate;

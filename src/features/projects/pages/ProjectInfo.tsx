@@ -18,6 +18,7 @@ import {
   useCancelProjectInvitationMutation,
   useGetProjectByIdQuery,
 } from "../services/projectsApi";
+import { FloatingActionButton } from "../../ui/components/FloatingActionButton";
 
 export const ProjectInfo = () => {
   const { id } = useParams();
@@ -47,10 +48,7 @@ export const ProjectInfo = () => {
     isLoading: isLoadingProject,
     isError: isErrorProject,
     error: errorProject,
-  } = useGetProjectByIdQuery(id!, {
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
+  } = useGetProjectByIdQuery(id!);
   const [
     cancelInvitation,
     {
@@ -94,27 +92,23 @@ export const ProjectInfo = () => {
         <h1 className="text-3xl font-semibold">{project?.project.title}</h1>
         <h2>{project?.project.description}</h2>
         {uid === project?.project.creator._id && (
-          <div className="flex self-end gap-2 mt-2">
-            <Button
-              bgColor="red"
-              size="small"
-              disabled={isLoadingProject}
-              onClick={handleOpenDeleteProjectModal}
-            >
-              <div className="flex gap-1 items-center justify-center">
-                borrar <MdDelete className="text-sm" />
-              </div>
-            </Button>
-            <Button
+          <div>
+            <FloatingActionButton
+              title="Editar proyecto"
+              position="right"
               bgColor="primary"
-              size="small"
-              disabled={isLoadingProject}
-              onClick={handleOpenUpdateProjectModal}
+              handleOpenModal={handleOpenUpdateProjectModal}
             >
-              <div className="flex gap-1 items-center justify-center">
-                editar <MdEdit className="text-sm" />
-              </div>
-            </Button>
+              <MdEdit className="text-2xl text-light-100" />
+            </FloatingActionButton>
+            <FloatingActionButton
+              title="Borrar proyecto"
+              position="left"
+              bgColor="red"
+              handleOpenModal={handleOpenDeleteProjectModal}
+            >
+              <MdDelete className="text-2xl text-light-100" />
+            </FloatingActionButton>
           </div>
         )}
       </div>

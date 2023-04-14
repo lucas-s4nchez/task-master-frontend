@@ -6,9 +6,7 @@ import { useGetProjectsWhereICollaborateQuery } from "../services/projectsApi";
 
 export const CollaborationInProjectsPage: React.FC = () => {
   const { uid } = useAuthStore();
-  const { data, isLoading } = useGetProjectsWhereICollaborateQuery(uid ?? "", {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isLoading } = useGetProjectsWhereICollaborateQuery(uid ?? "");
   if (isLoading) {
     <div className="w-screen h-screen flex justify-center items-center">
       <Loader />
