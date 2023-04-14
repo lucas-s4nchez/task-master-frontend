@@ -3,6 +3,7 @@ import { TaskContainer, TaskItem } from "../components";
 import { useProjectsStore, useUiStore } from "../../../hooks";
 import { useGetTasksQuery } from "../services/tasksApi";
 import { useParams } from "react-router-dom";
+import { Loader } from "../../ui/components";
 
 export const ProjectTasks = () => {
   const { isOpenTask } = useUiStore();
@@ -14,7 +15,7 @@ export const ProjectTasks = () => {
   });
 
   if (isLoadingTasks) {
-    return <h1>Cargando...</h1>;
+    return null;
   }
   return (
     <div>

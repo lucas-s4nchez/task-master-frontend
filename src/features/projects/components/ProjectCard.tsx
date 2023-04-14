@@ -135,7 +135,7 @@ export const ProjectCard: React.FC<IProject> = (props: IProject) => {
       </div>
       <div className="p-2 flex justify-end mt-4">
         <Link
-          to={`/projects/${props._id}`}
+          to={`/projects/${props._id}/info`}
           className="px-6 py-1 text-light-100 text-center font-semibold rounded-md bg-primary-50 w-full sm:w-fit hover:bg-primary-100"
         >
           {" "}

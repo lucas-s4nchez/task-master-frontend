@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Button, UserAvatar } from "../../ui/components";
+import { Button, Loader, UserAvatar } from "../../ui/components";
 import { MdClose, MdDelete, MdEdit } from "react-icons/md";
 import { useTasksStore, useUiStore } from "../../../hooks";
 import { useModal } from "../../ui/hooks/useModal";
@@ -7,6 +7,7 @@ import { UpdateTaskModal } from "./UpdateTaskModal";
 import { useParams } from "react-router-dom";
 import { DeleteTaskModal } from "./DeleteTaskModal";
 import { useGetTaskByIdQuery } from "../services/tasksApi";
+import { FloatingActionButton } from "../../ui/components/FloatingActionButton";
 
 const taskContainerVariant = {
   hidden: { opacity: 0 },
@@ -32,7 +33,7 @@ export const TaskItem: React.FC = () => {
   const { id } = useParams();
   const { activeTask } = useTasksStore();
   const { handleToggleTask } = useUiStore();
-  const { data, isLoading, isError, error } = useGetTaskByIdQuery({
+  const { data, isLoading } = useGetTaskByIdQuery({
     projectId: id,
     taskId: activeTask?._id,
   });
@@ -127,27 +128,29 @@ export const TaskItem: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="flex justify-end gap-2 flex-wrap mt-4">
-            <Button
-              size="small"
-              bgColor="red"
-              onClick={handleOpenUpdateTaskModal}
-            >
-              <div className="flex gap-1 items-center justify-center ">
-                editar <MdEdit className="text-sm" />
-              </div>
-            </Button>
-            <Button
-              size="small"
-              bgColor="red"
-              onClick={handleOpenDeleteTaskModal}
-            >
-              <div className="flex gap-1 items-center justify-center ">
-                borrar <MdDelete className="text-sm" />
-              </div>
-            </Button>
-          </div>
         </motion.div>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <FloatingActionButton
+            title="Editar tarea"
+            position="right"
+            bgColor="primary"
+            handleOpenModal={handleOpenUpdateTaskModal}
+          >
+            <MdEdit className="text-2xl text-light-100" />
+          </FloatingActionButton>
+          <FloatingActionButton
+            title="Borrar tarea"
+            position="left"
+            bgColor="red"
+            handleOpenModal={handleOpenDeleteTaskModal}
+          >
+            <MdDelete className="text-2xl text-light-100" />
+          </FloatingActionButton>
+        </div>
         <UpdateTaskModal
           task={data?.task!}
           isOpenModal={isOpenUpdateTaskModal}

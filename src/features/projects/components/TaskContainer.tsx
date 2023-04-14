@@ -76,16 +76,12 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
   };
 
   if (isLoading) {
-    return (
-      <div className="bg-light-100 dark:bg-dark-300 p-4 rounded-md h-[30rem] flex justify-center items-center">
-        <Loader />
-      </div>
-    );
+    return null;
   }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="bg-light-100 dark:bg-dark-300 p-4 rounded-md my-5">
+      <div className="bg-light-100 dark:bg-dark-300 p-4 rounded-b-md rounded-r-md mb-5">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold ">
             Tareas:

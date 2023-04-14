@@ -105,7 +105,7 @@ export const AppRoutes: React.FC = () => {
               </ProjectsLayout>
             }
           >
-            <Route path="" element={<ProjectInfo />} />
+            <Route path="info" element={<ProjectInfo />} />
             <Route path="tasks" element={<ProjectTasks />} />
           </Route>
           <Route path="/*" element={<Navigate to={"/"} />} />

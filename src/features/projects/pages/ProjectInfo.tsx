@@ -83,18 +83,14 @@ export const ProjectInfo = () => {
   ]);
 
   if (isLoadingProject) {
-    return (
-      <div className="w-screen h-screen flex justify-center items-center">
-        <Loader />
-      </div>
-    );
+    return null;
   }
   if (isErrorProject) {
     return <h1>{(errorProject as ICustomFetchBaseQueryError).data?.msg}</h1>;
   }
   return (
     <div>
-      <div className="flex flex-col gap-2 p-5 bg-light-100 dark:bg-dark-300 rounded-md text-dark-300 dark:text-light-100 mb-5">
+      <div className="flex flex-col gap-2 p-5 bg-light-100 dark:bg-dark-300 rounded-b-md rounded-r-md mb-5 text-dark-300 dark:text-light-100">
         <h1 className="text-3xl font-semibold">{project?.project.title}</h1>
         <h2>{project?.project.description}</h2>
         {uid === project?.project.creator._id && (
@@ -214,7 +210,9 @@ export const ProjectInfo = () => {
 
         <div className="flex gap-4 flex-wrap max-w-full">
           {!project?.project.invitations.length && (
-            <span className="text-sm">Aún no invitaste ningún usuario</span>
+            <span className="text-sm">
+              Aún no hay usuarios invitados en este proyecto
+            </span>
           )}
           {project?.project.invitations.map((user) => (
             <div

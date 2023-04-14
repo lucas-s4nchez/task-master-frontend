@@ -1,5 +1,5 @@
 import { IProject } from "../../../models/data";
-import { AddProjectButton, ProjectCard } from "../components";
+import { ProjectCard } from "../components";
 import { Loader } from "../../ui/components";
 import { useAuthStore } from "../../../hooks";
 import { useModal } from "../../ui/hooks/useModal";
@@ -54,7 +54,12 @@ export const HomePage: React.FC = () => {
       {projectsWhereICollaborate?.projects.map((project: IProject) => (
         <ProjectCard key={project._id} {...project} />
       ))}
-      <FloatingActionButton handleOpenModal={handleOpenModal}>
+      <FloatingActionButton
+        title="Crear Proyecto"
+        position="right"
+        bgColor="primary"
+        handleOpenModal={handleOpenModal}
+      >
         <IoMdAdd className="text-2xl text-light-100" />
       </FloatingActionButton>
       <AddProjectModal
