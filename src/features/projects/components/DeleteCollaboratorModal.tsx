@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { Button, Loader, Modal } from "../../ui/components";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
-import { IDeleteCollaboratorModalProps } from "../../../models/componentsProps";
 import { useDeleteProjectCollaboratorMutation } from "../services/projectsApi";
+import { IDeleteCollaboratorModalProps } from "../../../models/components";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 export const DeleteCollaboratorModal: React.FC<
   IDeleteCollaboratorModalProps

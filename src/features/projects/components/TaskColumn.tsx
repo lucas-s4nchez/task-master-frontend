@@ -1,8 +1,8 @@
 import { Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "./StrictModeDroppable";
-import { ITaskColumnProps } from "../../../models/componentsProps";
 import { Button } from "../../ui/components";
 import { useTasksStore, useUiStore } from "../../../hooks";
+import { ITaskColumnProps } from "../../../models/components";
 
 export const TaskColumn: React.FC<ITaskColumnProps> = ({
   droppableId,

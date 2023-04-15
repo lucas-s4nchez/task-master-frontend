@@ -1,5 +1,5 @@
+import { IChildrenProps } from "../../../models/components";
 import { Navbar } from "../components";
-import { IChildrenProps } from "../../../models/componentsProps";
 
 export const ProjectsLayout: React.FC<IChildrenProps> = ({
   children,

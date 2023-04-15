@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IProjectsSliceInitialState } from "../../../models/store";
+import { IProjectsSliceInitialState } from "../../../models/store/projects";
 
 const initialState: IProjectsSliceInitialState = {
   activeProject: null,

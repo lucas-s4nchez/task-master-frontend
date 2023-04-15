@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { Button, Modal } from "../../ui/components";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
-import { IDeleteTaskModalProps } from "../../../models/componentsProps";
 import { useProjectsStore, useTasksStore } from "../../../hooks";
 import { useDeleteTaskMutation } from "../services/tasksApi";
+import { IDeleteTaskModalProps } from "../../../models/components";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 export const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
   isOpenModal,

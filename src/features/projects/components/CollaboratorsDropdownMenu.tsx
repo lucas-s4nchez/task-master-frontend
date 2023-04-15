@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useProjectsStore } from "../../../hooks";
 import { useState } from "react";
-import { ICollaboratorsDropdownMenu } from "../../../models/componentsProps";
+import { ICollaboratorsDropdownMenu } from "../../../models/components";
 
 const dropdownContainerVariant = {
   hidden: { opacity: 0, scale: 0 },

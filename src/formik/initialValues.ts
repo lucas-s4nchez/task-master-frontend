@@ -1,32 +1,32 @@
 import {
-  IAddCollaboratorInitialValues,
-  IAddProjectInitialValues,
-  IAddTaskInitialValues,
-  ILoginCredentials,
-  IRegisterCredentials,
-} from "../models/data";
+  IAddCollaboratorFormValues,
+  IAddProjectFormValues,
+  IAddTaskFormValues,
+  ILoginFormValues,
+  IRegisterFormValues,
+} from "../models/formik";
 
-export const loginInitialValues: ILoginCredentials = {
+export const loginInitialValues: ILoginFormValues = {
   email: "",
   password: "",
 };
 
-export const registerInitialValues: IRegisterCredentials = {
+export const registerInitialValues: IRegisterFormValues = {
   username: "",
   email: "",
   password: "",
 };
 
-export const addCollaboratorInitialValues: IAddCollaboratorInitialValues = {
+export const addCollaboratorInitialValues: IAddCollaboratorFormValues = {
   email: "",
 };
 
-export const addProjectInitialValues: IAddProjectInitialValues = {
+export const addProjectInitialValues: IAddProjectFormValues = {
   title: "",
   description: "",
 };
 
-export const addTaskInitialValue: IAddTaskInitialValues = {
+export const addTaskInitialValue: IAddTaskFormValues = {
   title: "",
   description: "",
   assignedTo: [],

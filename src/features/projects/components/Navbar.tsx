@@ -9,7 +9,9 @@ import { useGetProjectsInvitationsQuery } from "../services/projectsApi";
 export const Navbar: React.FC = () => {
   const { isOpenMenu, handleToggleMenu } = useUiStore();
   const { uid } = useAuthStore();
-  const { data } = useGetProjectsInvitationsQuery(uid ?? "");
+  const { data } = useGetProjectsInvitationsQuery(uid ?? "", {
+    refetchOnFocus: true,
+  });
   return (
     <>
       {isOpenMenu && (

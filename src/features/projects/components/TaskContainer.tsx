@@ -1,20 +1,20 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { toast } from "sonner";
 import { TaskColumn } from "./TaskColumn";
-import { ITaskContainerProps } from "../../../models/componentsProps";
 import { useEffect } from "react";
-import { useAuthStore } from "../../../hooks";
+import { useAuthStore, useProjectsStore } from "../../../hooks";
 import { useUpdateTasksMutation } from "../services/tasksApi";
 import { handleTaskListUpdate } from "../utils/handleTaskListUpdate";
 import { checkUserAuthorizationToUpdateTask } from "../utils/checkUserAuthorization";
 import { useTasks } from "../hooks/useTasks";
+import { ITaskContainerProps } from "../../../models/components";
 
 export const TaskContainer: React.FC<ITaskContainerProps> = ({
   tasks,
-  projectId,
   projectCreatorId,
 }: ITaskContainerProps) => {
   const { uid } = useAuthStore();
+  const { activeProject } = useProjectsStore();
   const [updateTask, { data, isLoading, isSuccess }] = useUpdateTasksMutation();
   const {
     toDoTasks,
@@ -59,7 +59,7 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
       });
 
       await updateTask({
-        projectId,
+        projectId: activeProject?._id,
         id: draggableId,
         title: currentTask?.title,
         description: currentTask?.description,

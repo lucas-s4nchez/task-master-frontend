@@ -9,9 +9,9 @@ import {
   registerInitialValues,
   registerValidationSchema,
 } from "../../../formik";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
 import { useAuthStore } from "../../../hooks";
 import { useRegisterMutation } from "../services/authenticationApi";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 const container = {
   hidden: { opacity: 0 },

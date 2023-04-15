@@ -1,8 +1,8 @@
+import { IUser } from "../../../models/data";
 import {
   ILoginCredentials,
   IRegisterCredentials,
-  IUser,
-} from "../../../models/data";
+} from "../../../models/store/authentication";
 import { emptyApi } from "../../../services/api";
 
 const authenticationApi = emptyApi.injectEndpoints({

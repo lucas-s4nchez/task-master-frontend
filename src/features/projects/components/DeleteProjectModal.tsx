@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { Button, Loader, Modal } from "../../ui/components";
-import { IDeleteProjectModalProps } from "../../../models/componentsProps";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
 import { useNavigate } from "react-router-dom";
 import { useDeleteProjectMutation } from "../services/projectsApi";
+import { IDeleteProjectModalProps } from "../../../models/components";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 export const DeleteProjectModal: React.FC<IDeleteProjectModalProps> = ({
   projectId,

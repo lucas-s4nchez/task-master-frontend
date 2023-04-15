@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import { toast } from "sonner";
-import { IAddProjectModalProps } from "../../../models/componentsProps";
 import { Button, Input, Modal } from "../../ui/components";
 import {
   addProjectInitialValues,
   addProjectValidationSchema,
 } from "../../../formik";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
 import { useCreateProjectMutation } from "../services/projectsApi";
+import { IAddProjectModalProps } from "../../../models/components";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 export const AddProjectModal: React.FC<IAddProjectModalProps> = ({
   isOpenModal,

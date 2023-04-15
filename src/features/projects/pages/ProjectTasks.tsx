@@ -3,7 +3,6 @@ import { TaskContainer, TaskItem } from "../components";
 import { useProjectsStore, useUiStore } from "../../../hooks";
 import { useGetTasksQuery } from "../services/tasksApi";
 import { useParams } from "react-router-dom";
-import { Loader } from "../../ui/components";
 import { FloatingActionButton } from "../../ui/components/FloatingActionButton";
 import { useModal } from "../../ui/hooks/useModal";
 import { AddTaskModal } from "../components/AddTaskModal";
@@ -14,7 +13,9 @@ export const ProjectTasks = () => {
   const { isOpenTask } = useUiStore();
   const { activeProject } = useProjectsStore();
   const { isOpenModal, handleOpenModal, handleCloseModal } = useModal();
-  const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!);
+  const { data: tasks, isLoading: isLoadingTasks } = useGetTasksQuery(id!, {
+    refetchOnFocus: true,
+  });
 
   if (isLoadingTasks) {
     return null;
@@ -23,7 +24,6 @@ export const ProjectTasks = () => {
     <div>
       <TaskContainer
         tasks={tasks?.tasks!}
-        projectId={id!}
         projectCreatorId={activeProject?.creator._id!}
       />
       <FloatingActionButton

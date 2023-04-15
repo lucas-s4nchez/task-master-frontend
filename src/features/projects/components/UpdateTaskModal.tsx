@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button, Input, Modal } from "../../ui/components";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
-import { IUpdateTaskModalProps } from "../../../models/componentsProps";
 import { useFormik } from "formik";
 import { addTaskValidationSchema } from "../../../formik";
 import { useProjectsStore, useTasksStore } from "../../../hooks";
 import { CollaboratorsDropdownMenu } from "./CollaboratorsDropdownMenu";
 import { useUpdateTasksMutation } from "../services/tasksApi";
+import { IUpdateTaskModalProps } from "../../../models/components";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 export const UpdateTaskModal: React.FC<IUpdateTaskModalProps> = ({
   task,

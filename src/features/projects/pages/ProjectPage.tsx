@@ -2,14 +2,15 @@ import { useEffect } from "react";
 import { Outlet, NavLink, useLocation, useParams } from "react-router-dom";
 import { useProjectsStore } from "../../../hooks";
 import { useGetProjectByIdQuery } from "../services/projectsApi";
-import { Loader } from "../../ui/components";
 
 export const ProjectPage: React.FC = () => {
   const { id } = useParams();
   const { pathname } = useLocation();
   const { handleSetActiveProject, handleClearActiveProject } =
     useProjectsStore();
-  const { data: project, isLoading } = useGetProjectByIdQuery(id!);
+  const { data: project, isLoading } = useGetProjectByIdQuery(id!, {
+    refetchOnFocus: true,
+  });
 
   useEffect(() => {
     if (project?.project) {

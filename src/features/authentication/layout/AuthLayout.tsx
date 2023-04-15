@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Logo } from "../../ui/components";
-import { IAuthLayoutProps } from "../../../models/componentsProps";
+import { IAuthLayoutProps } from "../../../models/components";
 
 export const AuthLayout: React.FC<IAuthLayoutProps> = ({
   children,

@@ -6,9 +6,9 @@ import { useFormik } from "formik";
 import { AuthLayout } from "../layout/AuthLayout";
 import { Input, Button } from "../../ui/components";
 import { loginInitialValues, loginValidationSchema } from "../../../formik";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
 import { useAuthStore } from "../../../hooks";
 import { useLoginMutation } from "../services/authenticationApi";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 const container = {
   hidden: { opacity: 0 },

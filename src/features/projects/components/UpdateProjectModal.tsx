@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button, Input, Modal } from "../../ui/components";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
-import { IUpdateProjectModalProps } from "../../../models/componentsProps";
 import { useFormik } from "formik";
 import { addProjectValidationSchema } from "../../../formik";
 import { useUpdateProjectMutation } from "../services/projectsApi";
+import { IUpdateProjectModalProps } from "../../../models/components";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 export const UpdateProjectModal: React.FC<IUpdateProjectModalProps> = ({
   projectId,

@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import { toast } from "sonner";
-import { IAddCollaboratorModalProps } from "../../../models/componentsProps";
 import { Button, Input, Modal } from "../../ui/components";
 import {
   addCollaboratorInitialValues,
   addCollaboratorValidationSchema,
 } from "../../../formik";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
 import { useSendProjectInvitationMutation } from "../services/projectsApi";
+import { IAddCollaboratorModalProps } from "../../../models/components";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 export const AddCollaboratorModal: React.FC<IAddCollaboratorModalProps> = ({
   projectId,

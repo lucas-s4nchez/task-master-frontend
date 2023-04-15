@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ITask } from "../../../models/data";
-import { ITasksInitialState } from "../../../models/store";
+import { ITasksInitialState } from "../../../models/store/tasks";
 
 const initialState: ITasksInitialState = {
   activeTask: null,

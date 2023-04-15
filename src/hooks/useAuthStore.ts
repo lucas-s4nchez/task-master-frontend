@@ -1,9 +1,9 @@
-import { ILoginPayload } from "../models/store";
 import {
   onCheckingCredentials,
   onLogin,
   onLogout,
 } from "../features/authentication/context/authSlice";
+import { ILoginPayload } from "../models/store/authentication";
 import { useAppDispatch, useAppSelector } from "./store";
 
 export const useAuthStore = () => {

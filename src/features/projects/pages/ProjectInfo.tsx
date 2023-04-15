@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { Button, Loader, UserAvatar } from "../../ui/components";
-import { ICustomFetchBaseQueryError } from "../../../models/data";
+import { Button, UserAvatar } from "../../ui/components";
 import {
   UpdateProjectModal,
   DeleteProjectModal,
@@ -19,6 +18,7 @@ import {
   useGetProjectByIdQuery,
 } from "../services/projectsApi";
 import { FloatingActionButton } from "../../ui/components/FloatingActionButton";
+import { ICustomFetchBaseQueryError } from "../../../models/store/error";
 
 export const ProjectInfo = () => {
   const { id } = useParams();
@@ -48,7 +48,9 @@ export const ProjectInfo = () => {
     isLoading: isLoadingProject,
     isError: isErrorProject,
     error: errorProject,
-  } = useGetProjectByIdQuery(id!);
+  } = useGetProjectByIdQuery(id!, {
+    refetchOnFocus: true,
+  });
   const [
     cancelInvitation,
     {
