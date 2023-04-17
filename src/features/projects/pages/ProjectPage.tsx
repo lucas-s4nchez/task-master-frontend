@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, NavLink, useLocation, useParams } from "react-router-dom";
 import { useProjectsStore } from "../../../hooks";
 import { useGetProjectByIdQuery } from "../services/projectsApi";
+import { Loader } from "../../ui/components";
 
 export const ProjectPage: React.FC = () => {
   const { id } = useParams();
@@ -22,7 +23,11 @@ export const ProjectPage: React.FC = () => {
   }, [project, pathname]);
 
   if (isLoading) {
-    return null;
+    return (
+      <div className="w-full h-[80vh] flex justify-center items-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -49,7 +54,9 @@ export const ProjectPage: React.FC = () => {
           tareas
         </NavLink>
       </div>
-      <Outlet />
+      <div className="w-full h-full p-5 bg-light-100 dark:bg-dark-300 rounded-b-md rounded-r-md">
+        <Outlet />
+      </div>
     </div>
   );
 };

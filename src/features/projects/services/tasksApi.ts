@@ -38,7 +38,7 @@ const tasksApi = emptyApi.injectEndpoints({
         url: `projects/${projectId}/tasks/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["tasks", "task"],
+      invalidatesTags: ["tasks"],
     }),
   }),
 });

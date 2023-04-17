@@ -3,13 +3,16 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { AppRoutes } from "./router/AppRouter";
 import { Toaster } from "sonner";
+import { AuthProvider } from "./features/authentication/components/AuthProvider";
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Toaster richColors closeButton position="top-right" expand={false} />
-        <AppRoutes />
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
       </BrowserRouter>
     </Provider>
   );

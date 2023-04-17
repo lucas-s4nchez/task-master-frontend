@@ -7,6 +7,7 @@ import { FloatingActionButton } from "../../ui/components/FloatingActionButton";
 import { useModal } from "../../ui/hooks/useModal";
 import { AddTaskModal } from "../components/AddTaskModal";
 import { IoMdAdd } from "react-icons/io";
+import { Loader } from "../../ui/components";
 
 export const ProjectTasks = () => {
   const { id } = useParams();
@@ -18,7 +19,11 @@ export const ProjectTasks = () => {
   });
 
   if (isLoadingTasks) {
-    return null;
+    return (
+      <div className="w-full h-[80vh] flex justify-center items-center">
+        <Loader />
+      </div>
+    );
   }
   return (
     <div>

@@ -8,6 +8,7 @@ import { handleTaskListUpdate } from "../utils/handleTaskListUpdate";
 import { checkUserAuthorizationToUpdateTask } from "../utils/checkUserAuthorization";
 import { useTasks } from "../hooks/useTasks";
 import { ITaskContainerProps } from "../../../models/components";
+import { Loader } from "../../ui/components";
 
 export const TaskContainer: React.FC<ITaskContainerProps> = ({
   tasks,
@@ -70,12 +71,16 @@ export const TaskContainer: React.FC<ITaskContainerProps> = ({
   };
 
   if (isLoading) {
-    return null;
+    return (
+      <div className="w-full h-[80vh] flex justify-center items-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="bg-light-100 dark:bg-dark-300 p-4 rounded-b-md rounded-r-md mb-5">
+      <div className="bg-light-100 dark:bg-dark-300 ">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-dark-300 dark:text-light-100 text-lg font-semibold ">
             Tareas:

@@ -32,9 +32,11 @@ export const HomePage: React.FC = () => {
     !myProjects?.projects.length && !projectsWhereICollaborate?.projects.length;
 
   if (isLoadingProjects) {
-    <div className="w-screen h-screen flex justify-center items-center">
-      <Loader />
-    </div>;
+    return (
+      <div className="w-full h-[80vh] flex justify-center items-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (

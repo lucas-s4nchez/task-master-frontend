@@ -10,15 +10,12 @@ import { CollaborationInProjectsPage } from "../features/projects/pages/Collabor
 import { ProjectPage } from "../features/projects/pages/ProjectPage";
 import { NotificationPage } from "../features/projects/pages/NotificationPage";
 import { useAuthStore, useUiStore } from "../hooks";
-import { useRefeshTokenQuery } from "../features/authentication/services/authenticationApi";
 import { ProjectsLayout } from "../features/projects/layout/ProjectsLayout";
 import { ProjectInfo } from "../features/projects/pages/ProjectInfo";
 import { ProjectTasks } from "../features/projects/pages/ProjectTasks";
 
 export const AppRoutes: React.FC = () => {
-  const { data, isLoading, isSuccess, error } = useRefeshTokenQuery();
-  const { status, handleCheckingCredentials, handleLogin, handleLogout } =
-    useAuthStore();
+  const { status } = useAuthStore();
   const { themeMode } = useUiStore();
 
   useEffect(() => {
@@ -28,24 +25,6 @@ export const AppRoutes: React.FC = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [themeMode]);
-
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken"); // obtener el token guardado en localStorage
-    if (isLoading) {
-      handleCheckingCredentials();
-    }
-    if (authToken && isSuccess) {
-      handleLogin({
-        token: data.token,
-        username: data.username,
-        email: data.email,
-        uid: data.uid,
-      });
-    }
-    if (error) {
-      handleLogout();
-    }
-  }, [isSuccess, error, isLoading]);
 
   if (status === "checking") {
     return (
@@ -64,52 +43,20 @@ export const AppRoutes: React.FC = () => {
           <Route path="/*" element={<Navigate to={"/auth/login"} />} />
         </>
       ) : (
-        <>
-          <Route
-            path="/"
-            element={
-              <ProjectsLayout>
-                <HomePage />
-              </ProjectsLayout>
-            }
-          />
-          <Route
-            path="/notifications"
-            element={
-              <ProjectsLayout>
-                <NotificationPage />
-              </ProjectsLayout>
-            }
-          />
-          <Route
-            path="/my-projects"
-            element={
-              <ProjectsLayout>
-                <MyProjectsPage />
-              </ProjectsLayout>
-            }
-          />
+        <Route element={<ProjectsLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/notifications" element={<NotificationPage />} />
+          <Route path="/my-projects" element={<MyProjectsPage />} />
           <Route
             path="/other-projects"
-            element={
-              <ProjectsLayout>
-                <CollaborationInProjectsPage />
-              </ProjectsLayout>
-            }
+            element={<CollaborationInProjectsPage />}
           />
-          <Route
-            path="/projects/:id/*"
-            element={
-              <ProjectsLayout>
-                <ProjectPage />
-              </ProjectsLayout>
-            }
-          >
+          <Route path="/projects/:id/*" element={<ProjectPage />}>
             <Route path="info" element={<ProjectInfo />} />
             <Route path="tasks" element={<ProjectTasks />} />
           </Route>
           <Route path="/*" element={<Navigate to={"/"} />} />
-        </>
+        </Route>
       )}
     </Routes>
   );

@@ -20,7 +20,7 @@ export const NotificationPage: React.FC = () => {
 
   if (isLoading || isLoadingAcceptInvitation || isLoadingRejectInvitation) {
     return (
-      <div className="w-screen h-screen flex justify-center items-center">
+      <div className="w-full h-[80vh] flex justify-center items-center">
         <Loader />
       </div>
     );

@@ -9,9 +9,11 @@ export const MyProjectsPage: React.FC = () => {
   });
 
   if (isLoading) {
-    <div className="w-screen h-screen flex justify-center items-center">
-      <Loader />
-    </div>;
+    return (
+      <div className="w-full h-[80vh] flex justify-center items-center">
+        <Loader />
+      </div>
+    );
   }
   return (
     <div className="flex flex-col gap-4">

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { Button, UserAvatar } from "../../ui/components";
+import { Button, Loader, UserAvatar } from "../../ui/components";
 import {
   UpdateProjectModal,
   DeleteProjectModal,
@@ -83,14 +83,18 @@ export const ProjectInfo = () => {
   ]);
 
   if (isLoadingProject) {
-    return null;
+    return (
+      <div className="w-full h-[80vh] flex justify-center items-center">
+        <Loader />
+      </div>
+    );
   }
   if (isErrorProject) {
     return <h1>{(errorProject as ICustomFetchBaseQueryError).data?.msg}</h1>;
   }
   return (
     <div>
-      <div className="flex flex-col gap-2 p-5 bg-light-100 dark:bg-dark-300 rounded-b-md rounded-r-md mb-5 text-dark-300 dark:text-light-100">
+      <div className="flex flex-col gap-2 bg-light-100 dark:bg-dark-300 mb-5 text-dark-300 dark:text-light-100">
         <h1 className="text-3xl font-semibold">{project?.project.title}</h1>
         <h2>{project?.project.description}</h2>
         {uid === project?.project.creator._id && (
